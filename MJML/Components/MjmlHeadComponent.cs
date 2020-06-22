@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace MJML
+namespace Mjml.Components
 {
-    public class MjmlRawComponent : MjmlBaseComponent
+    public class MjmlHeadComponent : MjmlBaseComponent
     {
-        public MjmlRawComponent(XElement element) : base(element)
+        public MjmlHeadComponent(XElement element) : base(element)
         {
         }
 
         public override string RenderMjml()
         {
             return $@"
-            <MjmlRawComponent type=""{Element.Name.LocalName}"">
+            <MjmlHead type=""{Element.Name.LocalName}"">
                 {this.RenderChildren()}
-            </MjmlRawComponent>";
+            </MjmlHead>";
         }
     }
 }

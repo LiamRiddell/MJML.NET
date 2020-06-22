@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Mjml.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace MJML
+namespace Mjml.Components
 {
     public abstract class MjmlBaseComponent : IMjmlComponent
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml;
 
-namespace MJML
+namespace Mjml
 {
     public static class MjmlParserTest
     {

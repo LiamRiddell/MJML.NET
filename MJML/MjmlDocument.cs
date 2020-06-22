@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mjml.Components;
+using Mjml.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace MJML
+namespace Mjml
 {
     public class MjmlDocument
     {

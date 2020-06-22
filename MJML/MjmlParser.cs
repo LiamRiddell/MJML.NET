@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace MJML
+namespace Mjml
 {
     public class MjmlParser
     {
