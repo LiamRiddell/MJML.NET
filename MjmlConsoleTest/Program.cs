@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Mjml;
 
 namespace MjmlConsoleTest
@@ -23,14 +24,21 @@ namespace MjmlConsoleTest
                 </mjml>
             ";
 
-            var mjmlParser = new MjmlParser();
-
-            if (!mjmlParser.TryParse(mjmlString, new { }, out var html))
+            var sw = Stopwatch.StartNew();
+            for (int i = 0; i <= 0; i++)
             {
-                // ... handle failure
-            }
+                var mjmlParser = new MjmlParser();
 
-            Console.WriteLine(html);
+                if (!mjmlParser.TryParse(mjmlString, new { }, out var html))
+                {
+                    // ... handle failure
+                }
+
+                Console.WriteLine(html);
+            }
+            sw.Stop();
+
+            Console.WriteLine($"Parsed: {sw.Elapsed}");
         }
     }
 }
