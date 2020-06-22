@@ -12,7 +12,7 @@ namespace MJML
     {
         private XDocument _document { get; set; }
 
-        public MjmlComponent VirtualDocument { get; set; }
+        public IMjmlComponent VirtualDocument { get; set; }
 
         public MjmlDocument(string content)
         {
@@ -46,7 +46,7 @@ namespace MJML
             TraverseElementTree(VirtualDocument.Element, VirtualDocument);
         }
 
-        public void TraverseElementTree(XElement element, MjmlComponent parentComponent)
+        public void TraverseElementTree(XElement element, IMjmlComponent parentComponent)
         {
             if (element.IsEmpty)
                 return;
@@ -62,22 +62,19 @@ namespace MJML
             }
         }
 
-        public MjmlComponent CreateMjmlComponent(XElement element)
+        public IMjmlComponent CreateMjmlComponent(XElement element)
         {
             var elementTag = element.Name.LocalName.ToLowerInvariant();
 
             switch (elementTag)
             {
                 case "mj-head":
-                    Console.WriteLine("Found a head");
-                    break;
+                    return new MjmlHeadComponent(element);
 
                 case "mj-section":
-                    Console.WriteLine("Found a section");
                     break;
 
                 case "mj-column":
-                    Console.WriteLine("Found a column");
                     break;
 
                 default:
@@ -85,6 +82,11 @@ namespace MJML
             }
 
             return new MjmlComponent(element);
+        }
+
+        public string Render()
+        {
+            return VirtualDocument.RenderMjml();
         }
 
         // LR: Util

@@ -16,10 +16,10 @@ namespace MJML
 
         public bool TryParse(string content, object options, out string html)
         {
-            html = content;
-
             MjmlDocument mjmlDocument = new MjmlDocument(content);
             mjmlDocument.Parse();
+
+            html = mjmlDocument.Render();
 
             return true;
         }

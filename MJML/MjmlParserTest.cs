@@ -30,6 +30,8 @@ namespace MJML
             {
                 // ... handle failure
             }
+
+            Console.WriteLine(html);
         }
     }
 }

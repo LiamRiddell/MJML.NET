@@ -5,18 +5,18 @@ using System.Xml.Linq;
 
 namespace MJML
 {
-    public class MjmlComponent : MjmlBaseComponent
+    public class MjmlHeadComponent : MjmlBaseComponent
     {
-        public MjmlComponent(XElement element) : base(element)
+        public MjmlHeadComponent(XElement element) : base(element)
         {
         }
 
         public override string RenderMjml()
         {
             return $@"
-            <MjmlComponent type=""{Element.Name.LocalName}"">
+            <MjmlHead type=""{Element.Name.LocalName}"">
                 {this.RenderChildren()}
-            </MjmlComponent>";
+            </MjmlHead>";
         }
     }
 }
