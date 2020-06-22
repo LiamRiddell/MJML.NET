@@ -10,20 +10,30 @@ namespace MJML
 {
     public class MjmlDocument
     {
+        /// <summary>
+        /// XDocument used for traversing the mjml template
+        /// </summary>
         private XDocument _document { get; set; }
 
+        /// <summary>
+        /// Root element containg all child components
+        /// </summary>
         public IMjmlComponent VirtualDocument { get; set; }
 
+        /// <summary>
+        /// Load the content into string reader and then create XDocument
+        /// </summary>
+        /// <param name="content"></param>
         public MjmlDocument(string content)
         {
-            // LR: Read the content into a string reader
             using (StringReader sr = new StringReader(content))
             using (XmlReader reader = XmlReader.Create(sr))
             {
-                // LR: Load the content into the document
                 _document = XDocument.Load(reader);
             }
         }
+
+        #region Public
 
         public bool Parse()
         {
@@ -36,7 +46,36 @@ namespace MJML
             return true;
         }
 
-        public void GenerateVirtualDocument(XElement element)
+        public string Render()
+        {
+            return VirtualDocument.RenderMjml();
+        }
+
+        #endregion Public
+
+        #region Private
+
+        private IMjmlComponent CreateMjmlComponent(XElement element)
+        {
+            string elementTag = element.Name.LocalName.ToLowerInvariant();
+
+            switch (elementTag)
+            {
+                case "mj-head":
+                    return new MjmlHeadComponent(element);
+
+                //case "mj-section":
+                //    break;
+
+                //case "mj-column":
+                //    break;
+
+                default:
+                    return new MjmlRawComponent(element);
+            }
+        }
+
+        private void GenerateVirtualDocument(XElement element)
         {
             VirtualDocument = CreateMjmlComponent(element);
 
@@ -46,7 +85,7 @@ namespace MJML
             TraverseElementTree(VirtualDocument.Element, VirtualDocument);
         }
 
-        public void TraverseElementTree(XElement element, IMjmlComponent parentComponent)
+        private void TraverseElementTree(XElement element, IMjmlComponent parentComponent)
         {
             if (element.IsEmpty)
                 return;
@@ -62,34 +101,8 @@ namespace MJML
             }
         }
 
-        public IMjmlComponent CreateMjmlComponent(XElement element)
-        {
-            var elementTag = element.Name.LocalName.ToLowerInvariant();
+        #endregion Private
 
-            switch (elementTag)
-            {
-                case "mj-head":
-                    return new MjmlHeadComponent(element);
-
-                case "mj-section":
-                    break;
-
-                case "mj-column":
-                    break;
-
-                default:
-                    break;
-            }
-
-            return new MjmlComponent(element);
-        }
-
-        public string Render()
-        {
-            return VirtualDocument.RenderMjml();
-        }
-
-        // LR: Util
         private void PrintElementType(XElement element)
         {
             switch (element.NodeType)
