@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Mjml.Components
+namespace Mjml.Core
 {
     public abstract class MjmlBaseComponent : IMjmlComponent
     {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mjml.Core;
 using System.Xml.Linq;
 
 namespace Mjml.Components

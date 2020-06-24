@@ -1,4 +1,5 @@
 ﻿using Mjml.Components;
+using Mjml.Helpers;
 using Mjml.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,9 @@ namespace Mjml
 
         public string Render()
         {
-            return VirtualDocument.RenderMjml();
+            HtmlSkeleton htmlSkeleton = new HtmlSkeleton();
+
+            return htmlSkeleton.Build(VirtualDocument.RenderMjml());
         }
 
         #endregion Public
