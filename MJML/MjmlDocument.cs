@@ -21,7 +21,7 @@ namespace Mjml
         /// <summary>
         /// Root element containg all child components
         /// </summary>
-        public IMjmlComponent VirtualDocument { get; set; }
+        public MjmlRootComponent VirtualDocument { get; set; }
 
         /// <summary>
         /// Load the content into string reader and then create XDocument
@@ -66,8 +66,8 @@ namespace Mjml
 
             switch (elementTag)
             {
-                case "mj-head":
-                    return new MjmlHeadComponent(element);
+                case "mjml":
+                    return new MjmlRootComponent(element);
 
                 //case "mj-section":
                 //    break;
@@ -82,7 +82,7 @@ namespace Mjml
 
         private void GenerateVirtualDocument(XElement element)
         {
-            VirtualDocument = CreateMjmlComponent(element);
+            VirtualDocument = CreateMjmlComponent(element) as MjmlRootComponent;
 
             if (VirtualDocument.Element.IsEmpty)
                 return;

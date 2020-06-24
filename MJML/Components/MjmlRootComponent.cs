@@ -3,18 +3,18 @@ using System.Xml.Linq;
 
 namespace Mjml.Components
 {
-    public class MjmlHeadComponent : MjmlBaseComponent
+    public class MjmlRootComponent : MjmlBaseComponent
     {
-        public MjmlHeadComponent(XElement element) : base(element)
+        public MjmlRootComponent(XElement element) : base(element)
         {
         }
 
         public override string RenderMjml()
         {
             return $@"
-            <MjmlHead type=""{Element.Name.LocalName}"">
+            <Mjml type=""{Element.Name.LocalName}"">
                 {this.RenderChildren()}
-            </MjmlHead>";
+            </Mjml>";
         }
     }
 }
