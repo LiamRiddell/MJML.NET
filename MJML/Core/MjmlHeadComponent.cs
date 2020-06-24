@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Mjml.Core
 {
-    public class MjmlHeadComponent : MjmlBaseComponent
+    public class MjmlHeadComponent : MjmlComponent
     {
         public MjmlHeadComponent(XElement element) : base(element)
         {

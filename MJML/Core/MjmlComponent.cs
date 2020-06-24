@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Mjml.Core
 {
-    public abstract class MjmlBaseComponent : IMjmlComponent
+    public abstract class MjmlComponent : IMjmlComponent
     {
         public XElement Element { get; set; }
 
@@ -29,7 +29,7 @@ namespace Mjml.Core
             return output;
         }
 
-        public MjmlBaseComponent(XElement element)
+        public MjmlComponent(XElement element)
         {
             Element = element;
             Children = new List<IMjmlComponent>();
