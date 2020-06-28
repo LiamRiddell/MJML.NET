@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace Mjml.Components
 {
-    public class MjmlRootComponent : MjmlComponent
+    public class MjmlRootComponent : MjmlBodyComponent
     {
         public MjmlRootComponent(XElement element) : base(element)
         {
@@ -12,9 +12,9 @@ namespace Mjml.Components
         public override string RenderMjml()
         {
             return $@"
-            <Mjml type=""{Element.Name.LocalName}"">
+            <MjmlRootComponent type=""{Element.Name.LocalName}"">
                 {this.RenderChildren()}
-            </Mjml>";
+            </MjmlRootComponent>";
         }
     }
 }

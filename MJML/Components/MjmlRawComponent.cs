@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace Mjml.Components
 {
-    public class MjmlRawComponent : MjmlComponent
+    public class MjmlRawComponent : MjmlBodyComponent
     {
         public MjmlRawComponent(XElement element) : base(element)
         {

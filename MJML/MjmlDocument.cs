@@ -53,7 +53,8 @@ namespace Mjml
         {
             HtmlSkeleton htmlSkeleton = new HtmlSkeleton();
 
-            return htmlSkeleton.Build(VirtualDocument.RenderMjml());
+            // return htmlSkeleton.Build(VirtualDocument.RenderMjml());
+            return VirtualDocument.RenderMjml();
         }
 
         #endregion Public
@@ -69,8 +70,8 @@ namespace Mjml
                 case "mjml":
                     return new MjmlRootComponent(element);
 
-                //case "mj-section":
-                //    break;
+                case "mj-section":
+                    return new MjmlSectionComponent(element);
 
                 //case "mj-column":
                 //    break;
