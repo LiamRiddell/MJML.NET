@@ -1,4 +1,5 @@
 ﻿using Mjml.Core;
+using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -19,10 +20,13 @@ namespace Mjml.Components
 
         public override string RenderMjml()
         {
+            // TODO: HtmlHelper.IfMsoIe(""</td>"")
             return $@"
-            <MjmlSectionComponent type=""{Element.Name.LocalName}"" style=""{this.GetCssAttribute("background-color")}"">
-                {this.RenderChildren()}
-            </MjmlSectionComponent>";
+            {TagHelpers.ConditionalTag("<tr>")}
+                {TagHelpers.ConditionalTag("<td htmlAttributesFunc=\"align, class, style\">")}
+                    {this.RenderChildren()}
+                {TagHelpers.ConditionalTag("</td>")}
+            {TagHelpers.ConditionalTag("</tr>")}"; 
         }
     }
 }
