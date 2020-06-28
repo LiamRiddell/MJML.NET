@@ -6,13 +6,15 @@ namespace Mjml.Components
 {
     public class MjmlSectionComponent : MjmlBodyComponent
     {
-        public override Dictionary<string, string> DefaultAttributes { get; set; } = new Dictionary<string, string>()
-        {
-            { "background-color", "red" },
-        };
-
         public MjmlSectionComponent(XElement element) : base(element)
         {
+        }
+
+        public override Dictionary<string, string> SetAllowedAttributes()
+        {
+            return new Dictionary<string, string> {
+                { "background-color", "red" }
+            };
         }
 
         public override string RenderMjml()

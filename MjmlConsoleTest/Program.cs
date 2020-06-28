@@ -34,7 +34,9 @@ namespace MjmlConsoleTest
                     // ... handle failure
                 }
 
-                Console.WriteLine(html);
+                string formattedHtml = System.Xml.Linq.XElement.Parse(html).ToString();
+
+                Console.WriteLine(formattedHtml);
             }
             sw.Stop();
 

@@ -13,7 +13,7 @@ namespace Mjml.Core
 
         public List<IMjmlComponent> Children { get; set; } = new List<IMjmlComponent>();
 
-        public virtual Dictionary<string, string> DefaultAttributes { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Attributes { get; set; }
 
         public string GetTagName()
         {
@@ -27,13 +27,13 @@ namespace Mjml.Core
 
         public string GetCssAttribute(string attributeName)
         {
-            var attribute = this.DefaultAttributes.FirstOrDefault(a => a.Key == attributeName);
-            return !string.IsNullOrWhiteSpace(attribute.Value) ? $"{attribute.Key}: {attribute.Value}" : string.Empty;
+            var attribute = this.Attributes.FirstOrDefault(a => a.Key == attributeName);
+            return !string.IsNullOrWhiteSpace(attribute.Value) ? $"{attribute.Key}: {attribute.Value};" : string.Empty;
         }
 
         public string GetAttribute(string attributeName)
         {
-            var attribute = this.DefaultAttributes.FirstOrDefault(a => a.Key == attributeName);
+            var attribute = this.Attributes.FirstOrDefault(a => a.Key == attributeName);
             return attribute.Value;
         }
 
@@ -72,17 +72,25 @@ namespace Mjml.Core
                 string userAttributeValue = attribute.Value;
 
                 // LR: Validate the attribute exists in the DefaultAttributes
-                if (!DefaultAttributes.ContainsKey(userAttributeName))
+                if (!Attributes.ContainsKey(userAttributeName))
                     continue;
 
                 // TODO: Validate the users input
-                DefaultAttributes[userAttributeName] = userAttributeValue;
+                Attributes[userAttributeName] = userAttributeValue;
             }
+        }
+
+        public virtual Dictionary<string, string> SetAllowedAttributes()
+        {
+            throw new NotImplementedException();
         }
 
         public MjmlComponent(XElement element)
         {
             Element = element;
+
+            // LR: Sets the Allowed attributes along with the default values.
+            Attributes = SetAllowedAttributes();
 
             if (Element.HasAttributes)
                 SetAttributes();

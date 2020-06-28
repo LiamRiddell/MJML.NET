@@ -11,7 +11,9 @@ namespace Mjml.Interfaces
         XElement Element { get; set; }
         List<IMjmlComponent> Children { get; set; }
 
-        Dictionary<string, string> DefaultAttributes { get; set; }
+        Dictionary<string, string> Attributes { get; set; }
+
+        Dictionary<string, string> SetAllowedAttributes();
 
         string GetTagName();
 
