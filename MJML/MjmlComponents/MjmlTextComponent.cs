@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Mjml.Components
+namespace Mjml.MjmlComponents
 {
-    public class MjmlTextComponent : MjmlBodyComponent
+    public class MjmlTextComponent : BodyComponent
     {
         public MjmlTextComponent(XElement element) : base(element)
         {

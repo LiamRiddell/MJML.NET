@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Mjml.Components
+namespace Mjml.HtmlComponents
 {
     /// <summary>
     /// HtmlText outputs the text content of html node.
     /// </summary>
-    public class HtmlTextComponent : MjmlBodyComponent
+    public class HtmlRawComponent : BodyComponent
     {
-        public HtmlTextComponent(XElement element) : base(element)
+        public HtmlRawComponent(XElement element) : base(element)
         {
         }
 
@@ -22,7 +22,10 @@ namespace Mjml.Components
 
         public override string RenderMjml()
         {
-            return Element.Value;
+            return $@"
+            <{Element.Name.LocalName}>
+                {this.RenderChildren()}
+            </{Element.Name.LocalName}>";
         }
     }
 }

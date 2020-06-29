@@ -1,6 +1,7 @@
-﻿using Mjml.Components;
-using Mjml.Helpers;
+﻿using Mjml.Helpers;
+using Mjml.HtmlComponents;
 using Mjml.Interfaces;
+using Mjml.MjmlComponents;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -61,7 +62,7 @@ namespace Mjml
 
         #region Private
 
-        private IMjmlComponent CreateMjmlComponent(XElement element)
+        private IComponent CreateMjmlComponent(XElement element)
         {
             string elementTag = element.Name.LocalName.ToLowerInvariant();
 
@@ -94,7 +95,7 @@ namespace Mjml
             TraverseElementTree(VirtualDocument.Element, VirtualDocument);
         }
 
-        private void TraverseElementTree(XElement element, IMjmlComponent parentComponent)
+        private void TraverseElementTree(XElement element, IComponent parentComponent)
         {
             if (element.IsEmpty)
                 return;
@@ -102,7 +103,7 @@ namespace Mjml
             // LR: Traverse the children
             foreach (var childElement in element.Nodes())
             {
-                IMjmlComponent childComponent;
+                IComponent childComponent;
 
                 if (childElement.NodeType == XmlNodeType.Element)
                 {

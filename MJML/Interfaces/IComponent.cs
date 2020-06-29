@@ -6,10 +6,10 @@ using System.Xml.Linq;
 
 namespace Mjml.Interfaces
 {
-    public interface IMjmlComponent
+    public interface IComponent
     {
         XElement Element { get; set; }
-        List<IMjmlComponent> Children { get; set; }
+        List<IComponent> Children { get; set; }
 
         Dictionary<string, string> Attributes { get; set; }
 

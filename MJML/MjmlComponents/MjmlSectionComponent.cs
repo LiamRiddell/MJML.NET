@@ -3,9 +3,9 @@ using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Mjml.Components
+namespace Mjml.MjmlComponents
 {
-    public class MjmlSectionComponent : MjmlBodyComponent
+    public class MjmlSectionComponent : BodyComponent
     {
         public MjmlSectionComponent(XElement element) : base(element)
         {
@@ -26,7 +26,7 @@ namespace Mjml.Components
                 {TagHelpers.ConditionalTag("<td htmlAttributesFunc=\"align, class, style\">")}
                     {this.RenderChildren()}
                 {TagHelpers.ConditionalTag("</td>")}
-            {TagHelpers.ConditionalTag("</tr>")}"; 
+            {TagHelpers.ConditionalTag("</tr>")}";
         }
     }
 }

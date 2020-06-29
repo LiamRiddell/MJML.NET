@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Mjml.Components
+namespace Mjml.MjmlComponents
 {
-    public class MjmlRootComponent : MjmlBodyComponent
+    public class MjmlRawComponent : BodyComponent
     {
-        public MjmlRootComponent(XElement element) : base(element)
+        public MjmlRawComponent(XElement element) : base(element)
         {
         }
 
@@ -20,9 +20,9 @@ namespace Mjml.Components
         public override string RenderMjml()
         {
             return $@"
-            <MjmlRootComponent type=""{Element.Name.LocalName}"">
+            <{Element.Name.LocalName}>
                 {this.RenderChildren()}
-            </MjmlRootComponent>";
+            </{Element.Name.LocalName}>";
         }
     }
 }

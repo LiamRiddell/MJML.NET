@@ -7,11 +7,11 @@ using System.Xml.Linq;
 
 namespace Mjml.Core
 {
-    public abstract class MjmlComponent : IMjmlComponent
+    public abstract class BaseComponent : IComponent
     {
         public XElement Element { get; set; }
 
-        public List<IMjmlComponent> Children { get; set; } = new List<IMjmlComponent>();
+        public List<IComponent> Children { get; set; } = new List<IComponent>();
 
         public Dictionary<string, string> Attributes { get; set; }
 
@@ -85,7 +85,7 @@ namespace Mjml.Core
             throw new NotImplementedException();
         }
 
-        public MjmlComponent(XElement element)
+        public BaseComponent(XElement element)
         {
             Element = element;
 

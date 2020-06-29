@@ -5,9 +5,9 @@ using System.Xml.Linq;
 
 namespace Mjml.Core
 {
-    public class MjmlHeadComponent : MjmlComponent
+    public class HeadComponent : BaseComponent
     {
-        public MjmlHeadComponent(XElement element) : base(element)
+        public HeadComponent(XElement element) : base(element)
         {
         }
 
