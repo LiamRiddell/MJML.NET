@@ -4,9 +4,9 @@ using System.Xml.Linq;
 
 namespace Mjml.Components
 {
-    public class MjmlRawComponent : MjmlBodyComponent
+    public class HtmlTextComponent : MjmlBodyComponent
     {
-        public MjmlRawComponent(XElement element) : base(element)
+        public HtmlTextComponent(XElement element) : base(element)
         {
         }
 
@@ -19,10 +19,7 @@ namespace Mjml.Components
 
         public override string RenderMjml()
         {
-            return $@"
-            <{Element.Name.LocalName}>
-                {this.RenderChildren()}
-            </{Element.Name.LocalName}>";
+            return Element.Value;
         }
     }
 }

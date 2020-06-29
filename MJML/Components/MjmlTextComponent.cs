@@ -14,15 +14,42 @@ namespace Mjml.Components
         {
             return new Dictionary<string, string>
             {
+                { "color", "#000000" },
+                { "font-family", "Ubuntu, Helvetica, Arial, sans-serif" },
+                { "font-size", "13px" },
+                { "font-style", string.Empty },
+                { "font-weight", string.Empty },
+                { "line-height", "1px" },
+                { "letter-spacing", "none" },
+                { "height", string.Empty },
+                { "text-decoration", string.Empty },
+                { "text-transform", string.Empty },
+                { "align", "left" },
+                { "container-background-color", string.Empty },
+                { "padding", "10px 25px" },
+                { "padding-top", string.Empty },
+                { "padding-bottom", string.Empty },
+                { "padding-left", string.Empty },
+                { "padding-right", string.Empty },
+                { "css-class", string.Empty }
             };
+        }
+
+        public string RenderContent()
+        {
+            return $@"
+            <div>
+                { RenderChildren() }
+            </div>
+            ";
         }
 
         public override string RenderMjml()
         {
             return $@"
-            <MjmlRawComponent type=""{Element.Name.LocalName}"">
-                {this.RenderChildren()}
-            </MjmlRawComponent>";
+            <MjmlTextComponent type=""{Element.Name.LocalName}"">
+                {this.RenderContent()}
+            </MjmlTextComponent>";
         }
     }
 }

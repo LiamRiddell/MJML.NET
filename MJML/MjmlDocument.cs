@@ -73,8 +73,11 @@ namespace Mjml
                 case "mj-section":
                     return new MjmlSectionComponent(element);
 
-                //case "mj-column":
-                //    break;
+                case "mj-text":
+                    return new MjmlTextComponent(element);
+
+                case "html-text":
+                    return new HtmlTextComponent(element);
 
                 default:
                     return new MjmlRawComponent(element);
@@ -97,13 +100,26 @@ namespace Mjml
                 return;
 
             // LR: Traverse the children
-            foreach (var childElement in element.Elements())
+            foreach (var childElement in element.Nodes())
             {
-                var childComponent = CreateMjmlComponent(childElement);
+                IMjmlComponent childComponent;
 
-                parentComponent.Children.Add(childComponent);
+                if (childElement.NodeType == XmlNodeType.Element)
+                {
+                    childComponent = CreateMjmlComponent((XElement)childElement);
+                    parentComponent.Children.Add(childComponent);
+                    TraverseElementTree((XElement)childElement, childComponent);
+                }
+                else if (childElement.NodeType == XmlNodeType.Text)
+                {
+                    var childElementText = childElement as XText;
 
-                TraverseElementTree(childElement, childComponent);
+                    var childXElement = new XElement("html-text", childElementText.Value);
+                    childXElement.Name = XName.Get("html-text");
+
+                    childComponent = CreateMjmlComponent(childXElement);
+                    parentComponent.Children.Add(childComponent);
+                }
             }
         }
 

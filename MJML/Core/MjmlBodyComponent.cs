@@ -11,5 +11,10 @@ namespace Mjml.Core
         public MjmlBodyComponent(XElement element) : base(element)
         {
         }
+
+        public virtual Dictionary<string, string> GetStyles()
+        {
+            return new Dictionary<string, string>();
+        }
     }
 }

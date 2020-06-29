@@ -39,7 +39,7 @@ namespace Mjml.Core
 
         public string GetContent()
         {
-            throw new NotImplementedException();
+            return Element.Value;
         }
 
         public virtual string RenderChildren()

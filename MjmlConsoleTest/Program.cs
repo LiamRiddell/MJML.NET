@@ -16,8 +16,8 @@ namespace MjmlConsoleTest
                     <mj-body>
                         <mj-section background-color=""blue"">
                             <mj-column>
-                                <mj-text font-size="" 20px"" color="" #F45E43"" font-family="" helvetica"">Hello World</mj-text>
-                                <mj-divider border-color="" #F45E43""></mj-divider>
+                                <mj-text font-size=""20px"" color=""#F45E43"" font-family=""helvetica""><h1>Hello World</h1></mj-text>
+                                <mj-divider border-color=""#F45E43""></mj-divider>
                             </mj-column>
                         </mj-section>
                     </mj-body>
