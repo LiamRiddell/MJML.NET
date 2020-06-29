@@ -80,7 +80,7 @@ namespace Mjml
                     return new HtmlTextComponent(element);
 
                 default:
-                    return new MjmlRawComponent(element);
+                    return new HtmlRawComponent(element);
             }
         }
 
@@ -113,6 +113,9 @@ namespace Mjml
                 else if (childElement.NodeType == XmlNodeType.Text)
                 {
                     var childElementText = childElement as XText;
+
+                    if (string.IsNullOrEmpty(childElementText.Value) || string.IsNullOrWhiteSpace(childElementText.Value))
+                        continue;
 
                     var childXElement = new XElement("html-text", childElementText.Value);
                     childXElement.Name = XName.Get("html-text");

@@ -46,10 +46,7 @@ namespace Mjml.Components
 
         public override string RenderMjml()
         {
-            return $@"
-            <MjmlTextComponent type=""{Element.Name.LocalName}"">
-                {this.RenderContent()}
-            </MjmlTextComponent>";
+            return $@"{this.RenderContent()}";
         }
     }
 }
