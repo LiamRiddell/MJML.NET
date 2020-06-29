@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Mjml.Interfaces
+namespace Mjml.Core.Interfaces
 {
     public interface IComponent
     {

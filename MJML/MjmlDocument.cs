@@ -1,6 +1,6 @@
 ﻿using Mjml.Helpers;
 using Mjml.HtmlComponents;
-using Mjml.Interfaces;
+using Mjml.Core.Interfaces;
 using Mjml.MjmlComponents;
 using System;
 using System.Collections.Generic;
