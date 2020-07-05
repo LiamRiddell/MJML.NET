@@ -57,11 +57,7 @@ namespace Mjml.MjmlComponents
         {
             return $@"
             <div {HtmlAttributes(new Dictionary<string, string> {
-                { "style", "text" },
-                { "href", "https://dummy.com" },
-                { "src", "http://fakeurl.com" },
-                { "alt", "http://fakeurl.com" },
-                { "class", "mj-text" },
+                { "style", "text" }
             })}>
                 { RenderChildren() }
             </ div >
