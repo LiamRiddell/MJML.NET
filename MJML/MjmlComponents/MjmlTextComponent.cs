@@ -35,12 +35,36 @@ namespace Mjml.MjmlComponents
             };
         }
 
+        public override void SetupStyles()
+        {
+            // LR: Add styles
+            StyleLibraries.AddStyleLibrary("text", new Dictionary<string, string>() {
+                { "font-family", "15px" },
+                { "font-size", "15px" },
+                { "font-style", "15px" },
+                { "font-weight", "15px" },
+                { "letter-spacing", "15px" },
+                { "line-height", "15px" },
+                { "text-align", "15px" },
+                { "text-decoration", "15px" },
+                { "text-transform", "15px" },
+                { "color", "15px" },
+                { "height", "15px" },
+            });
+        }
+
         public string RenderContent()
         {
             return $@"
-            <div>
+            <div {HtmlAttributes(new Dictionary<string, string> {
+                { "style", "text" },
+                { "href", "https://dummy.com" },
+                { "src", "http://fakeurl.com" },
+                { "alt", "http://fakeurl.com" },
+                { "class", "mj-text" },
+            })}>
                 { RenderChildren() }
-            </div>
+            </ div >
             ";
         }
 

@@ -34,9 +34,13 @@ namespace MjmlConsoleTest
                     // ... handle failure
                 }
 
-                string formattedHtml = System.Xml.Linq.XElement.Parse(html).ToString();
+                try
+                {
+                    html = System.Xml.Linq.XElement.Parse(html).ToString();
+                }
+                catch (Exception) { }
 
-                Console.WriteLine(formattedHtml);
+                Console.WriteLine(html);
             }
             sw.Stop();
 
