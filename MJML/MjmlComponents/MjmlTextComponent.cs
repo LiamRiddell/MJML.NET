@@ -1,4 +1,5 @@
 ﻿using Mjml.Core;
+using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -39,17 +40,17 @@ namespace Mjml.MjmlComponents
         {
             // LR: Add styles
             StyleLibraries.AddStyleLibrary("text", new Dictionary<string, string>() {
-                { "font-family", "15px" },
-                { "font-size", "15px" },
-                { "font-style", "15px" },
-                { "font-weight", "15px" },
-                { "letter-spacing", "15px" },
-                { "line-height", "15px" },
-                { "text-align", "15px" },
-                { "text-decoration", "15px" },
-                { "text-transform", "15px" },
-                { "color", "15px" },
-                { "height", "15px" },
+                { "font-family", GetAttribute("font-family") },
+                { "font-size", GetAttribute("font-size") },
+                { "font-style", GetAttribute("font-style") },
+                { "font-weight", GetAttribute("font-weight") },
+                { "letter-spacing", GetAttribute("letter-spacing") },
+                { "line-height", GetAttribute("line-height") },
+                { "text-align", GetAttribute("align") },
+                { "text-decoration", GetAttribute("text-decoration") },
+                { "text-transform", GetAttribute("text-transform") },
+                { "color", GetAttribute("color") },
+                { "height", GetAttribute("height") },
             });
         }
 
@@ -60,13 +61,24 @@ namespace Mjml.MjmlComponents
                 { "style", "text" }
             })}>
                 { RenderChildren() }
-            </ div >
+            </div>
             ";
         }
 
         public override string RenderMjml()
         {
-            return $@"{this.RenderContent()}";
+            var height = GetAttribute("height");
+
+            if (string.IsNullOrWhiteSpace(height))
+            {
+                return this.RenderContent();
+            }
+
+            return $@"
+                {TagHelpers.ConditionalTag($@"<table role=""presentation"" border=""0"" cellpadding=""0"" cellspacing=""0""><tr><td height=""{height}"" style=""vertical-align:top;height:{height};"">")}
+                    {this.RenderContent()}
+                {TagHelpers.ConditionalTag("</td></tr></table>")}
+            ";
         }
     }
 }

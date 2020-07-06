@@ -19,7 +19,7 @@ namespace Mjml.Core.Interfaces
 
         bool IsRawElement();
 
-        string GetCssAttribute(string attributeName);
+        string GetAttributeToCss(string attributeName);
 
         string GetAttribute(string attributeName);
 

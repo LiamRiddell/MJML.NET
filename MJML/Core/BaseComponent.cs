@@ -25,7 +25,7 @@ namespace Mjml.Core
             throw new NotImplementedException();
         }
 
-        public string GetCssAttribute(string attributeName)
+        public string GetAttributeToCss(string attributeName)
         {
             var attribute = this.Attributes.FirstOrDefault(a => a.Key == attributeName);
             return !string.IsNullOrWhiteSpace(attribute.Value) ? $"{attribute.Key}: {attribute.Value};" : string.Empty;
