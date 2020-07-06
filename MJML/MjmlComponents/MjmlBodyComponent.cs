@@ -1,4 +1,5 @@
 ﻿using Mjml.Core;
+using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -28,8 +29,7 @@ namespace Mjml.MjmlComponents
 
         public override string RenderMjml()
         {
-            string backgroundColor = GetAttribute("background-color");
-            // TODO: setBackgroundColor(this.getAttribute('background-color'))
+            HtmlSkeleton.BackgroundColor = GetAttribute("background-color");
 
             return $@"
                 <div {HtmlAttributes(new Dictionary<string, string> {

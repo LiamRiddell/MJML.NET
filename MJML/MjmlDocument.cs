@@ -52,10 +52,7 @@ namespace Mjml
 
         public string Render()
         {
-            HtmlSkeleton htmlSkeleton = new HtmlSkeleton();
-
-            // return htmlSkeleton.Build(VirtualDocument.RenderMjml());
-            return VirtualDocument.RenderMjml();
+            return HtmlSkeleton.Build(VirtualDocument.RenderMjml());
         }
 
         #endregion Public

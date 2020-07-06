@@ -13,7 +13,7 @@ namespace MjmlConsoleTest
                     <mj-head>
                         <mj-breakpoint width=""320px"" />
                     </mj-head>
-                    <mj-body>
+                    <mj-body background-color=""red"">
 
                     </mj-body>
                 </mjml>
