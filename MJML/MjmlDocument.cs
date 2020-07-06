@@ -71,6 +71,9 @@ namespace Mjml
                 case "mjml":
                     return new MjmlRootComponent(element);
 
+                case "mj-body":
+                    return new MjmlBodyComponent(element);
+
                 case "mj-section":
                     return new MjmlSectionComponent(element);
 

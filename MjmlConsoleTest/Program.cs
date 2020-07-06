@@ -14,9 +14,7 @@ namespace MjmlConsoleTest
                         <mj-breakpoint width=""320px"" />
                     </mj-head>
                     <mj-body>
-                        <mj-section css-class=""test"">
 
-                        </mj-section>
                     </mj-body>
                 </mjml>
             ";
