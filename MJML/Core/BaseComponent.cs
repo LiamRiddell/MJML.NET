@@ -37,6 +37,11 @@ namespace Mjml.Core
             return attribute.Value;
         }
 
+        public bool HasAttribute(string attributeName)
+        {
+            return this.Attributes.ContainsKey(attributeName);
+        }
+
         public string GetContent()
         {
             return Element.Value;
@@ -44,6 +49,9 @@ namespace Mjml.Core
 
         public virtual string RenderChildren()
         {
+            if (!this.Children.Any())
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
 
             foreach (var childComponent in Children)

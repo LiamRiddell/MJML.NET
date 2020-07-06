@@ -23,6 +23,8 @@ namespace Mjml.Core.Interfaces
 
         string GetAttribute(string attributeName);
 
+        bool HasAttribute(string attributeName);
+
         string GetContent();
 
         string RenderChildren();
