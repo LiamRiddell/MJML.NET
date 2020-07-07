@@ -14,7 +14,14 @@ namespace Mjml.Core.Component
 
         public BodyComponent(XElement element) : base(element)
         {
+            string tagName = GetTagName();
+
+            // LR: Setup Box Model
             CssBoxModel = GetBoxModel();
+
+            // LR: Register component styles
+            HtmlSkeleton.AddHeadStyle(tagName, HeadStyle());
+            HtmlSkeleton.AddComponentHeadStyle(tagName, ComponentsHeadStyle());
 
             // LR: Setup last
             SetupStyles();
@@ -150,6 +157,16 @@ namespace Mjml.Core.Component
                 borders,
                 paddings,
                 containerWidth.Value - paddings - borders);
+        }
+
+        public virtual string HeadStyle()
+        {
+            return string.Empty;
+        }
+
+        public virtual string ComponentsHeadStyle()
+        {
+            return string.Empty;
         }
     }
 }

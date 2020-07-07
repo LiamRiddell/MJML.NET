@@ -17,7 +17,7 @@ namespace Mjml.Core.Component
 
         public string GetTagName()
         {
-            throw new NotImplementedException();
+            return Element.Name.LocalName.ToLower();
         }
 
         public bool IsRawElement()

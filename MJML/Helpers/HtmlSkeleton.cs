@@ -27,6 +27,8 @@ namespace Mjml.Helpers
         public static Dictionary<string, string> MediaQueries { get; set; } = new Dictionary<string, string>();
         public static List<string> Styles { get; set; } = new List<string>();
         public static List<string> InlineStyles { get; set; } = new List<string>();
+        public static Dictionary<string, string> HeadStyle { get; set; } = new Dictionary<string, string>();
+        public static Dictionary<string, string> ComponentsHeadStyle { get; set; } = new Dictionary<string, string>();
 
         // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/fonts.js
         public static string BuildFontsTags(string content, string inlineStyle)
@@ -119,6 +121,61 @@ namespace Mjml.Helpers
             ";
         }
 
+        private static string BuildStlyes()
+        {
+            if (!Styles.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($@"<style type=""text/css"">");
+
+            foreach (var css in Styles)
+            {
+                sb.Append($@"{css}");
+            }
+
+            sb.Append($@"</style>");
+
+            return sb.ToString();
+        }
+
+        private static string BuildComponentsHeadStyle()
+        {
+            if (!Styles.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var css in ComponentsHeadStyle)
+            {
+                if (string.IsNullOrWhiteSpace(css.Value))
+                    continue;
+
+                sb.Append($@"{css.Value}");
+            }
+
+            return sb.ToString();
+        }
+
+        private static string BuildHeadStyle()
+        {
+            if (!Styles.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var css in HeadStyle)
+            {
+                if (string.IsNullOrWhiteSpace(css.Value))
+                    continue;
+
+                sb.Append($@"{css.Value}");
+            }
+
+            return sb.ToString();
+        }
+
         public static string Build(string content)
         {
             bool forceOWADesktop = false;
@@ -159,25 +216,15 @@ namespace Mjml.Helpers
                     { BuildFontsTags(content, "") /* TODO: Inline Support */ }
                     { BuildMediaQueriesTags(forceOWADesktop) }
 
-                   <!--
                     <style type=""text/css"">
-                        TODO:{{reduce(
-                          componentsHeadStyle,
-                          (result, compHeadStyle) => `{{result}}\n{{compHeadStyle(breakpoint)}}`,
-                          '',
-                        )}}
+                        { BuildComponentsHeadStyle() }
 
-                        TODO:{{reduce(
-                          headStyle,
-                          (result, headStyle) => `{{result}}\n{{headStyle(breakpoint)}}`,
-                          '',
-                        )}}
+                        { BuildHeadStyle() }
                     </style>
 
-                    TODO:{{
-                        style && style.length > 0 ? `<style type="" text/css"">{{style.join('')}}</style>` : ''
-                    }}
+                    { BuildStlyes() }
 
+                    <!--
                     TODO:{{ headRaw.filter(negate(isNil)).join('\n') }}
                     -->
                 </head>
@@ -226,6 +273,29 @@ namespace Mjml.Helpers
                 InlineStyles.Add(css);
             else
                 Styles.Add(css);
+        }
+
+        // REVIEW: Merge with AddComponentHeadStyle
+        public static void AddHeadStyle(string componentName, string css)
+        {
+            if (string.IsNullOrWhiteSpace(componentName) || string.IsNullOrWhiteSpace(css))
+                return;
+
+            if (HeadStyle.ContainsKey(componentName))
+                return;
+
+            HeadStyle.Add(componentName, css);
+        }
+
+        public static void AddComponentHeadStyle(string componentName, string css)
+        {
+            if (string.IsNullOrWhiteSpace(componentName) || string.IsNullOrWhiteSpace(css))
+                return;
+
+            if (ComponentsHeadStyle.ContainsKey(componentName))
+                return;
+
+            ComponentsHeadStyle.Add(componentName, css);
         }
     }
 }
