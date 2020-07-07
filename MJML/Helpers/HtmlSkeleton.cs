@@ -9,8 +9,8 @@ namespace Mjml.Helpers
     // https://github.com/mjmlio/mjml/blob/604a9f2d2c19a224590814615fda8666fe1fd4e4/packages/mjml-core/src/helpers/skeleton.js
     public static class HtmlSkeleton
     {
-        public static string Title { get; set; } = "MJML.NET";
-        public static string PreviewText { get; set; } = "Example MJML.NET";
+        public static string Title { get; set; } = "";
+        public static string PreviewText { get; set; } = "";
         public static string Language { get; set; } = string.Empty;
         public static string ContainerWidth { get; set; } = "600px";
         public static string BackgroundColor { get; set; } = "white";

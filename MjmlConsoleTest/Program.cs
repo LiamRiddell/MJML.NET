@@ -11,6 +11,7 @@ namespace MjmlConsoleTest
             string mjmlString = @"
                 <mjml>
                     <mj-head>
+                        <mj-preview>Liam Riddell</mj-preview>
                         <mj-breakpoint width=""480px"" />
                         <mj-font name=""Raleway"" href=""https://fonts.googleapis.com/css?family=Raleway"" />
                     </mj-head>
