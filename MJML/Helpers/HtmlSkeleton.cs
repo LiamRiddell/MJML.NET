@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Mjml.Helpers
 {
@@ -8,10 +10,11 @@ namespace Mjml.Helpers
     public static class HtmlSkeleton
     {
         public static string Title { get; set; } = "MJML.NET";
+        public static string PreviewText { get; set; } = "Example MJML.NET";
         public static string Language { get; set; } = string.Empty;
-
-        public static string BackgroundColor { get; set; }
-        public static string Breakpoint { get; set; } = "480px";
+        public static string ContainerWidth { get; set; } = "600px";
+        public static string BackgroundColor { get; set; } = "white";
+        public static string Breakpoint { get; set; } = "320px";
 
         public static Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>() {
             { "Open Sans", "https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700" },
@@ -21,10 +24,104 @@ namespace Mjml.Helpers
             { "Ubuntu", "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" }
         };
 
-        public static Dictionary<string, string> MediaQueries { get; set; }
+        public static Dictionary<string, string> MediaQueries { get; set; } = new Dictionary<string, string>();
+        public static Dictionary<string, string> InlineStyle { get; set; } = new Dictionary<string, string>();
+
+        // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/fonts.js
+        public static string BuildFontsTags(string content, string inlineStyle)
+        {
+            List<string> fontsToImport = new List<string>();
+
+            foreach (var font in Fonts)
+            {
+                Regex regex = new Regex($@"""[^""]*font-family:[^""]*{font.Key}[^""]*""", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                Regex inlineRegex = new Regex($@"font-family:[^;}}]*${font.Key}", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+                // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/fonts.js#L11
+                if (regex.IsMatch(content))
+                {
+                    fontsToImport.Add(font.Value);
+                }
+            }
+
+            if (!fontsToImport.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($@"<!--[if !mso]><!-->");
+            // LR <link>
+            foreach (var fontUrl in fontsToImport)
+            {
+                sb.AppendLine($@"<link href=""{fontUrl}"" rel=""stylesheet"" type=""text/css"">");
+            }
+
+            // LR: <style>
+            sb.AppendLine($@"<style type=""text/css"">");
+            foreach (var fontUrl in fontsToImport)
+            {
+                sb.AppendLine($@"@import url(""{fontUrl}"");");
+            }
+            sb.AppendLine($@"</style>");
+            sb.AppendLine($@"<!--<![endif]-->");
+
+            return sb.ToString();
+        }
+
+        // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/mediaQueries.js
+        private static string BuildMediaQueriesTags(bool forceOWADesktop = false)
+        {
+            if (!MediaQueries.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($@"
+                <style type=""text/css"">
+                    @media only screen and (min-width:{Breakpoint}) {{
+            ");
+
+            foreach (var mediaQuery in MediaQueries)
+            {
+                sb.AppendLine($@".{mediaQuery.Key} {mediaQuery.Value}");
+            }
+
+            sb.Append($@"
+                    }}
+                </style>
+            ");
+
+            if (forceOWADesktop)
+            {
+                sb.AppendLine($@"<style type=""text/css"">");
+
+                foreach (var mediaQuery in MediaQueries)
+                {
+                    sb.AppendLine($@"[owa] .{mediaQuery.Key} {mediaQuery.Value}");
+                }
+
+                sb.AppendLine($@"</style>");
+            }
+
+            return sb.ToString();
+        }
+
+        private static string BuildPreview()
+        {
+            if (string.IsNullOrWhiteSpace(PreviewText))
+                return string.Empty;
+
+            return $@"
+                <div style=""display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;"">
+                    {PreviewText}
+                </div>
+            ";
+        }
 
         public static string Build(string content)
         {
+            bool forceOWADesktop = false;
+
             return $@"
             <!doctype html>
             <html {(!string.IsNullOrWhiteSpace(Language) ? $@"lang=""{Language}"" " : string.Empty)}xmlns=""http://www.w3.org/1999/xhtml"" xmlns:v=""urn:schemas-microsoft-com:vml"" xmlns:o=""urn:schemas-microsoft-com:office:office"">
@@ -40,7 +137,7 @@ namespace Mjml.Helpers
                     <style type=""text/css"">
                         #outlook a {{ padding:0; }}
                         body {{ margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }}
-                        table, td {{ border - collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }}
+                        table, td {{ border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }}
                         img {{ border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }}
                         p {{ display:block;margin:13px 0; }}
                     </style>
@@ -58,9 +155,10 @@ namespace Mjml.Helpers
                         </style>
                     <![endif]-->
 
-                    TODO:{{buildFontsTags(content, inlineStyle, fonts)}}
-                    TODO:{{buildMediaQueriesTags(breakpoint, mediaQueries, forceOWADesktop)}}
+                    { BuildFontsTags(content, "") /* TODO: Inline Support */ }
+                    { BuildMediaQueriesTags(forceOWADesktop) }
 
+                   <!-- 
                     <style type=""text/css"">
                         TODO:{{reduce(
                           componentsHeadStyle,
@@ -80,13 +178,29 @@ namespace Mjml.Helpers
                     }}
 
                     TODO:{{ headRaw.filter(negate(isNil)).join('\n') }}
+                    -->
                 </head>
                 <body{(string.IsNullOrWhiteSpace(BackgroundColor) ? string.Empty : $@" style=""background-color:{BackgroundColor};""") }>
-                    TODO:{{buildPreview(preview)}}
-                    {content}
+                    { BuildPreview() }
+                    { content }
                 </body>
             </html>
             ";
+        }
+
+        public static void AddMediaQuery(string className, CssParsedUnit cssParsedUnit)
+        {
+            string mediaQuery = $"{{ width:{cssParsedUnit} !important; max-width: {cssParsedUnit}; }}";
+
+            if (MediaQueries.ContainsKey(className))
+            {
+                var mediaQueryCurrent = MediaQueries[className];
+
+                if (mediaQueryCurrent.Equals(mediaQuery, StringComparison.InvariantCultureIgnoreCase))
+                    return;
+            }
+
+            MediaQueries.Add(className, mediaQuery);
         }
     }
 }

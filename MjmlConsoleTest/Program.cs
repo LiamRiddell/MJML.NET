@@ -14,7 +14,18 @@ namespace MjmlConsoleTest
                         <mj-breakpoint width=""320px"" />
                     </mj-head>
                     <mj-body background-color=""red"">
-
+                        <mj-section>
+                            <mj-column padding-right=""100px"">
+                                <mj-text>
+                                    Hello World!
+                                </mj-text>
+                            </mj-column>
+                            <mj-column padding-right=""100px"">
+                                <mj-text>
+                                    Hello World!
+                                </mj-text>
+                            </mj-column>
+                        </mj-section>
                     </mj-body>
                 </mjml>
             ";

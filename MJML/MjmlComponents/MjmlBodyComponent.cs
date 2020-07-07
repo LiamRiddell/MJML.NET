@@ -9,6 +9,11 @@ namespace Mjml.MjmlComponents
     {
         public MjmlBodyComponent(XElement element) : base(element)
         {
+            if (HasAttribute("Width"))
+                HtmlSkeleton.ContainerWidth = GetAttribute("width");
+
+            if (HasAttribute("background-color"))
+                HtmlSkeleton.BackgroundColor = GetAttribute("background-color");
         }
 
         public override Dictionary<string, string> SetAllowedAttributes()
@@ -29,8 +34,6 @@ namespace Mjml.MjmlComponents
 
         public override string RenderMjml()
         {
-            HtmlSkeleton.BackgroundColor = GetAttribute("background-color");
-
             return $@"
                 <div {HtmlAttributes(new Dictionary<string, string> {
                         { "class", GetAttribute("css-class") },

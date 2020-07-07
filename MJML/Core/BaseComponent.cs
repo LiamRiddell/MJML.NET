@@ -39,7 +39,8 @@ namespace Mjml.Core
 
         public bool HasAttribute(string attributeName)
         {
-            return this.Attributes.ContainsKey(attributeName);
+            // LR: Key Exists && Value != string.Empty
+            return this.Attributes.ContainsKey(attributeName) ? !string.IsNullOrWhiteSpace(GetAttribute(attributeName)) : false;
         }
 
         public string GetContent()
