@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mjml.Core.Css
+﻿namespace Mjml.Core.Css
 {
     public class CssBoxModel
     {

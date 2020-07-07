@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mjml.Helpers
+﻿namespace Mjml.Helpers
 {
     public static class TagHelpers
     {

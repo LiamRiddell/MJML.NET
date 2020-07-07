@@ -1,6 +1,4 @@
-﻿using Mjml.Core;
-using Mjml.Core.Component;
-using Mjml.Helpers;
+﻿using Mjml.Core.Component;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

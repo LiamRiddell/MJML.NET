@@ -1,7 +1,4 @@
-﻿using Mjml.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Mjml.Core.Interfaces

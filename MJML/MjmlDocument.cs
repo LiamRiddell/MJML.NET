@@ -1,16 +1,14 @@
-﻿using Mjml.Helpers;
+﻿using Mjml.Core.Interfaces;
+using Mjml.Helpers;
 using Mjml.HtmlComponents;
-using Mjml.Core.Interfaces;
 using Mjml.MjmlComponents;
+using Mjml.MjmlComponents.Body;
+using Mjml.MjmlComponents.Head;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using Mjml.MjmlComponents.Head;
-using Mjml.MjmlComponents.Body;
 
 namespace Mjml
 {
