@@ -12,6 +12,7 @@ namespace MjmlConsoleTest
                 <mjml>
                     <mj-head>
                         <mj-breakpoint width=""480px"" />
+                        <mj-font name=""Raleway"" href=""https://fonts.googleapis.com/css?family=Raleway"" />
                     </mj-head>
                     <mj-body background-color=""red"">
                         <mj-section>
@@ -20,8 +21,8 @@ namespace MjmlConsoleTest
                                     Hello World!
                                 </mj-text>
                             </mj-column>
-                            <mj-column padding-right=""100px"">
-                                <mj-text>
+                            <mj-column>
+                                <mj-text font-family=""Raleway, Ubuntu, Helvetica, Arial, sans-serif"">
                                     Hello World!
                                 </mj-text>
                             </mj-column>

@@ -73,6 +73,9 @@ namespace Mjml
 
                 case "mj-breakpoint":
                     return new MjmlBreakpointComponent(element);
+                
+                case "mj-font":
+                    return new MjmlFontComponent(element);
 
                 case "mj-body":
                     return new MjmlBodyComponent(element);

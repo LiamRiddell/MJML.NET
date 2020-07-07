@@ -158,7 +158,7 @@ namespace Mjml.Helpers
                     { BuildFontsTags(content, "") /* TODO: Inline Support */ }
                     { BuildMediaQueriesTags(forceOWADesktop) }
 
-                   <!-- 
+                   <!--
                     <style type=""text/css"">
                         TODO:{{reduce(
                           componentsHeadStyle,
@@ -201,6 +201,19 @@ namespace Mjml.Helpers
             }
 
             MediaQueries.Add(className, mediaQuery);
+        }
+
+        public static void AddFont(string name, string href)
+        {
+            if (Fonts.ContainsKey(name))
+            {
+                var hrefCurrent = MediaQueries[name];
+
+                if (hrefCurrent.Equals(href, StringComparison.InvariantCultureIgnoreCase))
+                    return;
+            }
+
+            Fonts.Add(name, href);
         }
     }
 }
