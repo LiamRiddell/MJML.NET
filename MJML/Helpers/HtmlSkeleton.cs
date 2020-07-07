@@ -25,7 +25,8 @@ namespace Mjml.Helpers
         };
 
         public static Dictionary<string, string> MediaQueries { get; set; } = new Dictionary<string, string>();
-        public static Dictionary<string, string> InlineStyle { get; set; } = new Dictionary<string, string>();
+        public static List<string> Styles { get; set; } = new List<string>();
+        public static List<string> InlineStyles { get; set; } = new List<string>();
 
         // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/fonts.js
         public static string BuildFontsTags(string content, string inlineStyle)
@@ -214,6 +215,17 @@ namespace Mjml.Helpers
             }
 
             Fonts.Add(name, href);
+        }
+
+        public static void AddStyle(string css, bool inline)
+        {
+            if (string.IsNullOrWhiteSpace(css))
+                return;
+
+            if (inline)
+                InlineStyles.Add(css);
+            else
+                Styles.Add(css);
         }
     }
 }

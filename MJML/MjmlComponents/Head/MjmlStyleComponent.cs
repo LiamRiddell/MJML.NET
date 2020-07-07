@@ -5,10 +5,10 @@ using System.Xml.Linq;
 
 namespace Mjml.MjmlComponents.Head
 {
-    // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-head-preview/src/index.js
-    public class MjmlPreviewComponent : HeadComponent
+    // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-head-style/src/index.js
+    public class MjmlStyleComponent : HeadComponent
     {
-        public MjmlPreviewComponent(XElement element) : base(element)
+        public MjmlStyleComponent(XElement element) : base(element)
         {
         }
 
@@ -16,15 +16,18 @@ namespace Mjml.MjmlComponents.Head
         {
             return new Dictionary<string, string>
             {
+                { "inline", null }
             };
         }
 
         public override void Handler()
         {
-            var content = GetContent();
+            string css = GetContent();
 
-            if (!string.IsNullOrWhiteSpace(content))
-                HtmlSkeleton.PreviewText = content;
+            if (string.IsNullOrWhiteSpace(css))
+                return;
+
+            HtmlSkeleton.AddStyle(css, HasAttribute("inline"));
         }
 
         // LR: Omit the child components

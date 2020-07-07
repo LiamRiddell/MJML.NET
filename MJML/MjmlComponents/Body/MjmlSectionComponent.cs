@@ -6,6 +6,7 @@ using System.Xml.Linq;
 
 namespace Mjml.MjmlComponents.Body
 {
+    // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-section/src/index.js
     public class MjmlSectionComponent : BodyComponent
     {
         public MjmlSectionComponent(XElement element) : base(element)

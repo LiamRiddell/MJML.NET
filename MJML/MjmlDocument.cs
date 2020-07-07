@@ -83,6 +83,9 @@ namespace Mjml
                 case "mj-font":
                     return new MjmlFontComponent(element);
 
+                case "mj-style":
+                    return new MjmlStyleComponent(element);
+
                 case "mj-body":
                     return new MjmlBodyComponent(element);
 

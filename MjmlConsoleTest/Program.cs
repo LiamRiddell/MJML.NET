@@ -15,6 +15,12 @@ namespace MjmlConsoleTest
                         <mj-preview>Liam Riddell</mj-preview>
                         <mj-breakpoint width=""480px"" />
                         <mj-font name=""Raleway"" href=""https://fonts.googleapis.com/css?family=Raleway"" />
+                        <mj-style>
+                            .example-class {
+                                text-align: center;
+                                color: red;
+                            }
+                        </mj-style>
                     </mj-head>
                     <mj-body background-color=""red"">
                         <mj-section>
