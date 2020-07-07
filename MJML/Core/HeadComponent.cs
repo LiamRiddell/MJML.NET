@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -11,12 +12,15 @@ namespace Mjml.Core
         {
         }
 
+        public virtual void Handler()
+        {
+            throw new Exception($"Inherited HeadComponent missing Handler()");
+        }
+
         public override string RenderMjml()
         {
-            return $@"
-            <MjmlHead type=""{Element.Name.LocalName}"">
-                {this.RenderChildren()}
-            </MjmlHead>";
+            this.Handler();
+            return this.RenderChildren();
         }
     }
 }

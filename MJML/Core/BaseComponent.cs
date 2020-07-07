@@ -65,10 +65,7 @@ namespace Mjml.Core
 
         public virtual string RenderMjml()
         {
-            return $@"
-            <MjmlComponent elementType=""{Element.Name.LocalName}"">
-                {this.RenderChildren()}
-            </MjmlComponent>";
+            return this.RenderChildren();
         }
 
         public void SetAttributes()

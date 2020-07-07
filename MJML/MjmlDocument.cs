@@ -68,6 +68,12 @@ namespace Mjml
                 case "mjml":
                     return new MjmlRootComponent(element);
 
+                case "mj-head":
+                    return new MjmlHeadComponent(element);
+
+                case "mj-breakpoint":
+                    return new MjmlBreakpointComponent(element);
+
                 case "mj-body":
                     return new MjmlBodyComponent(element);
 
