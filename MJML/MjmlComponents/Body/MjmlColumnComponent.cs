@@ -195,7 +195,8 @@ namespace Mjml.MjmlComponents.Body
                     { "border-left", GetAttribute("border-left") },
                     { "border-radius", GetAttribute("border-radius") },
                     { "border-right", GetAttribute("border-right") },
-                    { "border-top", GetAttribute("border-top") }
+                    { "border-top", GetAttribute("border-top") },
+                    { "vertical-align", GetAttribute("vertical-align") }
                 });
             }
             else

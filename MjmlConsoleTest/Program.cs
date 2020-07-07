@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using Mjml;
 
 namespace MjmlConsoleTest
@@ -14,7 +15,6 @@ namespace MjmlConsoleTest
                         <mj-title>Custom Title</mj-title>
                         <mj-preview>Liam Riddell</mj-preview>
                         <mj-breakpoint width=""480px"" />
-                        <mj-font name=""Raleway"" href=""https://fonts.googleapis.com/css?family=Raleway"" />
                         <mj-style>
                             .example-class {
                                 text-align: center;
@@ -24,13 +24,13 @@ namespace MjmlConsoleTest
                     </mj-head>
                     <mj-body background-color=""red"">
                         <mj-section>
-                            <mj-column padding-right=""100px"">
+                            <mj-column>
                                 <mj-text>
                                     Hello World!
                                 </mj-text>
                             </mj-column>
                             <mj-column>
-                                <mj-text font-family=""Raleway, Ubuntu, Helvetica, Arial, sans-serif"">
+                                <mj-text>
                                     Hello World!
                                 </mj-text>
                             </mj-column>
@@ -56,6 +56,7 @@ namespace MjmlConsoleTest
                 catch (Exception) { }
 
                 Console.WriteLine(html);
+                File.WriteAllText("./index.html", html);
             }
             sw.Stop();
 
