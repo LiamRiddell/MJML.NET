@@ -1,4 +1,5 @@
 ﻿using Mjml.Core.Component;
+using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -95,9 +96,13 @@ namespace Mjml.MjmlComponents.Body
                         {"border", "0" },
                         {"cellpadding", "0" },
                         {"cellspacing", "0" },
-                        {"class", "" }, // TODO: suffixCssClasses(this.getAttribute('css-class'), 'outlook'),
-                        {"style", "0" }, // TODO: { width: `${containerWidth}` },
-                        {"width", "100px" } // TODO: parseInt(containerWidth, 10),
+                        {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
+                        {"style", 
+                            InlineCss( new Dictionary<string, string> {
+                                { "width", HtmlSkeleton.ContainerWidth }
+                            }) 
+                        }, 
+                        {"width", CssUnitParser.Parse(HtmlSkeleton.ContainerWidth).Value.ToString() }
                     })}
                 >
                     <tr>
