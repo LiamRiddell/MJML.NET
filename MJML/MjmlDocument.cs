@@ -71,15 +71,18 @@ namespace Mjml
                 case "mj-head":
                     return new MjmlHeadComponent(element);
 
+                case "mj-title":
+                    return new MjmlTitleComponent(element);
+
+                case "mj-preview":
+                    return new MjmlPreviewComponent(element);
+
                 case "mj-breakpoint":
                     return new MjmlBreakpointComponent(element);
                 
                 case "mj-font":
                     return new MjmlFontComponent(element);
-
-                case "mj-preview":
-                    return new MjmlPreviewComponent(element);
-
+     
                 case "mj-body":
                     return new MjmlBodyComponent(element);
 
