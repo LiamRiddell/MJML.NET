@@ -11,7 +11,7 @@ namespace MjmlConsoleTest
             string mjmlString = @"
                 <mjml>
                     <mj-head>
-                        <mj-breakpoint width=""320px"" />
+                        <mj-breakpoint width=""480px"" />
                     </mj-head>
                     <mj-body background-color=""red"">
                         <mj-section>
