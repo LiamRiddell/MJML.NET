@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mjml.Core
+namespace Mjml.Core.Css
 {
     public class CssStyleLibraries
     {
