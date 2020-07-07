@@ -19,10 +19,7 @@ namespace Mjml.MjmlComponents
 
         public override string RenderMjml()
         {
-            return $@"
-            <MjmlRootComponent type=""{Element.Name.LocalName}"">
-                {this.RenderChildren()}
-            </MjmlRootComponent>";
+            return this.RenderChildren();
         }
     }
 }
