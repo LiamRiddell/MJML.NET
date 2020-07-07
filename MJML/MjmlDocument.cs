@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Mjml.MjmlComponents.Head;
+using Mjml.MjmlComponents.Body;
 
 namespace Mjml
 {
@@ -79,10 +81,10 @@ namespace Mjml
 
                 case "mj-breakpoint":
                     return new MjmlBreakpointComponent(element);
-                
+
                 case "mj-font":
                     return new MjmlFontComponent(element);
-     
+
                 case "mj-body":
                     return new MjmlBodyComponent(element);
 

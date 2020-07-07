@@ -7,7 +7,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents
+namespace Mjml.MjmlComponents.Body
 {
     public class MjmlColumnComponent : BodyComponent
     {

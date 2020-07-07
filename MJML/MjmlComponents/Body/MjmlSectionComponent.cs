@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents
+namespace Mjml.MjmlComponents.Body
 {
     public class MjmlSectionComponent : BodyComponent
     {

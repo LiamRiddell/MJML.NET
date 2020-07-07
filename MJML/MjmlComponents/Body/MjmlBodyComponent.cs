@@ -3,7 +3,7 @@ using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents
+namespace Mjml.MjmlComponents.Body
 {
     public class MjmlBodyComponent : BodyComponent
     {
