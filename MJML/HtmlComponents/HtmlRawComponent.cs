@@ -20,10 +20,24 @@ namespace Mjml.HtmlComponents
             };
         }
 
+        public override void SetAttributes()
+        {
+            var attributes = Element.Attributes();
+
+            foreach (var attribute in attributes)
+            {
+                string userAttributeName = attribute.Name.LocalName.ToLowerInvariant();
+                string userAttributeValue = attribute.Value;
+
+                // Passth all attributes to the element for output
+                Attributes.Add(userAttributeName, userAttributeValue);
+            }
+        }
+
         public override string RenderMjml()
         {
             return $@"
-            <{Element.Name.LocalName}>
+            <{Element.Name.LocalName} {HtmlAttributes(Attributes)}>
                 {this.RenderChildren()}
             </{Element.Name.LocalName}>";
         }

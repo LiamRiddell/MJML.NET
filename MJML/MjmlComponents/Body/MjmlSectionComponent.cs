@@ -155,33 +155,37 @@ namespace Mjml.MjmlComponents.Body
 
             foreach (var childComponent in Children)
             {
-                if (!(childComponent is MjmlColumnComponent))
-                    continue;
-
                 string childContent = childComponent.RenderMjml();
 
                 if (string.IsNullOrWhiteSpace(childContent))
                     continue;
 
-                sb.Append($@"
-                    <!--[if mso | IE]>
-                        <td {HtmlAttributes(new Dictionary<string, string>
-                            {
-                                {"align", GetAttribute("align") },
-                                {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
-                                {"style", (childComponent as MjmlColumnComponent).Styles("tdOutlook") }
-                            })}
-                        >
-                    <![endif]-->
-                ");
+                if (childComponent.IsRawElement())
+                {
+                    sb.Append(childContent);
+                }
+                else
+                {
+                    sb.Append($@"
+                        <!--[if mso | IE]>
+                            <td {HtmlAttributes(new Dictionary<string, string>
+                                {
+                                    {"align", GetAttribute("align") },
+                                    {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
+                                    {"style", (childComponent as MjmlColumnComponent).Styles("tdOutlook") }
+                                })}
+                            >
+                        <![endif]-->
+                    ");
 
-                sb.Append(childContent);
+                    sb.Append(childContent);
 
-                sb.Append($@"
-                    <!--[if mso | IE]>
-                        </td>
-                    <![endif]-->
-                ");
+                    sb.Append($@"
+                        <!--[if mso | IE]>
+                            </td>
+                        <![endif]-->
+                    ");
+                }
             }
 
             sb.Append($@"

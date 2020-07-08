@@ -68,7 +68,7 @@ namespace Mjml.Core.Component
             return this.RenderChildren();
         }
 
-        public void SetAttributes()
+        public virtual void SetAttributes()
         {
             var attributes = Element.Attributes();
 
