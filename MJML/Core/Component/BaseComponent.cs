@@ -20,7 +20,7 @@ namespace Mjml.Core.Component
             return Element.Name.LocalName.ToLower();
         }
 
-        public bool IsRawElement()
+        public virtual bool IsRawElement()
         {
             throw new NotImplementedException();
         }

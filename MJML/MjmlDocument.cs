@@ -7,6 +7,7 @@ using Mjml.MjmlComponents.Head;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -104,6 +105,9 @@ namespace Mjml
                 case "mj-raw":
                     return new MjmlRawComponent(element);
 
+                case "mj-wrapper":
+                    return new MjmlWrapperComponent(element);
+
                 case "html-text":
                     return new HtmlTextComponent(element);
 
@@ -152,6 +156,16 @@ namespace Mjml
                     parentComponent.Children.Add(childComponent);
                 }
             }
+        }
+
+        private string EscapeXmlContent(string xmlContent)
+        {
+            // LR: find all attributes
+
+            //XmlDocument doc = new XmlDocument();
+            //return doc.CreateTextNode(xmlContent).OuterXml;
+
+            return SecurityElement.Escape(xmlContent);
         }
 
         #endregion Private

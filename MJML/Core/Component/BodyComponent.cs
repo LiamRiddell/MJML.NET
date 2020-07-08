@@ -1,9 +1,12 @@
 ﻿using Mjml.Core.Css;
 using Mjml.Extensions;
 using Mjml.Helpers;
+using Mjml.HtmlComponents;
+using Mjml.MjmlComponents.Body;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Mjml.Core.Component
@@ -164,6 +167,28 @@ namespace Mjml.Core.Component
             return CssUnitParser.Parse(splittedCssValue[directions[direction]]).Value;
         }
 
+        public float GetShorthandBorderValue(string direction)
+        {
+            string mjAttributeDirection = GetAttribute($"border-{direction}");
+            string mjAttribute = GetAttribute("border");
+
+            if (!string.IsNullOrWhiteSpace(mjAttributeDirection))
+                return CssUnitParser.Parse(mjAttributeDirection).Value;
+
+            if (string.IsNullOrWhiteSpace(mjAttribute))
+                return 0;
+
+            // MERGED borderParser: https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/shorthandParser.js#L3
+            //return CssUnitParser.Parse(mjAttribute).Value;
+            Regex regex = new Regex("(?:(?:^| )([0-9]+))");
+            var match = regex.Match(mjAttribute);
+
+            if (!match.Success)
+                return 0;
+
+            return float.Parse(match.Value.Trim());
+        }
+
         // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/createComponent.js#L115
         public CssBoxModel GetBoxModel()
         {
@@ -174,8 +199,8 @@ namespace Mjml.Core.Component
                 GetShorthandAttributeValue("padding", "left");
 
             var borders =
-                GetShorthandAttributeValue("border", "right") +
-                GetShorthandAttributeValue("border", "left");
+                GetShorthandBorderValue("right") +
+                GetShorthandBorderValue("left");
 
             return new CssBoxModel(
                 containerWidth.Value,
@@ -192,6 +217,14 @@ namespace Mjml.Core.Component
         public virtual string ComponentsHeadStyle()
         {
             return string.Empty;
+        }
+
+        public override bool IsRawElement()
+        {
+            return
+                this is MjmlRawComponent ||
+                this is HtmlRawComponent ||
+                this is HtmlTextComponent;
         }
     }
 }
