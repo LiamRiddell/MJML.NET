@@ -33,5 +33,9 @@ namespace Mjml.Core.Interfaces
         string RenderMjml();
 
         void SetAttributes();
+
+        bool HasParentComponent();
+
+        BaseComponent GetParentComponent();
     }
 }

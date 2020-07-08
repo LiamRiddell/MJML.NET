@@ -93,6 +93,19 @@ namespace Mjml.Core.Component
             throw new NotImplementedException();
         }
 
+        public bool HasParentComponent()
+        {
+            return Parent != null;
+        }
+
+        public BaseComponent GetParentComponent()
+        {
+            if (!HasParentComponent())
+                throw new NullReferenceException();
+
+            return Parent;
+        }
+
         public BaseComponent(XElement element, BaseComponent parent)
         {
             Element = element;
