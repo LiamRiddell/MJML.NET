@@ -19,6 +19,22 @@ namespace Mjml.MjmlComponents.Body
         {
         }
 
+        public bool HasGutter()
+        {
+            return HasAttribute("padding") ||
+                   HasAttribute("padding-bottom") ||
+                   HasAttribute("padding-left") ||
+                   HasAttribute("padding-right") ||
+                   HasAttribute("padding-top");
+        }
+
+        public int GetSectionColumnCount()
+        {
+            return Element.Parent
+                .Elements()
+                .Count(n => n.NodeType.Equals(XmlNodeType.Element));
+        }
+
         public string GetContainerWidth()
         {
             if (!string.IsNullOrWhiteSpace(ContainerWidth))
@@ -60,22 +76,6 @@ namespace Mjml.MjmlComponents.Body
             }
 
             return ContainerWidth;
-        }
-
-        public int GetSectionColumnCount()
-        {
-            return Element.Parent
-                .Elements()
-                .Count(n => n.NodeType.Equals(XmlNodeType.Element));
-        }
-
-        public bool HasGutter()
-        {
-            return HasAttribute("padding") ||
-                   HasAttribute("padding-bottom") ||
-                   HasAttribute("padding-left") ||
-                   HasAttribute("padding-right") ||
-                   HasAttribute("padding-top");
         }
 
         public CssParsedUnit GetParsedWidth()
@@ -190,13 +190,12 @@ namespace Mjml.MjmlComponents.Body
             {
                 StyleLibraries.AddStyleLibrary("table", new Dictionary<string, string>() {
                     { "background-color", GetAttribute("inner-background-color") },
-                    { "border", GetAttribute("border") },
-                    { "border-bottom", GetAttribute("border-bottom") },
-                    { "border-left", GetAttribute("border-left") },
-                    { "border-radius", GetAttribute("border-radius") },
-                    { "border-right", GetAttribute("border-right") },
-                    { "border-top", GetAttribute("border-top") },
-                    { "vertical-align", GetAttribute("vertical-align") }
+                    { "border", GetAttribute("inner-border") },
+                    { "border-bottom", GetAttribute("inner-border-bottom") },
+                    { "border-left", GetAttribute("inner-border-left") },
+                    { "border-radius", GetAttribute("inner-border-radius") },
+                    { "border-right", GetAttribute("inner-border-right") },
+                    { "border-top", GetAttribute("inner-border-top") }
                 });
             }
             else
@@ -257,18 +256,18 @@ namespace Mjml.MjmlComponents.Body
                 sb.Append($@"
                     <tr>
                         <td {HtmlAttributes(new Dictionary<string, string>() {
-                                { "align", GetAttribute("align") },
-                                { "vertical-align", GetAttribute("vertical-align") },
+                                { "align", GetAttribute("align") },          
                                 { "class", GetAttribute("css-class") },
                                 { "style", InlineCss(new Dictionary<string, string> {
                                         { "background", GetAttribute("container-background-color") },
+                                        { "vertical-align", GetAttribute("vertical-align") },
                                         { "font-size", "0px" },
                                         { "padding", GetAttribute("padding") },
                                         { "padding-top", GetAttribute("padding-top") },
                                         { "padding-right", GetAttribute("padding-right") },
                                         { "padding-bottom", GetAttribute("padding-bottom") },
                                         { "padding-left", GetAttribute("padding-left") },
-                                        { "word-break", GetAttribute("break-word") }
+                                        { "word-break", "break-word" }
                                     })
                                 },
                             })}
@@ -294,6 +293,7 @@ namespace Mjml.MjmlComponents.Body
                            { "cellpadding", "0" },
                            { "cellspacing", "0" },
                            { "role", "presentation" },
+                           { "style", "table" },
                            { "width", "100%" },
                        })}
                 >
@@ -342,7 +342,7 @@ namespace Mjml.MjmlComponents.Body
                         { "style", "div" }
                      })}
                 >
-                {(bHasGutter ? this.RenderGutter() : this.RenderColumn())}
+                    {(bHasGutter ? this.RenderGutter() : this.RenderColumn())}
                 </div>
             ";
         }
