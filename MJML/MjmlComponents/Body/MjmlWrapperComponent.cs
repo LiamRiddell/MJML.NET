@@ -9,17 +9,10 @@ using System.Xml.Linq;
 namespace Mjml.MjmlComponents.Body
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-wrapper/src/index.js
-    public class MjmlWrapperComponent : BodyComponent
+    public class MjmlWrapperComponent : MjmlSectionComponent
     {
         public MjmlWrapperComponent(XElement element) : base(element)
         {
-        }
-
-        public override Dictionary<string, string> SetAllowedAttributes()
-        {
-            return new Dictionary<string, string>
-            {
-            };
         }
 
         public override string RenderChildren()
@@ -68,11 +61,6 @@ namespace Mjml.MjmlComponents.Body
             }
 
             return sb.ToString();
-        }
-
-        public override string RenderMjml()
-        {
-            return this.RenderChildren();
         }
     }
 }

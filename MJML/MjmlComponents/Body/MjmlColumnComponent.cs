@@ -253,15 +253,17 @@ namespace Mjml.MjmlComponents.Body
                 if (string.IsNullOrWhiteSpace(childContent))
                     continue;
 
-                if (childComponent is MjmlRawComponent)
+                if (childComponent.IsRawElement())
                 {
                     sb.Append(childContent);
                 }
                 else
                 {
+                    var component = childComponent as BodyComponent;
+
                     sb.Append($@"
                         <tr>
-                            <td {HtmlAttributes(new Dictionary<string, string>() {
+                            <td {component.HtmlAttributes(new Dictionary<string, string>() {
                                     { "align", GetAttribute("align") },
                                     { "class", GetAttribute("css-class") },
                                     { "style", InlineCss(new Dictionary<string, string> {
