@@ -16,7 +16,7 @@ namespace MjmlConsoleTest
                         <mj-preview>Liam Riddell</mj-preview>
                     </mj-head>
                     <mj-body>
-                        <mj-section border-left=""1px solid #aaaaaa"" border-right=""1px solid #aaaaaa"" padding=""20px"" border-bottom=""1px solid #aaaaaa"" background-url=""https://via.placeholder.com/600x167"" background-repeat=""no-repeat"" background-size=""contain"">
+                        <mj-section border-left=""1px solid #aaaaaa"" border-right=""1px solid #aaaaaa"" padding=""20px"" border-bottom=""1px solid #aaaaaa"" background-color=""red"" background-url=""https://via.placeholder.com/600x167"" background-repeat=""no-repeat"" background-size=""contain"">
                             <mj-column border=""1px solid #dddddd"">
                                 <mj-text padding=""20px""> First line of text </mj-text>
                                 <mj-divider border-width=""1px"" border-style=""dashed"" border-color=""lightgrey"" padding=""0 20px"" />
