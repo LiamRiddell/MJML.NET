@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Mjml.Core.Interfaces;
+using System;
 using System.Xml.Linq;
 
 namespace Mjml.Core.Component
 {
     public class HeadComponent : BaseComponent
     {
-        public HeadComponent(XElement element) : base(element)
+        public HeadComponent(XElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

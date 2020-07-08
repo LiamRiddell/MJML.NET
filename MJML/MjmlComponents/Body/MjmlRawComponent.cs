@@ -10,7 +10,7 @@ namespace Mjml.MjmlComponents.Body
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-raw/src/index.js
     public class MjmlRawComponent : BodyComponent
     {
-        public MjmlRawComponent(XElement element) : base(element)
+        public MjmlRawComponent(XElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

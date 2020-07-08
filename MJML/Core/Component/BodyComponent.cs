@@ -1,4 +1,5 @@
 ﻿using Mjml.Core.Css;
+using Mjml.Core.Interfaces;
 using Mjml.Extensions;
 using Mjml.Helpers;
 using Mjml.HtmlComponents;
@@ -16,7 +17,7 @@ namespace Mjml.Core.Component
         public CssBoxModel CssBoxModel { get; set; }
         public CssStyleLibraries StyleLibraries { get; set; } = new CssStyleLibraries();
 
-        public BodyComponent(XElement element) : base(element)
+        public BodyComponent(XElement element, BaseComponent parent) : base(element, parent)
         {
             string tagName = GetTagName();
 

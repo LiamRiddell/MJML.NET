@@ -9,7 +9,7 @@ namespace Mjml.HtmlComponents
     /// </summary>
     public class HtmlTextComponent : BodyComponent
     {
-        public HtmlTextComponent(XElement element) : base(element)
+        public HtmlTextComponent(XElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

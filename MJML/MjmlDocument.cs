@@ -1,4 +1,4 @@
-﻿using Mjml.Core.Interfaces;
+﻿using Mjml.Core.Component;
 using Mjml.Helpers;
 using Mjml.HtmlComponents;
 using Mjml.MjmlComponents;
@@ -60,59 +60,59 @@ namespace Mjml
 
         #region Private
 
-        private IComponent CreateMjmlComponent(XElement element)
+        private BaseComponent CreateMjmlComponent(XElement element, BaseComponent parent = null)
         {
             string elementTag = element.Name.LocalName.ToLowerInvariant();
 
             switch (elementTag)
             {
                 case "mjml":
-                    return new MjmlRootComponent(element);
+                    return new MjmlRootComponent(element, parent);
 
                 case "mj-head":
-                    return new MjmlHeadComponent(element);
+                    return new MjmlHeadComponent(element, parent);
 
                 case "mj-title":
-                    return new MjmlTitleComponent(element);
+                    return new MjmlTitleComponent(element, parent);
 
                 case "mj-preview":
-                    return new MjmlPreviewComponent(element);
+                    return new MjmlPreviewComponent(element, parent);
 
                 case "mj-breakpoint":
-                    return new MjmlBreakpointComponent(element);
+                    return new MjmlBreakpointComponent(element, parent);
 
                 case "mj-font":
-                    return new MjmlFontComponent(element);
+                    return new MjmlFontComponent(element, parent);
 
                 case "mj-style":
-                    return new MjmlStyleComponent(element);
+                    return new MjmlStyleComponent(element, parent);
 
                 case "mj-body":
-                    return new MjmlBodyComponent(element);
+                    return new MjmlBodyComponent(element, parent);
 
                 case "mj-section":
-                    return new MjmlSectionComponent(element);
+                    return new MjmlSectionComponent(element, parent);
 
                 case "mj-column":
-                    return new MjmlColumnComponent(element);
+                    return new MjmlColumnComponent(element, parent);
 
                 case "mj-text":
-                    return new MjmlTextComponent(element);
+                    return new MjmlTextComponent(element, parent);
 
                 case "mj-spacer":
-                    return new MjmlSpacerComponent(element);
+                    return new MjmlSpacerComponent(element, parent);
 
                 case "mj-raw":
-                    return new MjmlRawComponent(element);
+                    return new MjmlRawComponent(element, parent);
 
                 case "mj-wrapper":
-                    return new MjmlWrapperComponent(element);
+                    return new MjmlWrapperComponent(element, parent);
 
                 case "html-text":
-                    return new HtmlTextComponent(element);
+                    return new HtmlTextComponent(element, parent);
 
                 default:
-                    return new HtmlRawComponent(element);
+                    return new HtmlRawComponent(element, parent);
             }
         }
 
@@ -126,7 +126,7 @@ namespace Mjml
             TraverseElementTree(VirtualDocument.Element, VirtualDocument);
         }
 
-        private void TraverseElementTree(XElement element, IComponent parentComponent)
+        private void TraverseElementTree(XElement element, BaseComponent parentComponent)
         {
             if (element.IsEmpty)
                 return;
@@ -134,12 +134,17 @@ namespace Mjml
             // LR: Traverse the children
             foreach (var childElement in element.Nodes())
             {
-                IComponent childComponent;
+                BaseComponent childComponent;
 
                 if (childElement.NodeType == XmlNodeType.Element)
                 {
-                    childComponent = CreateMjmlComponent((XElement)childElement);
+                    // LR: Create MJML component
+                    childComponent = CreateMjmlComponent((XElement)childElement, parentComponent);
+
+                    // LR: Add child component to parent
                     parentComponent.Children.Add(childComponent);
+
+                    // LR: Traverse the child element and change the parent context
                     TraverseElementTree((XElement)childElement, childComponent);
                 }
                 else if (childElement.NodeType == XmlNodeType.Text)
@@ -152,7 +157,10 @@ namespace Mjml
                     var childXElement = new XElement("html-text", childElementText.Value);
                     childXElement.Name = XName.Get("html-text");
 
-                    childComponent = CreateMjmlComponent(childXElement);
+                    // LR: Create MJML component
+                    childComponent = CreateMjmlComponent(childXElement, parentComponent);
+
+                    // LR: Add child component to parent
                     parentComponent.Children.Add(childComponent);
                 }
             }

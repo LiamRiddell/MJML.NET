@@ -11,6 +11,8 @@ namespace Mjml.Core.Component
     {
         public XElement Element { get; set; }
 
+        public BaseComponent Parent { get; set; } = null;
+
         public List<IComponent> Children { get; set; } = new List<IComponent>();
 
         public Dictionary<string, string> Attributes { get; set; }
@@ -91,9 +93,10 @@ namespace Mjml.Core.Component
             throw new NotImplementedException();
         }
 
-        public BaseComponent(XElement element)
+        public BaseComponent(XElement element, BaseComponent parent)
         {
             Element = element;
+            Parent = parent;
 
             // LR: Sets the Allowed attributes along with the default values.
             Attributes = SetAllowedAttributes();

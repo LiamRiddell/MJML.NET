@@ -9,7 +9,7 @@ namespace Mjml.HtmlComponents
     /// </summary>
     public class HtmlRawComponent : BodyComponent
     {
-        public HtmlRawComponent(XElement element) : base(element)
+        public HtmlRawComponent(XElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

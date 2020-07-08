@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Mjml.Core.Component;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Mjml.Core.Interfaces
@@ -6,6 +7,9 @@ namespace Mjml.Core.Interfaces
     public interface IComponent
     {
         XElement Element { get; set; }
+
+        BaseComponent Parent { get; set; }
+
         List<IComponent> Children { get; set; }
 
         Dictionary<string, string> Attributes { get; set; }
