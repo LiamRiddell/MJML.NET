@@ -12,17 +12,10 @@ namespace MjmlConsoleTest
             string mjmlString = @"
                 <mjml>
                     <mj-head>
-                        <mj-title>Custom Title</mj-title>
+                        <mj-title>MJML.NET</mj-title>
                         <mj-preview>Liam Riddell</mj-preview>
-                        <mj-breakpoint width=""480px"" />
-                        <mj-style>
-                            .example-class {
-                                text-align: center;
-                                color: red;
-                            }
-                        </mj-style>
                     </mj-head>
-                    <mj-body background-color=""red"">
+                    <mj-body>
                         <mj-section>
                             <mj-column>
                                 <mj-text>
@@ -56,7 +49,7 @@ namespace MjmlConsoleTest
                 catch (Exception) { }
 
                 Console.WriteLine(html);
-                File.WriteAllText("./index.html", html);
+                File.WriteAllText("./index-fixed.html", html);
             }
             sw.Stop();
 

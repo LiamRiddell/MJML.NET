@@ -21,7 +21,7 @@ namespace Mjml.MjmlComponents.Body
                 { "font-size", "13px" },
                 { "font-style", string.Empty },
                 { "font-weight", string.Empty },
-                { "line-height", "1px" },
+                { "line-height", "1" },
                 { "letter-spacing", "none" },
                 { "height", string.Empty },
                 { "text-decoration", string.Empty },

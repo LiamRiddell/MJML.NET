@@ -1,5 +1,6 @@
 ﻿using Mjml.Core.Component;
 using Mjml.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +15,25 @@ namespace Mjml.MjmlComponents.Body
         {
         }
 
+        public bool HasBackground()
+        {
+            return HasAttribute("full-width");
+        }
+
+        public bool IsFullWidth()
+        {
+            return HasAttribute("full-width") ?
+                GetAttribute("full-width").Equals("full-width", StringComparison.InvariantCultureIgnoreCase) :
+                false;
+        }
+
         public override Dictionary<string, string> SetAllowedAttributes()
         {
             return new Dictionary<string, string> {
-                { "background-color", string.Empty },
-                { "background-position", "top center" },
-                { "background-position-x", "none" },
-                { "background-position-y", "none" },
+                { "background-color", null },
                 { "background-repeat", "repeat" },
                 { "background-size", "auto" },
-                { "background-url", string.Empty },
+                { "background-url", null },
                 { "border", string.Empty },
                 { "border-bottom", string.Empty },
                 { "border-left", string.Empty },
@@ -40,6 +50,10 @@ namespace Mjml.MjmlComponents.Body
                 { "padding-top", string.Empty },
                 { "text-align", "center" },
                 { "text-padding", "4px 4px 4px 0" },
+
+                { "background-position", "top center" },
+                { "background-position-x", "none" },
+                { "background-position-y", "none" },
             };
         }
 
@@ -77,7 +91,7 @@ namespace Mjml.MjmlComponents.Body
             StyleLibraries.AddStyleLibrary("div", new Dictionary<string, string>() {
                 { "margin", "0px auto" },
                 { "border-radius", GetAttribute("border-radius") },
-                { "max-width", "600px"},// TODO: IMPLEMENT
+                { "max-width", HtmlSkeleton.ContainerWidth},// TODO: IMPLEMENT
             });
 
             StyleLibraries.AddStyleLibrary("innerDiv", new Dictionary<string, string>() {
@@ -97,12 +111,12 @@ namespace Mjml.MjmlComponents.Body
                         {"cellpadding", "0" },
                         {"cellspacing", "0" },
                         {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
-                        {"style", 
+                        {"style",
                             InlineCss( new Dictionary<string, string> {
                                 { "width", HtmlSkeleton.ContainerWidth }
-                            }) 
-                        }, 
-                        {"width", CssUnitParser.Parse(HtmlSkeleton.ContainerWidth).Value.ToString() }
+                            })
+                        },
+                        {"width", CssUnitParser.Parse(HtmlSkeleton.ContainerWidth).Value.ToString() } // -> width="600"
                     })}
                 >
                     <tr>
@@ -141,6 +155,9 @@ namespace Mjml.MjmlComponents.Body
 
             foreach (var childComponent in Children)
             {
+                if (!(childComponent is MjmlColumnComponent))
+                    continue;
+
                 string childContent = childComponent.RenderMjml();
 
                 if (string.IsNullOrWhiteSpace(childContent))
@@ -151,8 +168,8 @@ namespace Mjml.MjmlComponents.Body
                         <td {HtmlAttributes(new Dictionary<string, string>
                             {
                                 {"align", GetAttribute("align") },
-                                {"class", GetAttribute("css-class") }, // TODO: suffixCssClasses(component.getAttribute('css-class'),'outlook'),
-                                {"style", "tdOutlook" }
+                                {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
+                                {"style", (childComponent as MjmlColumnComponent).Styles("tdOutlook") }
                             })}
                         >
                     <![endif]-->
@@ -178,22 +195,23 @@ namespace Mjml.MjmlComponents.Body
 
         public string RenderSection()
         {
-            bool bHasBackground = false; // TODO: this.hasBackground()
+            bool bHasBackground = HasBackground();
+            bool bIsFullWidth = IsFullWidth();
 
             return $@"
                 <div {HtmlAttributes(new Dictionary<string, string> {
-                        { "class", GetAttribute("css-class") }, // this.isFullWidth() ? null : this.getAttribute('css-class'),
+                        { "class", bIsFullWidth ? null : GetAttribute("css-class") },
                         { "style", "div" }
                      })}>
 
                     {(bHasBackground ?
                         $@"<div {HtmlAttributes(new Dictionary<string, string> {
                             { "style", "innerDiv" }
-                        })}" : "")}
+                        })}" : null)}
 
                     <table {HtmlAttributes(new Dictionary<string, string> {
                             { "align", "center"},
-                            { "background", string.Empty}, // TODO: background: this.isFullWidth() ? null : this.getAttribute('background-url'),
+                            { "background", bIsFullWidth ? null : GetAttribute("background-url")},
                             { "border", "0"},
                             { "cellpadding", "0"},
                             { "cellspacing", "0"},
@@ -218,14 +236,14 @@ namespace Mjml.MjmlComponents.Body
                             </tr>
                         </tbody>
                     </table>
-                    {(bHasBackground ? "</div>" : string.Empty)}
+                    {(bHasBackground ? "</div>" : null)}
                 </div>
             ";
         }
 
         public string RenderFullWidth()
         {
-            bool bHasBackground = false; // TODO: this.hasBackground()
+            bool bHasBackground = HasBackground();
 
             string content = bHasBackground ?
                 $@"" : // TODO: https://github.com/mjmlio/mjml/blob/master/packages/mjml-section/src/index.js#L452
@@ -260,7 +278,8 @@ namespace Mjml.MjmlComponents.Body
 
         public string RenderSimple()
         {
-            bool bHasBackground = false; // TODO: this.hasBackground()
+            bool bHasBackground = HasBackground();
+
             string section = this.RenderSection();
 
             return $@"
@@ -272,9 +291,7 @@ namespace Mjml.MjmlComponents.Body
 
         public override string RenderMjml()
         {
-            bool bIsFullwidth = false; // TODO: this.isFullWidth();
-
-            return bIsFullwidth ? this.RenderFullWidth() : this.RenderSimple();
+            return IsFullWidth() ? this.RenderFullWidth() : this.RenderSimple();
         }
     }
 }
