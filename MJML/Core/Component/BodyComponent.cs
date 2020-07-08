@@ -1,4 +1,5 @@
 ﻿using Mjml.Core.Css;
+using Mjml.Extensions;
 using Mjml.Helpers;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Mjml.Core.Component
         {
         }
 
-        public string HtmlAttributes(Dictionary<string, string> htmlAttributes)
+        public string HtmlAttributes(Dictionary<string, string> htmlAttributes, bool mergeDefaultCSSProperties = false)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -46,7 +47,7 @@ namespace Mjml.Core.Component
                     if (!value.Contains(":") && !value.Contains(";"))
                     {
                         // LR: Get the styles from the style library
-                        value = Styles(htmlAttributePair.Value);
+                        value = Styles(htmlAttributePair.Value, mergeDefaultCSSProperties);
                     }
                 }
 
@@ -78,10 +79,34 @@ namespace Mjml.Core.Component
             return sb.ToString().Trim();
         }
 
-        public string Styles(string styleLibraryName)
+        public string Styles(string styleLibraryName, bool outputDefaults = false)
         {
+            // LR: Load the style library
             Dictionary<string, string> styleLibrary = this.StyleLibraries.GetStyleLibrary(styleLibraryName);
-            return InlineCss(styleLibrary);
+
+            if (!outputDefaults)
+                return InlineCss(styleLibrary);
+
+            // LR: Default CSS Component Properties
+            Dictionary<string, string> defaultStyles = new Dictionary<string, string>();
+
+            foreach (KeyValuePair<string, string> attribute in Attributes)
+            {
+                if (string.IsNullOrWhiteSpace(attribute.Value))
+                    continue;
+
+                if (!CssHelper.IsCssProperty(attribute.Key))
+                {
+                    Console.WriteLine($"[IsCssProperty] => Omitted {attribute.Key} as it's not a CssProperty");
+                    continue;
+                }
+
+                defaultStyles.Add(attribute.Key, attribute.Value);
+            }
+
+            // LR: Merge style library into default styles.
+            // CAUTION: This will include unessary properties to be outputted to CSS.
+            return InlineCss(defaultStyles.MergeLeft(styleLibrary));
         }
 
         public float GetShorthandAttributeValue(string attribute, string direction)

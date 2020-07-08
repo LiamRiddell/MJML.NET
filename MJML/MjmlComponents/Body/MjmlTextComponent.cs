@@ -60,7 +60,7 @@ namespace Mjml.MjmlComponents.Body
             return $@"
             <div {HtmlAttributes(new Dictionary<string, string> {
                 { "style", "text" }
-            })}>
+            }, true)}>
                 { RenderChildren() }
             </div>
             ";
@@ -76,9 +76,19 @@ namespace Mjml.MjmlComponents.Body
             }
 
             return $@"
-                {TagHelpers.ConditionalTag($@"<table role=""presentation"" border=""0"" cellpadding=""0"" cellspacing=""0""><tr><td height=""{height}"" style=""vertical-align:top;height:{height};"">")}
-                    {this.RenderContent()}
-                {TagHelpers.ConditionalTag("</td></tr></table>")}
+                {TagHelpers.ConditionalTag($@"
+                    <table role=""presentation"" border=""0"" cellpadding=""0"" cellspacing=""0"">
+                        <tr>
+                            <td height=""{height}"" style=""vertical-align:top;height:{height};"">
+                ")}
+
+                {this.RenderContent()}
+
+                {TagHelpers.ConditionalTag($@"
+                            </td>
+                        </tr>
+                    </table>
+                ")}
             ";
         }
     }

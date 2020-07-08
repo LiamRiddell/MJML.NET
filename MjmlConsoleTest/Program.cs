@@ -17,7 +17,7 @@ namespace MjmlConsoleTest
                     </mj-head>
                     <mj-body>
                         <mj-section>
-                            <mj-column>
+                            <mj-column inner-border=""10px"">
                                 <mj-text>
                                     Hello World!
                                 </mj-text>
@@ -49,7 +49,7 @@ namespace MjmlConsoleTest
                 catch (Exception) { }
 
                 Console.WriteLine(html);
-                File.WriteAllText("./index-fixed.html", html);
+                File.WriteAllText("./index.html", html);
             }
             sw.Stop();
 
