@@ -19,12 +19,16 @@ namespace MjmlConsoleTest
                         <mj-section>
                             <mj-column inner-border=""10px"">
                                 <mj-text>
-                                    Hello World!
+                                    Column 1
+                                </mj-text>
+                                <mj-spacer height=""50px"" />
+                                <mj-text>
+                                    Affected by 50px spacer
                                 </mj-text>
                             </mj-column>
                             <mj-column>
                                 <mj-text>
-                                    Hello World!
+                                    Column 2
                                 </mj-text>
                             </mj-column>
                         </mj-section>

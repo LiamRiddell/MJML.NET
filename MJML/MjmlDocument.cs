@@ -98,6 +98,9 @@ namespace Mjml
                 case "mj-text":
                     return new MjmlTextComponent(element);
 
+                case "mj-spacer":
+                    return new MjmlSpacerComponent(element);
+
                 case "html-text":
                     return new HtmlTextComponent(element);
 
