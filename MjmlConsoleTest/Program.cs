@@ -11,19 +11,26 @@ namespace MjmlConsoleTest
         {
             string mjmlString = @"
                 <mjml>
-                    <mj-head>
-                        <mj-title>MJML.NET</mj-title>
-                        <mj-preview>Liam Riddell</mj-preview>
-                    </mj-head>
-                    <mj-body>
-                        <mj-section border-left=""1px solid #aaaaaa"" border-right=""1px solid #aaaaaa"" padding=""20px"" border-bottom=""1px solid #aaaaaa"" background-color=""red"" background-url=""https://via.placeholder.com/600x167"" background-repeat=""no-repeat"" background-size=""contain"">
+                  <mj-body>
+                    <mj-wrapper border=""1px solid #000000"" padding=""20px"">
+                        <mj-section padding=""20px"" background-url=""https://via.placeholder.com/600x167"" background-repeat=""no-repeat"">
                             <mj-column border=""1px solid #dddddd"">
-                                <mj-text padding=""20px""> First line of text </mj-text>
-                                <mj-divider border-width=""1px"" border-style=""dashed"" border-color=""lightgrey"" padding=""0 20px"" />
-                                <mj-text padding=""20px""> Second line of text </mj-text>
+                                <mj-text padding=""20px"">First line of text</mj-text>
+                            </mj-column>
+                            <mj-column border=""1px solid #dddddd"">
+                                <mj-text padding=""20px"">First line of text</mj-text>
                             </mj-column>
                         </mj-section>
-                    </mj-body>
+                        <mj-section background-color=""#ffffff"" padding-left=""15px"" padding-right=""15px"" padding-top=""0"">
+                            <mj-column width=""50%"">
+                                <mj-image align=""center"" src=""https://res.cloudinary.com/dheck1ubc/image/upload/v1544153577/Email/Images/AnnouncementOffset/Image_1.png"" alt="""" />
+                            </mj-column>
+                            <mj-column width=""50%"">
+                                <mj-image align=""center"" src=""https://res.cloudinary.com/dheck1ubc/image/upload/v1544153578/Email/Images/AnnouncementOffset/Image_2.png"" alt="""" />
+                            </mj-column>
+                        </mj-section>
+                    </mj-wrapper>
+                  </mj-body>
                 </mjml>
             ";
 

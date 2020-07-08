@@ -43,7 +43,7 @@ namespace Mjml.MjmlComponents.Body
                                 <td {component.HtmlAttributes(new Dictionary<string, string>() {
                                         { "align", component.GetAttribute("align") },
                                         { "class", CssHelper.SuffixCssClasses(component.GetAttribute("css-class"), "outlook") },
-                                        { "width", CssUnitParser.Parse(HtmlSkeleton.ContainerWidth).Value.ToString() },
+                                        { "width", GetContainerWidth().ToString() },
                                     })}
                                 >
                         <![endif]-->

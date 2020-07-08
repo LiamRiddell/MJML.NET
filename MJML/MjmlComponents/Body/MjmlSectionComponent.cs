@@ -138,13 +138,13 @@ namespace Mjml.MjmlComponents.Body
                     new Dictionary<string, string> {
                         { "margin", "0px auto" },
                         { "border-radius", GetAttribute("border-radius") },
-                        { "max-width", HtmlSkeleton.ContainerWidth},
+                        { "max-width", $"{GetContainerWidth()}px" },
                     }) :
                     new Dictionary<string, string>
                     {
                         { "margin", "0px auto" },
                         { "border-radius", GetAttribute("border-radius") },
-                        { "max-width", HtmlSkeleton.ContainerWidth},
+                        { "max-width", $"{GetContainerWidth()}px"},
                     });
 
             StyleLibraries.AddStyleLibrary("innerDiv", new Dictionary<string, string>() {
@@ -258,10 +258,10 @@ namespace Mjml.MjmlComponents.Body
                         {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
                         {"style",
                             InlineCss( new Dictionary<string, string> {
-                                { "width", HtmlSkeleton.ContainerWidth }
+                                { "width", $"{GetContainerWidth()}px" }
                             })
                         },
-                        {"width", CssUnitParser.Parse(HtmlSkeleton.ContainerWidth).Value.ToString() } // -> width="600"
+                        {"width", GetContainerWidth().ToString() }
                     })}
                 >
                     <tr>
@@ -392,7 +392,7 @@ namespace Mjml.MjmlComponents.Body
 
         public string RenderWithBackground(string content)
         {
-            CssParsedUnit containerWidth = CssUnitParser.Parse(HtmlSkeleton.ContainerWidth);
+            CssParsedUnit containerWidth = CssUnitParser.Parse($"{GetContainerWidth()}");
 
             bool isFullWidth = IsFullWidth();
             bool isPercentage = containerWidth.Unit.Equals("%", StringComparison.InvariantCultureIgnoreCase);
@@ -502,7 +502,7 @@ namespace Mjml.MjmlComponents.Body
                     { "style",
                         isFullWidth ?
                         InlineCss(new Dictionary<string, string>{ { "mso-width-percent", "1000"} }) :
-                        InlineCss(new Dictionary<string, string>{ { "width", HtmlSkeleton.ContainerWidth} })
+                        InlineCss(new Dictionary<string, string>{ { "width", GetContainerWidth().ToString() } })
                     },
                     { "xmlns:v", "urn:schemas-microsoft-com:vml"},
                     { "fill", "true"},

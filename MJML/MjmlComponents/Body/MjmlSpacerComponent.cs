@@ -55,10 +55,9 @@ namespace Mjml.MjmlComponents.Body
                             <td height=""{CssUnitParser.Parse(height).Value}"" style=""vertical-align:top;height:{height};"">
                 ")}
 
-                <div {HtmlAttributes(new Dictionary<string, string>
-                        {
+                <div {HtmlAttributes(new Dictionary<string, string> {
                         { "style", "div"}
-                        })}
+                     })}
                 >
                     &nbsp;
                 </div>

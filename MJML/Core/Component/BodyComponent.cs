@@ -193,6 +193,7 @@ namespace Mjml.Core.Component
         // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/createComponent.js#L115
         public CssBoxModel GetBoxModel()
         {
+            // LR: Default to the outmost container
             CssParsedUnit containerWidth = CssUnitParser.Parse(HtmlSkeleton.ContainerWidth);
 
             var paddings =
@@ -203,11 +204,27 @@ namespace Mjml.Core.Component
                 GetShorthandBorderValue("right") +
                 GetShorthandBorderValue("left");
 
+            // LR: Try and get the parents calculated Box Model size.
+            if (HasParentComponent())
+            {
+                var parent = (GetParentComponent() as BodyComponent);
+
+                // LR: Calculate based of the parents width
+                containerWidth.Value = parent.CssBoxModel.BoxWidth - parent.CssBoxModel.PaddingWidth - parent.CssBoxModel.BorderWidth;
+
+                return new CssBoxModel(
+                    parent.CssBoxModel.BoxWidth,
+                    borders,
+                    paddings,
+                    containerWidth.Value
+                );
+            }
+
             return new CssBoxModel(
                 containerWidth.Value,
                 borders,
                 paddings,
-                containerWidth.Value - paddings - borders);
+                containerWidth.Value);
         }
 
         public virtual string HeadStyle()
@@ -226,6 +243,11 @@ namespace Mjml.Core.Component
                 this is MjmlRawComponent ||
                 this is HtmlRawComponent ||
                 this is HtmlTextComponent;
+        }
+
+        public float GetContainerWidth()
+        {
+            return CssBoxModel.BoxWidth;
         }
     }
 }
