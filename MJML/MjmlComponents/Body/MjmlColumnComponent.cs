@@ -253,33 +253,40 @@ namespace Mjml.MjmlComponents.Body
                 if (string.IsNullOrWhiteSpace(childContent))
                     continue;
 
-                sb.Append($@"
-                    <tr>
-                        <td {HtmlAttributes(new Dictionary<string, string>() {
-                                { "align", GetAttribute("align") },          
-                                { "class", GetAttribute("css-class") },
-                                { "style", InlineCss(new Dictionary<string, string> {
-                                        { "background", GetAttribute("container-background-color") },
-                                        { "vertical-align", GetAttribute("vertical-align") },
-                                        { "font-size", "0px" },
-                                        { "padding", GetAttribute("padding") },
-                                        { "padding-top", GetAttribute("padding-top") },
-                                        { "padding-right", GetAttribute("padding-right") },
-                                        { "padding-bottom", GetAttribute("padding-bottom") },
-                                        { "padding-left", GetAttribute("padding-left") },
-                                        { "word-break", "break-word" }
-                                    })
-                                },
-                            })}
-                        >
-                ");
+                if (childComponent is MjmlRawComponent)
+                {
+                    sb.Append(childContent);
+                }
+                else
+                {
+                    sb.Append($@"
+                        <tr>
+                            <td {HtmlAttributes(new Dictionary<string, string>() {
+                                    { "align", GetAttribute("align") },
+                                    { "class", GetAttribute("css-class") },
+                                    { "style", InlineCss(new Dictionary<string, string> {
+                                            { "background", GetAttribute("container-background-color") },
+                                            { "vertical-align", GetAttribute("vertical-align") },
+                                            { "font-size", "0px" },
+                                            { "padding", GetAttribute("padding") },
+                                            { "padding-top", GetAttribute("padding-top") },
+                                            { "padding-right", GetAttribute("padding-right") },
+                                            { "padding-bottom", GetAttribute("padding-bottom") },
+                                            { "padding-left", GetAttribute("padding-left") },
+                                            { "word-break", "break-word" }
+                                        })
+                                    },
+                                })}
+                            >
+                    ");
 
-                sb.Append(childContent);
+                    sb.Append(childContent);
 
-                sb.Append($@"
-                        </td>
-                    </tr>
-                ");
+                    sb.Append($@"
+                            </td>
+                        </tr>
+                    ");
+                }
             }
 
             return sb.ToString();

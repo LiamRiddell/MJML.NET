@@ -30,6 +30,19 @@ namespace MjmlConsoleTest
                                 <mj-text>
                                     Column 2
                                 </mj-text>
+
+                                <mj-raw>
+                                    {{ if counter % 5 }}
+                                </mj-raw>
+
+                                <mj-raw>
+                                    <h1>Test <span>Test</span></h1>
+                                    <mj-text>Ignored</mj-text>
+                                </mj-raw>
+
+                                <mj-raw>
+                                    {{ end if}}
+                                </mj-raw>
                             </mj-column>
                         </mj-section>
                     </mj-body>

@@ -1,5 +1,8 @@
 ﻿using Mjml.Core.Component;
+using Mjml.HtmlComponents;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace Mjml.MjmlComponents.Body
@@ -18,12 +21,25 @@ namespace Mjml.MjmlComponents.Body
             };
         }
 
+        public override string RenderChildren()
+        {
+            if (!this.Children.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            using (var reader = Element.CreateReader())
+            {
+                reader.MoveToContent();
+                sb.Append(reader.ReadInnerXml());
+            }
+
+            return sb.ToString();
+        }
+
         public override string RenderMjml()
         {
-            return $@"
-            <{Element.Name.LocalName}>
-                {this.RenderChildren()}
-            </{Element.Name.LocalName}>";
+            return this.RenderChildren();
         }
     }
 }
