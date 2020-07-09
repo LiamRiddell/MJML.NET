@@ -18,7 +18,7 @@ namespace Mjml.Core.Component
         public CssBoxModel CssBoxModel { get; set; }
         public CssStyleLibraries StyleLibraries { get; set; } = new CssStyleLibraries();
 
-        public BodyComponent(Element element, BaseComponent parent) : base(element, parent)
+        public BodyComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
             string tagName = GetTagName();
 

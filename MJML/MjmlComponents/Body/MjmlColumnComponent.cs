@@ -17,7 +17,7 @@ namespace Mjml.MjmlComponents.Body
         public string ContainerWidth { get; set; } = null;
         public int ParentSectionColumnCount { get; set; }
 
-        public MjmlColumnComponent(Element element, BaseComponent parent) : base(element, parent)
+        public MjmlColumnComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

@@ -1,5 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Html.Parser;
 using Mjml.Core.Component;
 using Mjml.Helpers;
 using Mjml.HtmlComponents;
@@ -9,6 +10,7 @@ using Mjml.MjmlComponents.Head;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Security;
 using System.Threading.Tasks;
 using System.Xml;
@@ -19,9 +21,11 @@ namespace Mjml
     public class MjmlDocument
     {
         /// <summary>
-        /// XDocument used for traversing the mjml template
+        /// AngleSharp document used for traversing the mjml template
         /// </summary>
         private IDocument _document { get; set; }
+
+        private IHtmlParser _htmlParser { get; set; }
 
         /// <summary>
         /// Root element containg all child components
@@ -34,10 +38,15 @@ namespace Mjml
         /// <param name="content"></param>
         public MjmlDocument(string content)
         {
-            var context = BrowsingContext.New(Configuration.Default);
-
+            // var context = BrowsingContext.New(Configuration.Default);
             // Create a document from a virtual request / response pattern
-            _document = context.OpenAsync(req => req.Content(content)).GetAwaiter().GetResult();
+            // _document = context.OpenAsync(req => req.Content(content)).GetAwaiter().GetResult();
+
+            // LR: AngleSharp HtmlParser
+            _htmlParser = new HtmlParser();
+
+            // LR: Parse mjml document
+            _document = _htmlParser.ParseDocument(content);
         }
 
         #region Public
@@ -53,84 +62,90 @@ namespace Mjml
             return true;
         }
 
-        public string Render()
+        public string Render(bool prettify = false)
         {
-            return HtmlSkeleton.Build(VirtualDocument.RenderMjml());
+            string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
+
+            return prettify ? PrettifyHtml(html) : html;
         }
 
         #endregion Public
 
         #region Private
 
-        private BaseComponent CreateMjmlComponent(Element element, BaseComponent parent = null)
+        private BaseComponent CreateMjmlComponent(IElement element, BaseComponent parent = null)
         {
             string elementTag = element.NodeName.ToLowerInvariant();
-            Console.Write($"Element Found {elementTag}");
 
-            return new HtmlRawComponent(element, parent);
+            switch (elementTag)
+            {
+                case "mjml":
+                    return new MjmlRootComponent(element, parent);
 
-            //switch (elementTag)
-            //{
-            //    case "mjml":
-            //        return new MjmlRootComponent(element, parent);
+                case "mj-head":
+                    return new MjmlHeadComponent(element, parent);
 
-            //    case "mj-head":
-            //        return new MjmlHeadComponent(element, parent);
+                case "mj-title":
+                    return new MjmlTitleComponent(element, parent);
 
-            //    case "mj-title":
-            //        return new MjmlTitleComponent(element, parent);
+                case "mj-preview":
+                    return new MjmlPreviewComponent(element, parent);
 
-            //    case "mj-preview":
-            //        return new MjmlPreviewComponent(element, parent);
+                case "mj-breakpoint":
+                    return new MjmlBreakpointComponent(element, parent);
 
-            //    case "mj-breakpoint":
-            //        return new MjmlBreakpointComponent(element, parent);
+                case "mj-font":
+                    return new MjmlFontComponent(element, parent);
 
-            //    case "mj-font":
-            //        return new MjmlFontComponent(element, parent);
+                case "mj-style":
+                    return new MjmlStyleComponent(element, parent);
 
-            //    case "mj-style":
-            //        return new MjmlStyleComponent(element, parent);
+                case "mj-body":
+                    return new MjmlBodyComponent(element, parent);
 
-            //    case "mj-body":
-            //        return new MjmlBodyComponent(element, parent);
+                case "mj-wrapper":
+                    return new MjmlWrapperComponent(element, parent);
 
-            //    case "mj-wrapper":
-            //        return new MjmlWrapperComponent(element, parent);
+                case "mj-section":
+                    return new MjmlSectionComponent(element, parent);
 
-            //    case "mj-section":
-            //        return new MjmlSectionComponent(element, parent);
+                case "mj-column":
+                    return new MjmlColumnComponent(element, parent);
 
-            //    case "mj-column":
-            //        return new MjmlColumnComponent(element, parent);
+                case "mj-text":
+                    return new MjmlTextComponent(element, parent);
 
-            //    case "mj-text":
-            //        return new MjmlTextComponent(element, parent);
+                case "mj-spacer":
+                    return new MjmlSpacerComponent(element, parent);
 
-            //    case "mj-spacer":
-            //        return new MjmlSpacerComponent(element, parent);
+                case "mj-raw":
+                    return new MjmlRawComponent(element, parent);
 
-            //    case "mj-raw":
-            //        return new MjmlRawComponent(element, parent);
+                case "mj-image":
+                    return new MjmlImageComponent(element, parent);
 
-            //    case "mj-image":
-            //        return new MjmlImageComponent(element, parent);
+                case "mj-button":
+                    return new MjmlButtonComponent(element, parent);
 
-            //    case "mj-button":
-            //        return new MjmlButtonComponent(element, parent);
+                case "html-text":
+                    return new HtmlTextComponent(element, parent);
 
-            //    case "html-text":
-            //        return new HtmlTextComponent(element, parent);
-
-            //    default:
-            //        return new HtmlRawComponent(element, parent);
+                default:
+                    return new HtmlRawComponent(element, parent);
+            }
         }
 
         private void GenerateVirtualDocument()
         {
-            VirtualDocument = CreateMjmlComponent(_document.GetRoot() as Element) as MjmlRootComponent;
+            var mjmlRoot = _document.QuerySelector<IElement>("mjml");
 
-            if (!VirtualDocument.Element.HasChildNodes)
+            if (mjmlRoot == null)
+                throw new NullReferenceException();
+
+            // LR: Create the root element for the virtual DOM
+            VirtualDocument = CreateMjmlComponent(mjmlRoot) as MjmlRootComponent;
+
+            if (!VirtualDocument.Element.Descendents<IElement>().Any())
                 return;
 
             TraverseElementTree(VirtualDocument.Element, VirtualDocument);
@@ -138,92 +153,67 @@ namespace Mjml
 
         private void TraverseElementTree(INode element, BaseComponent parentComponent)
         {
-            if (!element.HasChildNodes)
-                return;
+            Console.WriteLine($"Traversing <{element.NodeName.ToLowerInvariant()}>");
 
             // LR: Traverse the children
             foreach (var childElement in element.ChildNodes)
             {
                 BaseComponent childComponent;
 
-                string elementTag = element.NodeName.ToLowerInvariant();
-                Console.Write($"Element Found {elementTag}");
+                if (childElement.NodeType == NodeType.Element)
+                {
+                    // LR: Create MJML component
+                    childComponent = CreateMjmlComponent(childElement as Element, parentComponent);
 
-                //if (childElement.NodeType == XmlNodeType.Element)
-                //{
-                //    // LR: Create MJML component
-                //    childComponent = CreateMjmlComponent((XElement)childElement, parentComponent);
+                    // LR: Add child component to parent
+                    parentComponent.Children.Add(childComponent);
 
-                //    // LR: Add child component to parent
-                //    parentComponent.Children.Add(childComponent);
+                    // LR: Traverse the child element and change the parent context
+                    TraverseElementTree(childElement, childComponent);
+                }
+                else if (childElement.NodeType == NodeType.Text)
+                {
+                    var childElementText = childElement as IText;
 
-                //    // LR: Traverse the child element and change the parent context
-                //    TraverseElementTree((XElement)childElement, childComponent);
-                //}
-                //else if (childElement.NodeType == XmlNodeType.Text)
-                //{
-                //    var childElementText = childElement as XText;
+                    if (string.IsNullOrWhiteSpace(childElementText.NodeValue))
+                        continue;
 
-                //    if (string.IsNullOrEmpty(childElementText.Value) || string.IsNullOrWhiteSpace(childElementText.Value))
-                //        continue;
+                    // HACK: Convert raw-text to element - this prevents text with no parent tag being lost
+                    var textElement = _document.CreateElement("html-text");
+                    textElement.NodeValue = childElement.TextContent;
+                    textElement.TextContent = childElement.TextContent;
 
-                //    var childXElement = new XElement("html-text", childElementText.Value);
-                //    childXElement.Name = XName.Get("html-text");
+                    // LR: Create MJML component
+                    childComponent = CreateMjmlComponent(textElement, parentComponent);
 
-                //    // LR: Create MJML component
-                //    childComponent = CreateMjmlComponent(childXElement, parentComponent);
-
-                //    // LR: Add child component to parent
-                //    parentComponent.Children.Add(childComponent);
-                //}
+                    // LR: Add child component to parent
+                    parentComponent.Children.Add(childComponent);
+                }
             }
+        }
+
+        private string PrettifyHtml(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return string.Empty;
+
+            // LR: Parse the document using AngleSharp
+            var document = _htmlParser.ParseDocument(content);
+
+            return document.Prettify();
+        }
+
+        private string MinifyHtml(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return string.Empty;
+
+            // LR: Parse the document using AngleSharp
+            var document = _htmlParser.ParseDocument(content);
+
+            return document.Minify();
         }
 
         #endregion Private
-
-        private void PrintElementType(XElement element)
-        {
-            switch (element.NodeType)
-            {
-                case XmlNodeType.Element:
-                    Console.WriteLine("<{0}> : Attributes {1} : Children {2}", element.Name, element.Attributes().Count(), element.Descendants().Count());
-                    break;
-
-                case XmlNodeType.Text:
-                    Console.WriteLine(element.Value);
-                    break;
-
-                case XmlNodeType.CDATA:
-                    Console.WriteLine("<![CDATA[{0}]]>", element.Value);
-                    break;
-
-                case XmlNodeType.ProcessingInstruction:
-                    Console.WriteLine("<?{0} {1}?>", element.Name, element.Value);
-                    break;
-
-                case XmlNodeType.Comment:
-                    Console.WriteLine("<!--{0}-->", element.Value);
-                    break;
-
-                case XmlNodeType.XmlDeclaration:
-                    Console.WriteLine("<?xml version='1.0'?>");
-                    break;
-
-                case XmlNodeType.Document:
-                    break;
-
-                case XmlNodeType.DocumentType:
-                    Console.WriteLine("<!DOCTYPE {0} [{1}]", element.Name, element.Value);
-                    break;
-
-                case XmlNodeType.EntityReference:
-                    Console.WriteLine(element.Name);
-                    break;
-
-                case XmlNodeType.EndElement:
-                    Console.WriteLine("</{0}>", element.Name);
-                    break;
-            }
-        }
     }
 }

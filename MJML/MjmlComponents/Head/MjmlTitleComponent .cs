@@ -9,7 +9,7 @@ namespace Mjml.MjmlComponents.Head
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-head-title/src/index.js
     public class MjmlTitleComponent : HeadComponent
     {
-        public MjmlTitleComponent(Element element, BaseComponent parent) : base(element, parent)
+        public MjmlTitleComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

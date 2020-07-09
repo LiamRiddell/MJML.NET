@@ -9,7 +9,7 @@ namespace Mjml.MjmlComponents.Body
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-body/src/index.js
     public class MjmlBodyComponent : BodyComponent
     {
-        public MjmlBodyComponent(Element element, BaseComponent parent) : base(element, parent)
+        public MjmlBodyComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
             if (HasAttribute("Width"))
                 HtmlSkeleton.ContainerWidth = GetAttribute("width");

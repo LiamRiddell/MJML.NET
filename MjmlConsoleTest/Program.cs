@@ -33,7 +33,8 @@ namespace MjmlConsoleTest
 
                     <mj-section background-color=""#ffffff"" padding-left=""0"" padding-right=""0"" padding-top=""0"">
                         <mj-column>
-                            <mj-button font-family=""Helvetica"" background-color=""#f45e43"" color=""white"" href=""https://www.google.co.uk"">
+                            <h1 style=""color:red; font-size:24px;"">Rawrrrr element \o/</h1>
+                            <mj-button font-family=""Helvetica"" background-color=""#f45e43"" color=""white"" href=""https://www.google.co.uk?gassed=22222&42424242"">
                                 Don't click me!
                             </mj-button>
                         </mj-column>
@@ -54,7 +55,7 @@ namespace MjmlConsoleTest
 
                 try
                 {
-                    html = System.Xml.Linq.XElement.Parse(html).ToString();
+                    html = html.ToString();
                 }
                 catch (Exception) { }
 

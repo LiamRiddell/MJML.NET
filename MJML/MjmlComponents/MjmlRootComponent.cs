@@ -8,7 +8,7 @@ namespace Mjml.MjmlComponents
 {
     public class MjmlRootComponent : BodyComponent
     {
-        public MjmlRootComponent(Element element, BaseComponent parent) : base(element, parent)
+        public MjmlRootComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

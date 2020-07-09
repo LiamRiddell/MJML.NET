@@ -11,7 +11,7 @@
             MjmlDocument mjmlDocument = new MjmlDocument(content);
             mjmlDocument.Parse();
 
-            html = mjmlDocument.Render();
+            html = mjmlDocument.Render(true);
 
             return true;
         }

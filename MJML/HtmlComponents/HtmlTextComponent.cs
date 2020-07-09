@@ -10,7 +10,7 @@ namespace Mjml.HtmlComponents
     /// </summary>
     public class HtmlTextComponent : BodyComponent
     {
-        public HtmlTextComponent(Element element, BaseComponent parent) : base(element, parent)
+        public HtmlTextComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
         }
 
@@ -23,7 +23,7 @@ namespace Mjml.HtmlComponents
 
         public override string RenderMjml()
         {
-            return Element.NodeValue;
+            return Element.Text();
         }
     }
 }

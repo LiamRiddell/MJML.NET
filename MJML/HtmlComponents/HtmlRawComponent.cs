@@ -10,7 +10,7 @@ namespace Mjml.HtmlComponents
     /// </summary>
     public class HtmlRawComponent : BodyComponent
     {
-        public HtmlRawComponent(Element element, BaseComponent parent) : base(element, parent)
+        public HtmlRawComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
         }
 
@@ -23,16 +23,12 @@ namespace Mjml.HtmlComponents
 
         public override void SetAttributes()
         {
-            //var attributes = Element..Attributes();
+            var attributes = Element.Attributes;
 
-            //foreach (var attribute in attributes)
-            //{
-            //    string userAttributeName = attribute.Name.LocalName.ToLowerInvariant();
-            //    string userAttributeValue = attribute.Value;
-
-            //    // Passth all attributes to the element for output
-            //    Attributes.Add(userAttributeName, userAttributeValue);
-            //}
+            foreach (var attribute in attributes)
+            {
+                Attributes.Add(attribute.Name, attribute.Value);
+            }
         }
 
         public override string RenderMjml()

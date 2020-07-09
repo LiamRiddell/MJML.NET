@@ -7,7 +7,7 @@ namespace Mjml.Core.Component
 {
     public class HeadComponent : BaseComponent
     {
-        public HeadComponent(Element element, BaseComponent parent) : base(element, parent)
+        public HeadComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
         }
 

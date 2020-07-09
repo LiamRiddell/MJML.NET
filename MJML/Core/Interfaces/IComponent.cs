@@ -7,7 +7,7 @@ namespace Mjml.Core.Interfaces
 {
     public interface IComponent
     {
-        Element Element { get; set; }
+        IElement Element { get; set; }
 
         BaseComponent Parent { get; set; }
 
