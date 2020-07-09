@@ -1,4 +1,5 @@
 ﻿using Mjml.Core.Component;
+using Mjml.Core.Css;
 using Mjml.Helpers;
 using Mjml.HtmlComponents;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace Mjml.MjmlComponents.Body
                                 <td {component.HtmlAttributes(new Dictionary<string, string>() {
                                         { "align", component.GetAttribute("align") },
                                         { "class", CssHelper.SuffixCssClasses(component.GetAttribute("css-class"), "outlook") },
-                                        { "width", GetContainerWidth().ToString() },
+                                        { "width", $"{GetContainerOuterWidth()}px" },
                                     })}
                                 >
                         <![endif]-->

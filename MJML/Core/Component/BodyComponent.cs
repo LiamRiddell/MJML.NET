@@ -191,7 +191,7 @@ namespace Mjml.Core.Component
         }
 
         // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/createComponent.js#L115
-        public CssBoxModel GetBoxModel()
+        public virtual CssBoxModel GetBoxModel()
         {
             // LR: Default to the outmost container
             CssParsedUnit containerWidth = CssUnitParser.Parse(HtmlSkeleton.ContainerWidth);
@@ -207,13 +207,13 @@ namespace Mjml.Core.Component
             // LR: Try and get the parents calculated Box Model size.
             if (HasParentComponent())
             {
-                var parent = (GetParentComponent() as BodyComponent);
+                var parent = GetParentComponent() as BodyComponent;
 
-                // LR: Calculate based of the parents width
-                containerWidth.Value = parent.CssBoxModel.BoxWidth - parent.CssBoxModel.PaddingWidth - parent.CssBoxModel.BorderWidth;
+                // LR: Calculate based of the parents inner width (width after removing paddings and borders)
+                containerWidth.Value = parent.GetContainerInnerWidth() - paddings - borders;
 
                 return new CssBoxModel(
-                    parent.CssBoxModel.BoxWidth,
+                    parent.GetContainerInnerWidth(),
                     borders,
                     paddings,
                     containerWidth.Value
@@ -245,9 +245,19 @@ namespace Mjml.Core.Component
                 this is HtmlTextComponent;
         }
 
-        public float GetContainerWidth()
+        public bool IsContainerElement()
+        {
+            return this is MjmlBodyComponent || this is MjmlWrapperComponent || (this is MjmlSectionComponent && Parent is MjmlBodyComponent);
+        }
+
+        public float GetContainerInnerWidth()
         {
             return CssBoxModel.BoxWidth;
+        }
+
+        public float GetContainerOuterWidth()
+        {
+            return CssBoxModel.TotalWidth;
         }
     }
 }

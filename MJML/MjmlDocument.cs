@@ -90,6 +90,9 @@ namespace Mjml
                 case "mj-body":
                     return new MjmlBodyComponent(element, parent);
 
+                case "mj-wrapper":
+                    return new MjmlWrapperComponent(element, parent);
+
                 case "mj-section":
                     return new MjmlSectionComponent(element, parent);
 
@@ -105,8 +108,8 @@ namespace Mjml
                 case "mj-raw":
                     return new MjmlRawComponent(element, parent);
 
-                case "mj-wrapper":
-                    return new MjmlWrapperComponent(element, parent);
+                case "mj-image":
+                    return new MjmlImageComponent(element, parent);
 
                 case "html-text":
                     return new HtmlTextComponent(element, parent);

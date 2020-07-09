@@ -1,4 +1,5 @@
 ﻿using Mjml.Core.Component;
+using Mjml.Core.Css;
 using Mjml.Helpers;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Mjml.MjmlComponents.Body
                 .Count(n => n.NodeType.Equals(XmlNodeType.Element));
         }
 
-        public string GetContainerWidth()
+        public string GetColumnContainerWidth()
         {
             if (!string.IsNullOrWhiteSpace(ContainerWidth))
                 return ContainerWidth;
@@ -44,9 +45,17 @@ namespace Mjml.MjmlComponents.Body
                 GetShorthandAttributeValue("inner-border", "left") +
                 GetShorthandAttributeValue("inner-border", "right");
 
+            var paddings =
+                GetShorthandAttributeValue("padding", "right") +
+                GetShorthandAttributeValue("padding", "left");
+
+            var borders =
+                GetShorthandBorderValue("right") +
+                GetShorthandBorderValue("left");
+
             float allPaddings =
-                CssBoxModel.PaddingWidth +
-                CssBoxModel.BorderWidth +
+                paddings +
+                borders +
                 innerBorders;
 
             // NOTE: This will include our HACK for text elements
@@ -55,7 +64,7 @@ namespace Mjml.MjmlComponents.Body
             ParentSectionColumnCount = nonRawSiblings;
 
             // LR: Current container width (inherited from mj-body)
-            CssParsedUnit parentWidth = CssUnitParser.Parse(HtmlSkeleton.ContainerWidth);
+            CssParsedUnit parentWidth = CssUnitParser.Parse($"{base.GetBoxModel().BoxWidth}px");
 
             // LR: Calculate the ContainerWidth for this column
             if (HasAttribute("width"))
@@ -76,6 +85,78 @@ namespace Mjml.MjmlComponents.Body
             }
 
             return ContainerWidth;
+        }
+
+        public override CssBoxModel GetBoxModel()
+        {
+            // LR: Default to the outmost container
+            CssParsedUnit containerWidth = CssUnitParser.Parse(HtmlSkeleton.ContainerWidth);
+
+            // LR: Get Padding
+            var paddings =
+                GetShorthandAttributeValue("padding", "right") +
+                GetShorthandAttributeValue("padding", "left");
+
+            // LR: Get Borders
+            var borders =
+                GetShorthandBorderValue("right") +
+                GetShorthandBorderValue("left");
+
+            // LR: Get inner-borders
+            float innerBorders =
+               GetShorthandAttributeValue("inner-border", "left") +
+               GetShorthandAttributeValue("inner-border", "right");
+
+            // LR: All padding
+            float allPaddings = paddings + borders + innerBorders;
+
+            // LR: Try and get the parents calculated Box Model size.
+            if (HasParentComponent())
+            {
+                var parent = GetParentComponent() as BodyComponent;
+
+                // LR: Get columns in this section
+                ParentSectionColumnCount = GetSectionColumnCount();
+
+                // LR: Parent section width
+                var sectionWidth = parent.CssBoxModel.BoxWidth;
+
+                // LR: Column has width attribute?
+                if (HasAttribute("width"))
+                    ContainerWidth = GetAttribute("width");
+                else
+                    ContainerWidth = $"{sectionWidth / ParentSectionColumnCount}px";
+
+                // LR: Parse the calculated width
+                CssParsedUnit parsedWidth = CssUnitParser.Parse(ContainerWidth);
+
+                // LR: Handle Percentage values
+                if (parsedWidth.Unit.Equals("%", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    parsedWidth.Value = (sectionWidth * parsedWidth.Value / 100);
+                    ContainerWidth = $"{parsedWidth.Value - allPaddings}";
+                }
+                else
+                {
+                    ContainerWidth = $"{parsedWidth.Value - allPaddings}px";
+                }
+
+                // LR: Calculated column width
+                var columnWidth = CssUnitParser.Parse(ContainerWidth);
+
+                return new CssBoxModel(
+                    parsedWidth.Value,
+                    borders,
+                    paddings,
+                    columnWidth.Value
+                );
+            }
+
+            return new CssBoxModel(
+                containerWidth.Value,
+                borders,
+                paddings,
+                containerWidth.Value);
         }
 
         public CssParsedUnit GetParsedWidth()
@@ -119,7 +200,7 @@ namespace Mjml.MjmlComponents.Body
         public string GetWidthAsPixel()
         {
             var parsedWidth = GetParsedWidth();
-            var parsedContainerWidth = CssUnitParser.Parse(GetContainerWidth());
+            var parsedContainerWidth = CssUnitParser.Parse(GetColumnContainerWidth());
 
             if (parsedWidth.Unit.Equals("%", StringComparison.InvariantCultureIgnoreCase))
                 return $"{ parsedContainerWidth.Value * parsedWidth.Value / 100}px";
@@ -264,17 +345,18 @@ namespace Mjml.MjmlComponents.Body
                     sb.Append($@"
                         <tr>
                             <td {component.HtmlAttributes(new Dictionary<string, string>() {
-                                    { "align", GetAttribute("align") },
-                                    { "class", GetAttribute("css-class") },
-                                    { "style", InlineCss(new Dictionary<string, string> {
-                                            { "background", GetAttribute("container-background-color") },
-                                            { "vertical-align", GetAttribute("vertical-align") },
+                                    { "align", component.GetAttribute("align") },
+                                    { "vertical-align", component.GetAttribute("vertical-align") },
+                                    { "class", component.GetAttribute("css-class") },
+                                    { "style", component.InlineCss(new Dictionary<string, string> {
+                                            { "background", component.GetAttribute("container-background-color") },
+                                            { "vertical-align", component.GetAttribute("vertical-align") },
                                             { "font-size", "0px" },
-                                            { "padding", GetAttribute("padding") },
-                                            { "padding-top", GetAttribute("padding-top") },
-                                            { "padding-right", GetAttribute("padding-right") },
-                                            { "padding-bottom", GetAttribute("padding-bottom") },
-                                            { "padding-left", GetAttribute("padding-left") },
+                                            { "padding", component.GetAttribute("padding") },
+                                            { "padding-top", component.GetAttribute("padding-top") },
+                                            { "padding-right", component.GetAttribute("padding-right") },
+                                            { "padding-bottom", component.GetAttribute("padding-bottom") },
+                                            { "padding-left", component.GetAttribute("padding-left") },
                                             { "word-break", "break-word" }
                                         })
                                     },

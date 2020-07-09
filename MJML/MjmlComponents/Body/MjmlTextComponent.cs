@@ -59,8 +59,8 @@ namespace Mjml.MjmlComponents.Body
         {
             return $@"
             <div {HtmlAttributes(new Dictionary<string, string> {
-                { "style", "text" }
-            }, true)}>
+                    { "style", "text" }
+                 })}>
                 { RenderChildren() }
             </div>
             ";
