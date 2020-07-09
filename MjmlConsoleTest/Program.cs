@@ -30,6 +30,15 @@ namespace MjmlConsoleTest
                         </mj-column>
                       </mj-section>
                     </mj-wrapper>
+
+                    <mj-section background-color=""#ffffff"" padding-left=""0"" padding-right=""0"" padding-top=""0"">
+                        <mj-column width=""50%"">
+                            <mj-image align=""center"" css-class=""LR-CLASS-TEST"" vertical-align=""middle"" src=""https://res.cloudinary.com/dheck1ubc/image/upload/v1544153577/Email/Images/AnnouncementOffset/Image_1.png"" alt="""" />
+                        </mj-column>
+                        <mj-column width=""50%"">
+                            <mj-image align=""center"" src=""https://res.cloudinary.com/dheck1ubc/image/upload/v1544153578/Email/Images/AnnouncementOffset/Image_2.png"" alt="""" />
+                        </mj-column>
+                    </mj-section>
                   </mj-body>
                 </mjml>
             ";

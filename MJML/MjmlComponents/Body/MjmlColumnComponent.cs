@@ -36,57 +36,6 @@ namespace Mjml.MjmlComponents.Body
                 .Count(n => n.NodeType.Equals(XmlNodeType.Element));
         }
 
-        public string GetColumnContainerWidth()
-        {
-            if (!string.IsNullOrWhiteSpace(ContainerWidth))
-                return ContainerWidth;
-
-            float innerBorders =
-                GetShorthandAttributeValue("inner-border", "left") +
-                GetShorthandAttributeValue("inner-border", "right");
-
-            var paddings =
-                GetShorthandAttributeValue("padding", "right") +
-                GetShorthandAttributeValue("padding", "left");
-
-            var borders =
-                GetShorthandBorderValue("right") +
-                GetShorthandBorderValue("left");
-
-            float allPaddings =
-                paddings +
-                borders +
-                innerBorders;
-
-            // NOTE: This will include our HACK for text elements
-            int nonRawSiblings = GetSectionColumnCount();
-
-            ParentSectionColumnCount = nonRawSiblings;
-
-            // LR: Current container width (inherited from mj-body)
-            CssParsedUnit parentWidth = CssUnitParser.Parse($"{base.GetBoxModel().BoxWidth}px");
-
-            // LR: Calculate the ContainerWidth for this column
-            if (HasAttribute("width"))
-                ContainerWidth = GetAttribute("width");
-            else
-                ContainerWidth = $"{parentWidth.Value / nonRawSiblings}px";
-
-            CssParsedUnit parsedWidth = CssUnitParser.Parse(ContainerWidth);
-
-            // LR: Handle Percentage values
-            if (parsedWidth.Unit.Equals("%", StringComparison.InvariantCultureIgnoreCase))
-            {
-                ContainerWidth = $"{(parentWidth.Value * parsedWidth.Value / 100) - allPaddings}";
-            }
-            else
-            {
-                ContainerWidth = $"{parsedWidth.Value - allPaddings}px";
-            }
-
-            return ContainerWidth;
-        }
-
         public override CssBoxModel GetBoxModel()
         {
             // LR: Default to the outmost container
@@ -200,7 +149,7 @@ namespace Mjml.MjmlComponents.Body
         public string GetWidthAsPixel()
         {
             var parsedWidth = GetParsedWidth();
-            var parsedContainerWidth = CssUnitParser.Parse(GetColumnContainerWidth());
+            var parsedContainerWidth = CssUnitParser.Parse(ContainerWidth);
 
             if (parsedWidth.Unit.Equals("%", StringComparison.InvariantCultureIgnoreCase))
                 return $"{ parsedContainerWidth.Value * parsedWidth.Value / 100}px";
