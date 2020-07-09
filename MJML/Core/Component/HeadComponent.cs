@@ -1,4 +1,5 @@
-﻿using Mjml.Core.Interfaces;
+﻿using AngleSharp.Dom;
+using Mjml.Core.Interfaces;
 using System;
 using System.Xml.Linq;
 
@@ -6,7 +7,7 @@ namespace Mjml.Core.Component
 {
     public class HeadComponent : BaseComponent
     {
-        public HeadComponent(XElement element, BaseComponent parent) : base(element, parent)
+        public HeadComponent(Element element, BaseComponent parent) : base(element, parent)
         {
         }
 

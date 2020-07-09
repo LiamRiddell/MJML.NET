@@ -1,4 +1,5 @@
-﻿using Mjml.Core.Component;
+﻿using AngleSharp.Dom;
+using Mjml.Core.Component;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -6,7 +7,7 @@ namespace Mjml.Core.Interfaces
 {
     public interface IComponent
     {
-        XElement Element { get; set; }
+        Element Element { get; set; }
 
         BaseComponent Parent { get; set; }
 

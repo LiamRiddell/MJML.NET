@@ -1,4 +1,5 @@
-﻿using Mjml.Core.Component;
+﻿using AngleSharp.Dom;
+using Mjml.Core.Component;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -9,7 +10,7 @@ namespace Mjml.HtmlComponents
     /// </summary>
     public class HtmlTextComponent : BodyComponent
     {
-        public HtmlTextComponent(XElement element, BaseComponent parent) : base(element, parent)
+        public HtmlTextComponent(Element element, BaseComponent parent) : base(element, parent)
         {
         }
 
@@ -22,7 +23,7 @@ namespace Mjml.HtmlComponents
 
         public override string RenderMjml()
         {
-            return Element.Value;
+            return Element.NodeValue;
         }
     }
 }

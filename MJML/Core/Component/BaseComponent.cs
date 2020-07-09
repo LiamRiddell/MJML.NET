@@ -1,4 +1,6 @@
-﻿using Mjml.Core.Interfaces;
+﻿using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
+using Mjml.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ namespace Mjml.Core.Component
 {
     public abstract class BaseComponent : IComponent
     {
-        public XElement Element { get; set; }
+        public Element Element { get; set; }
 
         public BaseComponent Parent { get; set; } = null;
 
@@ -19,7 +21,7 @@ namespace Mjml.Core.Component
 
         public string GetTagName()
         {
-            return Element.Name.LocalName.ToLower();
+            return Element.NodeName.ToLower();
         }
 
         public virtual bool IsRawElement()
@@ -47,7 +49,7 @@ namespace Mjml.Core.Component
 
         public string GetContent()
         {
-            return Element.Value;
+            return Element.NodeValue;
         }
 
         public virtual string RenderChildren()
@@ -72,20 +74,20 @@ namespace Mjml.Core.Component
 
         public virtual void SetAttributes()
         {
-            var attributes = Element.Attributes();
+            //var attributes = Element.Attributes();
 
-            foreach (var attribute in attributes)
-            {
-                string userAttributeName = attribute.Name.LocalName.ToLowerInvariant();
-                string userAttributeValue = attribute.Value;
+            //foreach (var attribute in attributes)
+            //{
+            //    string userAttributeName = attribute.Name.LocalName.ToLowerInvariant();
+            //    string userAttributeValue = attribute.Value;
 
-                // LR: Validate the attribute exists in the DefaultAttributes
-                if (!Attributes.ContainsKey(userAttributeName))
-                    continue;
+            //    // LR: Validate the attribute exists in the DefaultAttributes
+            //    if (!Attributes.ContainsKey(userAttributeName))
+            //        continue;
 
-                // TODO: Validate the users input
-                Attributes[userAttributeName] = userAttributeValue;
-            }
+            //    // TODO: Validate the users input
+            //    Attributes[userAttributeName] = userAttributeValue;
+            //}
         }
 
         public virtual Dictionary<string, string> SetAllowedAttributes()
@@ -106,16 +108,16 @@ namespace Mjml.Core.Component
             return Parent;
         }
 
-        public BaseComponent(XElement element, BaseComponent parent)
+        public BaseComponent(Element element, BaseComponent parent)
         {
             Element = element;
             Parent = parent;
 
-            // LR: Sets the Allowed attributes along with the default values.
-            Attributes = SetAllowedAttributes();
+            //// LR: Sets the Allowed attributes along with the default values.
+            //Attributes = SetAllowedAttributes();
 
-            if (Element.HasAttributes)
-                SetAttributes();
+            //if (Element.HasAttributes)
+            //    SetAttributes();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Mjml.Core.Component;
+﻿using AngleSharp;
+using AngleSharp.Dom;
+using Mjml.Core.Component;
 using Mjml.Helpers;
 using Mjml.HtmlComponents;
 using Mjml.MjmlComponents;
@@ -8,6 +10,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -18,7 +21,7 @@ namespace Mjml
         /// <summary>
         /// XDocument used for traversing the mjml template
         /// </summary>
-        private XDocument _document { get; set; }
+        private IDocument _document { get; set; }
 
         /// <summary>
         /// Root element containg all child components
@@ -31,11 +34,10 @@ namespace Mjml
         /// <param name="content"></param>
         public MjmlDocument(string content)
         {
-            using (StringReader sr = new StringReader(content))
-            using (XmlReader reader = XmlReader.Create(sr))
-            {
-                _document = XDocument.Load(reader);
-            }
+            var context = BrowsingContext.New(Configuration.Default);
+
+            // Create a document from a virtual request / response pattern
+            _document = context.OpenAsync(req => req.Content(content)).GetAwaiter().GetResult();
         }
 
         #region Public
@@ -43,10 +45,10 @@ namespace Mjml
         public bool Parse()
         {
             // LR: Parse the XML document
-            if (_document.Root.IsEmpty)
+            if (!_document.All.Any())
                 return false;
 
-            GenerateVirtualDocument(_document.Root);
+            GenerateVirtualDocument();
 
             return true;
         }
@@ -60,126 +62,121 @@ namespace Mjml
 
         #region Private
 
-        private BaseComponent CreateMjmlComponent(XElement element, BaseComponent parent = null)
+        private BaseComponent CreateMjmlComponent(Element element, BaseComponent parent = null)
         {
-            string elementTag = element.Name.LocalName.ToLowerInvariant();
+            string elementTag = element.NodeName.ToLowerInvariant();
+            Console.Write($"Element Found {elementTag}");
 
-            switch (elementTag)
-            {
-                case "mjml":
-                    return new MjmlRootComponent(element, parent);
+            return new HtmlRawComponent(element, parent);
 
-                case "mj-head":
-                    return new MjmlHeadComponent(element, parent);
+            //switch (elementTag)
+            //{
+            //    case "mjml":
+            //        return new MjmlRootComponent(element, parent);
 
-                case "mj-title":
-                    return new MjmlTitleComponent(element, parent);
+            //    case "mj-head":
+            //        return new MjmlHeadComponent(element, parent);
 
-                case "mj-preview":
-                    return new MjmlPreviewComponent(element, parent);
+            //    case "mj-title":
+            //        return new MjmlTitleComponent(element, parent);
 
-                case "mj-breakpoint":
-                    return new MjmlBreakpointComponent(element, parent);
+            //    case "mj-preview":
+            //        return new MjmlPreviewComponent(element, parent);
 
-                case "mj-font":
-                    return new MjmlFontComponent(element, parent);
+            //    case "mj-breakpoint":
+            //        return new MjmlBreakpointComponent(element, parent);
 
-                case "mj-style":
-                    return new MjmlStyleComponent(element, parent);
+            //    case "mj-font":
+            //        return new MjmlFontComponent(element, parent);
 
-                case "mj-body":
-                    return new MjmlBodyComponent(element, parent);
+            //    case "mj-style":
+            //        return new MjmlStyleComponent(element, parent);
 
-                case "mj-wrapper":
-                    return new MjmlWrapperComponent(element, parent);
+            //    case "mj-body":
+            //        return new MjmlBodyComponent(element, parent);
 
-                case "mj-section":
-                    return new MjmlSectionComponent(element, parent);
+            //    case "mj-wrapper":
+            //        return new MjmlWrapperComponent(element, parent);
 
-                case "mj-column":
-                    return new MjmlColumnComponent(element, parent);
+            //    case "mj-section":
+            //        return new MjmlSectionComponent(element, parent);
 
-                case "mj-text":
-                    return new MjmlTextComponent(element, parent);
+            //    case "mj-column":
+            //        return new MjmlColumnComponent(element, parent);
 
-                case "mj-spacer":
-                    return new MjmlSpacerComponent(element, parent);
+            //    case "mj-text":
+            //        return new MjmlTextComponent(element, parent);
 
-                case "mj-raw":
-                    return new MjmlRawComponent(element, parent);
+            //    case "mj-spacer":
+            //        return new MjmlSpacerComponent(element, parent);
 
-                case "mj-image":
-                    return new MjmlImageComponent(element, parent);
+            //    case "mj-raw":
+            //        return new MjmlRawComponent(element, parent);
 
-                case "mj-button":
-                    return new MjmlButtonComponent(element, parent);
+            //    case "mj-image":
+            //        return new MjmlImageComponent(element, parent);
 
-                case "html-text":
-                    return new HtmlTextComponent(element, parent);
+            //    case "mj-button":
+            //        return new MjmlButtonComponent(element, parent);
 
-                default:
-                    return new HtmlRawComponent(element, parent);
-            }
+            //    case "html-text":
+            //        return new HtmlTextComponent(element, parent);
+
+            //    default:
+            //        return new HtmlRawComponent(element, parent);
         }
 
-        private void GenerateVirtualDocument(XElement element)
+        private void GenerateVirtualDocument()
         {
-            VirtualDocument = CreateMjmlComponent(element) as MjmlRootComponent;
+            VirtualDocument = CreateMjmlComponent(_document.GetRoot() as Element) as MjmlRootComponent;
 
-            if (VirtualDocument.Element.IsEmpty)
+            if (!VirtualDocument.Element.HasChildNodes)
                 return;
 
             TraverseElementTree(VirtualDocument.Element, VirtualDocument);
         }
 
-        private void TraverseElementTree(XElement element, BaseComponent parentComponent)
+        private void TraverseElementTree(INode element, BaseComponent parentComponent)
         {
-            if (element.IsEmpty)
+            if (!element.HasChildNodes)
                 return;
 
             // LR: Traverse the children
-            foreach (var childElement in element.Nodes())
+            foreach (var childElement in element.ChildNodes)
             {
                 BaseComponent childComponent;
 
-                if (childElement.NodeType == XmlNodeType.Element)
-                {
-                    // LR: Create MJML component
-                    childComponent = CreateMjmlComponent((XElement)childElement, parentComponent);
+                string elementTag = element.NodeName.ToLowerInvariant();
+                Console.Write($"Element Found {elementTag}");
 
-                    // LR: Add child component to parent
-                    parentComponent.Children.Add(childComponent);
+                //if (childElement.NodeType == XmlNodeType.Element)
+                //{
+                //    // LR: Create MJML component
+                //    childComponent = CreateMjmlComponent((XElement)childElement, parentComponent);
 
-                    // LR: Traverse the child element and change the parent context
-                    TraverseElementTree((XElement)childElement, childComponent);
-                }
-                else if (childElement.NodeType == XmlNodeType.Text)
-                {
-                    var childElementText = childElement as XText;
+                //    // LR: Add child component to parent
+                //    parentComponent.Children.Add(childComponent);
 
-                    if (string.IsNullOrEmpty(childElementText.Value) || string.IsNullOrWhiteSpace(childElementText.Value))
-                        continue;
+                //    // LR: Traverse the child element and change the parent context
+                //    TraverseElementTree((XElement)childElement, childComponent);
+                //}
+                //else if (childElement.NodeType == XmlNodeType.Text)
+                //{
+                //    var childElementText = childElement as XText;
 
-                    var childXElement = new XElement("html-text", childElementText.Value);
-                    childXElement.Name = XName.Get("html-text");
+                //    if (string.IsNullOrEmpty(childElementText.Value) || string.IsNullOrWhiteSpace(childElementText.Value))
+                //        continue;
 
-                    // LR: Create MJML component
-                    childComponent = CreateMjmlComponent(childXElement, parentComponent);
+                //    var childXElement = new XElement("html-text", childElementText.Value);
+                //    childXElement.Name = XName.Get("html-text");
 
-                    // LR: Add child component to parent
-                    parentComponent.Children.Add(childComponent);
-                }
+                //    // LR: Create MJML component
+                //    childComponent = CreateMjmlComponent(childXElement, parentComponent);
+
+                //    // LR: Add child component to parent
+                //    parentComponent.Children.Add(childComponent);
+                //}
             }
-        }
-
-        private string EscapeXmlContent(string xmlContent)
-        {
-            // LR: find all attributes
-
-            //XmlDocument doc = new XmlDocument();
-            //return doc.CreateTextNode(xmlContent).OuterXml;
-
-            return SecurityElement.Escape(xmlContent);
         }
 
         #endregion Private

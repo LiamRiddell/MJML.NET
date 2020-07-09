@@ -1,4 +1,5 @@
-﻿using Mjml.Core.Component;
+﻿using AngleSharp.Dom;
+using Mjml.Core.Component;
 using Mjml.Core.Css;
 using Mjml.Helpers;
 using System;
@@ -16,7 +17,7 @@ namespace Mjml.MjmlComponents.Body
         public string ContainerWidth { get; set; } = null;
         public int ParentSectionColumnCount { get; set; }
 
-        public MjmlColumnComponent(XElement element, BaseComponent parent) : base(element, parent)
+        public MjmlColumnComponent(Element element, BaseComponent parent) : base(element, parent)
         {
         }
 
@@ -31,9 +32,7 @@ namespace Mjml.MjmlComponents.Body
 
         public int GetSectionColumnCount()
         {
-            return Element.Parent
-                .Elements()
-                .Count(n => n.NodeType.Equals(XmlNodeType.Element));
+            return Element.ParentElement.QuerySelectorAll("mj-column").Count();
         }
 
         public override CssBoxModel GetBoxModel()

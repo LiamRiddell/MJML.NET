@@ -1,4 +1,5 @@
-﻿using Mjml.Core.Component;
+﻿using AngleSharp.Dom;
+using Mjml.Core.Component;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -9,7 +10,7 @@ namespace Mjml.HtmlComponents
     /// </summary>
     public class HtmlRawComponent : BodyComponent
     {
-        public HtmlRawComponent(XElement element, BaseComponent parent) : base(element, parent)
+        public HtmlRawComponent(Element element, BaseComponent parent) : base(element, parent)
         {
         }
 
@@ -22,24 +23,24 @@ namespace Mjml.HtmlComponents
 
         public override void SetAttributes()
         {
-            var attributes = Element.Attributes();
+            //var attributes = Element..Attributes();
 
-            foreach (var attribute in attributes)
-            {
-                string userAttributeName = attribute.Name.LocalName.ToLowerInvariant();
-                string userAttributeValue = attribute.Value;
+            //foreach (var attribute in attributes)
+            //{
+            //    string userAttributeName = attribute.Name.LocalName.ToLowerInvariant();
+            //    string userAttributeValue = attribute.Value;
 
-                // Passth all attributes to the element for output
-                Attributes.Add(userAttributeName, userAttributeValue);
-            }
+            //    // Passth all attributes to the element for output
+            //    Attributes.Add(userAttributeName, userAttributeValue);
+            //}
         }
 
         public override string RenderMjml()
         {
             return $@"
-            <{Element.Name.LocalName} {HtmlAttributes(Attributes)}>
+            <{Element.NodeName} {HtmlAttributes(Attributes)}>
                 {this.RenderChildren()}
-            </{Element.Name.LocalName}>";
+            </{Element.NodeName}>";
         }
     }
 }

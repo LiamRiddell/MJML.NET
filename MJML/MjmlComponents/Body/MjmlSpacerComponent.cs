@@ -1,4 +1,5 @@
-﻿using Mjml.Core.Component;
+﻿using AngleSharp.Dom;
+using Mjml.Core.Component;
 using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -8,7 +9,7 @@ namespace Mjml.MjmlComponents.Body
     // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-spacer/src/index.js
     public class MjmlSpacerComponent : BodyComponent
     {
-        public MjmlSpacerComponent(XElement element, BaseComponent parent) : base(element, parent)
+        public MjmlSpacerComponent(Element element, BaseComponent parent) : base(element, parent)
         {
         }
 
