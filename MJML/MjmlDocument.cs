@@ -111,6 +111,9 @@ namespace Mjml
                 case "mj-image":
                     return new MjmlImageComponent(element, parent);
 
+                case "mj-button":
+                    return new MjmlButtonComponent(element, parent);
+
                 case "html-text":
                     return new HtmlTextComponent(element, parent);
 
