@@ -35,6 +35,8 @@ namespace Mjml.Core.Interfaces
 
         void SetAttributes();
 
+        void SetAttribute(string attributeName, string attributeValue);
+
         bool HasParentComponent();
 
         BaseComponent GetParentComponent();

@@ -32,7 +32,7 @@ namespace Mjml.MjmlComponents.Body
 
         public int GetSectionColumnCount()
         {
-            return Element.ParentElement.QuerySelectorAll("mj-column").Count();
+            return Element.ParentElement.ChildNodes.Count(e => e.NodeType.Equals(NodeType.Element) );
         }
 
         public override CssBoxModel GetBoxModel()
@@ -199,6 +199,7 @@ namespace Mjml.MjmlComponents.Body
                 { "padding", string.Empty },
                 { "vertical-align", "top" },
                 { "width", string.Empty },
+                { "mobileWidth", null }
             };
         }
 

@@ -317,7 +317,7 @@ namespace Mjml.MjmlComponents.Body
                                 {
                                     {"align", GetAttribute("align") },
                                     {"class", CssHelper.SuffixCssClasses(GetAttribute("css-class"), "outlook") },
-                                    {"style", (childComponent as MjmlColumnComponent).Styles("tdOutlook") }
+                                    {"style", (childComponent as BodyComponent).Styles("tdOutlook") }
                                 })}
                             >
                         <![endif]-->

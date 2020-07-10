@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Security;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -44,6 +45,16 @@ namespace Mjml
 
             // LR: AngleSharp HtmlParser
             _htmlParser = new HtmlParser();
+
+            // HACK: Unknown self-closing tags break AngleSharps DOM. Any siblings after unknown self-closing element becomes a child of the unkown element.
+            // We use regex to find and close the self-closing tags for mjml
+            Regex selfClosingMjml = new Regex(@"(<mj-.*\/>)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+            content = selfClosingMjml.Replace(content, delegate (Match m)
+            {
+                var tagName = m.Value.Substring(1, m.Value.IndexOf(' ') - 1);
+                return $"{m.Value.Replace("/>", "")}></{tagName}>";
+            });
 
             // LR: Parse mjml document
             _document = _htmlParser.ParseDocument(content);
@@ -109,6 +120,9 @@ namespace Mjml
                 case "mj-section":
                     return new MjmlSectionComponent(element, parent);
 
+                case "mj-group":
+                    return new MjmlGroupComponent(element, parent);
+
                 case "mj-column":
                     return new MjmlColumnComponent(element, parent);
 
@@ -154,6 +168,9 @@ namespace Mjml
         private void TraverseElementTree(INode element, BaseComponent parentComponent)
         {
             Console.WriteLine($"Traversing <{element.NodeName.ToLowerInvariant()}>");
+
+            if (!element.ChildNodes.Any())
+                return;
 
             // LR: Traverse the children
             foreach (var childElement in element.ChildNodes)

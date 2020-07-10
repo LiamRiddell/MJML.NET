@@ -108,6 +108,14 @@ namespace Mjml.Core.Component
             return Parent;
         }
 
+        public void SetAttribute(string attributeName, string attributeValue)
+        {
+            if (string.IsNullOrWhiteSpace(attributeName) || !HasAttribute(attributeName))
+                return;
+
+            Attributes[attributeName] = attributeValue;
+        }
+
         public BaseComponent(IElement element, BaseComponent parent)
         {
             Element = element;

@@ -12,32 +12,31 @@ namespace MjmlConsoleTest
             string mjmlString = @"
                 <mjml>
                   <mj-body>
-                    <mj-wrapper border=""1px solid #000000"" padding=""20px"">
-                      <mj-section padding=""20px"" background-url=""https://via.placeholder.com/600x167"" background-repeat=""no-repeat"">
-                        <mj-column border=""1px solid #dddddd"">
-                          <mj-text padding=""20px""> First line of text </mj-text>
-                        </mj-column>
-                        <mj-column border=""1px solid #dddddd"">
-                          <mj-text padding=""20px""> First line of text </mj-text>
-                        </mj-column>
-                      </mj-section>
-                      <mj-section background-color=""#ffffff"" padding-left=""0"" padding-right=""0"" padding-top=""0"">
-                        <mj-column width=""50%"">
-                          <mj-image align=""center"" css-class=""LR-CLASS-TEST"" vertical-align=""middle"" src=""https://res.cloudinary.com/dheck1ubc/image/upload/v1544153577/Email/Images/AnnouncementOffset/Image_1.png"" alt="""" />
-                        </mj-column>
-                        <mj-column width=""50%"">
-                          <mj-image align=""center"" src=""https://res.cloudinary.com/dheck1ubc/image/upload/v1544153578/Email/Images/AnnouncementOffset/Image_2.png"" alt="""" />
-                        </mj-column>
-                      </mj-section>
-                    </mj-wrapper>
-
-                    <mj-section background-color=""#ffffff"" padding-left=""0"" padding-right=""0"" padding-top=""0"">
+                    <mj-section>
+                      <mj-group>
                         <mj-column>
-                            <h1 style=""color:red; font-size:24px;"">Rawrrrr element \o/</h1>
-                            <mj-button font-family=""Helvetica"" background-color=""#f45e43"" color=""white"" href=""https://www.google.co.uk?gassed=22222&42424242"">
-                                Don't click me!
-                            </mj-button>
+                          <br>
+                          <mj-image width=""137px"" height=""185px"" padding=""0"" src=""https://mjml.io/assets/img/easy-and-quick.png"" />
+                          <mj-text align=""center"">
+                            <h2>Easy and quick</h2>
+                            <p>Write less code, save time and code more efficiently with MJML’s semantic syntax.</p>
+                          </mj-text>
                         </mj-column>
+                        <mj-column>
+                          <mj-image width=""166px"" height=""185px"" padding=""0"" src=""https://mjml.io/assets/img/responsive.png"" />
+                          <mj-text align=""center"">
+                            <h2>Responsive</h2>
+                            <p>MJML is responsive by design on most-popular email clients, even Outlook.</p>
+                          </mj-text>
+                        </mj-column>
+                      </mj-group>
+                      <mj-column>
+                        <mj-image width=""166px"" height=""185px"" padding=""0"" src=""https://mjml.io/assets/img/responsive.png"" />
+                        <mj-text align=""center"">
+                          <h2>Responsive</h2>
+                          <p>MJML is responsive by design on most-popular email clients, even Outlook.</p>
+                        </mj-text>
+                      </mj-column>
                     </mj-section>
                   </mj-body>
                 </mjml>
