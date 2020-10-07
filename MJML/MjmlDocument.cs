@@ -132,6 +132,9 @@ namespace Mjml
                 case "mj-spacer":
                     return new MjmlSpacerComponent(element, parent);
 
+                case "mj-divider":
+                    return new MjmlDividerComponent(element, parent);
+
                 case "mj-raw":
                     return new MjmlRawComponent(element, parent);
 

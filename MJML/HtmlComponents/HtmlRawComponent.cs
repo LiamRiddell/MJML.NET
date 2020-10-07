@@ -1,5 +1,7 @@
 ﻿using AngleSharp.Dom;
 using Mjml.Core.Component;
+using Mjml.Core.Css;
+using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Xml.Linq;
 

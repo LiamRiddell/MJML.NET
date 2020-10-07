@@ -49,7 +49,7 @@ namespace Mjml.Core.Component
 
         public string GetContent()
         {
-            return Element.NodeValue;
+            return string.IsNullOrWhiteSpace(Element.NodeValue) ? Element.TextContent : Element.NodeValue;
         }
 
         public virtual string RenderChildren()

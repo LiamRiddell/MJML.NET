@@ -62,7 +62,7 @@ namespace Mjml.MjmlComponents.Body
             <div {HtmlAttributes(new Dictionary<string, string> {
                     { "style", "text" }
                  })}>
-                { RenderChildren() }
+                { Element.Html() }
             </div>
             ";
         }
