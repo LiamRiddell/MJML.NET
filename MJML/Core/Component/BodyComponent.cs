@@ -260,5 +260,28 @@ namespace Mjml.Core.Component
         {
             return CssBoxModel.TotalWidth;
         }
+
+        public virtual string GetOutlookWidth()
+        {
+            var containerWidth = CssUnitParser.Parse($"{GetContainerOuterWidth()}");
+
+            var paddingSize =
+                GetShorthandAttributeValue("padding", "left") +
+                GetShorthandAttributeValue("padding", "right");
+
+            var parsedWidth = CssUnitParser.Parse(GetAttribute("width"));
+
+            switch (parsedWidth.Unit.ToLower())
+            {
+                case "%":
+                    return $"{ containerWidth.Value * parsedWidth.Value / 100 - paddingSize}px";
+
+                case "px":
+                    return parsedWidth.ToString();
+
+                default:
+                    return $"{containerWidth.Value - paddingSize}px";
+            }
+        }
     }
 }

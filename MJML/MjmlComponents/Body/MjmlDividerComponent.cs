@@ -48,7 +48,7 @@ namespace Mjml.MjmlComponents.Body
                 { "font-family", GetAttribute("font-family") },
                 { "font-size", "1px" },
                 { "margin", "0px auto" },
-                { "width", $"{GetContainerInnerWidth()}px" },
+                { "width", GetOutlookWidth()},
             });
         }
 
@@ -64,7 +64,7 @@ namespace Mjml.MjmlComponents.Body
                     { "cellspacing", "0" },
                     { "style", "outlook" },
                     { "role", "presentation" },
-                    { "width", $"{GetContainerInnerWidth()}px" },
+                    { "width", GetOutlookWidth() },
                   })}
                 >
                   <tr>
