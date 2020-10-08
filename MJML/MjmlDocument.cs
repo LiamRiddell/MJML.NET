@@ -144,6 +144,12 @@ namespace Mjml
                 case "mj-button":
                     return new MjmlButtonComponent(element, parent);
 
+                case "mj-social":
+                    return new MjmlSocialComponent(element, parent);
+
+                case "mj-social-element":
+                    return new MjmlSocialElementComponent(element, parent);
+
                 case "html-text":
                     return new HtmlTextComponent(element, parent);
 
@@ -180,34 +186,57 @@ namespace Mjml
             {
                 BaseComponent childComponent;
 
-                if (childElement.NodeType == NodeType.Element)
+                switch (childElement.NodeType)
                 {
-                    // LR: Create MJML component
-                    childComponent = CreateMjmlComponent(childElement as Element, parentComponent);
+                    case NodeType.Element:
+                        // LR: Create MJML component
+                        childComponent = CreateMjmlComponent(childElement as Element, parentComponent);
 
-                    // LR: Add child component to parent
-                    parentComponent.Children.Add(childComponent);
+                        // LR: Add child component to parent
+                        parentComponent.Children.Add(childComponent);
 
-                    // LR: Traverse the child element and change the parent context
-                    TraverseElementTree(childElement, childComponent);
-                }
-                else if (childElement.NodeType == NodeType.Text)
-                {
-                    var childElementText = childElement as IText;
+                        // LR: Traverse the child element and change the parent context
+                        TraverseElementTree(childElement, childComponent);
+                        break;
+                    case NodeType.Attribute:
+                        break;
+                    case NodeType.Text:
+                        var childElementText = childElement as IText;
 
-                    if (string.IsNullOrWhiteSpace(childElementText.NodeValue))
-                        continue;
+                        if (string.IsNullOrWhiteSpace(childElementText.NodeValue))
+                            continue;
 
-                    // HACK: Convert raw-text to element - this prevents text with no parent tag being lost
-                    var textElement = _document.CreateElement("html-text");
-                    textElement.NodeValue = childElement.TextContent;
-                    textElement.TextContent = childElement.TextContent;
+                        // HACK: Convert raw-text to element - this prevents text with no parent tag being lost
+                        var textElement = _document.CreateElement("html-text");
+                        textElement.NodeValue = childElement.TextContent;
+                        textElement.TextContent = childElement.TextContent;
 
-                    // LR: Create MJML component
-                    childComponent = CreateMjmlComponent(textElement, parentComponent);
+                        // LR: Create MJML component
+                        childComponent = CreateMjmlComponent(textElement, parentComponent);
 
-                    // LR: Add child component to parent
-                    parentComponent.Children.Add(childComponent);
+                        // LR: Add child component to parent
+                        parentComponent.Children.Add(childComponent);
+                        break;
+                    case NodeType.CharacterData:
+                        break;
+                    case NodeType.EntityReference:
+                        break;
+                    case NodeType.Entity:
+                        break;
+                    case NodeType.ProcessingInstruction:
+                        break;
+                    case NodeType.Comment:
+                        break;
+                    case NodeType.Document:
+                        break;
+                    case NodeType.DocumentType:
+                        break;
+                    case NodeType.DocumentFragment:
+                        break;
+                    case NodeType.Notation:
+                        break;
+                    default:
+                        break;
                 }
             }
         }

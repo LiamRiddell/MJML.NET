@@ -283,5 +283,29 @@ namespace Mjml.Core.Component
                     return $"{containerWidth.Value - paddingSize}px";
             }
         }
+
+        public void PassAttributesToChildren(string[] attributes)
+        {
+            // LR: Interate each attribute
+            foreach (var attribute in attributes)
+            {
+                // LR: If the value is not defined on the tag then it's a default and we shouldn't pass it
+                if (!Element.HasAttribute(attribute))
+                    continue;
+
+                // LR: Interate the child components
+                foreach (var childComponent in Children)
+                {
+                    var attributeValue = GetAttribute(attribute);
+
+                    // LR: If the child does not have attribute it's using defaults but we'll override.
+                    if (!childComponent.Element.HasAttribute(attribute) && !string.IsNullOrWhiteSpace(attributeValue))
+                    {
+                        // LR: Set the child component attribute
+                        childComponent.SetAttribute(attribute, attributeValue);
+                    }
+                }
+            }
+        }
     }
 }
