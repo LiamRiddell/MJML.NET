@@ -39,25 +39,14 @@ namespace Mjml
         /// <param name="content"></param>
         public MjmlDocument(string content)
         {
-            // var context = BrowsingContext.New(Configuration.Default);
-            // Create a document from a virtual request / response pattern
-            // _document = context.OpenAsync(req => req.Content(content)).GetAwaiter().GetResult();
-
             // LR: AngleSharp HtmlParser
             _htmlParser = new HtmlParser();
 
-            // HACK: Unknown self-closing tags break AngleSharps DOM. Any siblings after unknown self-closing element becomes a child of the unkown element.
-            // We use regex to find and close the self-closing tags for mjml
-            Regex selfClosingMjml = new Regex(@"(<mj-.*\/>)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
-            content = selfClosingMjml.Replace(content, delegate (Match m)
-            {
-                var tagName = m.Value.Substring(1, m.Value.IndexOf(' ') - 1);
-                return $"{m.Value.Replace("/>", "")}></{tagName}>";
-            });
+            // LR: Pass to the content pre-processor
+            string preProcessedContent = ContentPreProcess(content);
 
             // LR: Parse mjml document
-            _document = _htmlParser.ParseDocument(content);
+            _document = _htmlParser.ParseDocument(preProcessedContent);
         }
 
         #region Public
@@ -75,14 +64,41 @@ namespace Mjml
 
         public string Render(bool prettify = false)
         {
+            // LR: Wrap the dynamically generated content in a the skeleton template
             string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
 
+            // LR: Pass to the content post-processor
+            ContentPostProcess(html);
+
+            // LR: Decide on prettfying
             return prettify ? PrettifyHtml(html) : html;
         }
 
         #endregion Public
 
         #region Private
+
+        private string ContentPreProcess(string content)
+        {
+            // HACK: Unknown self-closing tags break AngleSharps DOM. Any siblings after unknown self-closing element becomes a child of the unkown element.
+            // We use regex to find and close the self-closing tags for mjml
+            Regex selfClosingMjml = new Regex(@"(<mj-.*\/>)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+            content = selfClosingMjml.Replace(content, delegate (Match m)
+            {
+                var tagName = m.Value.Substring(1, m.Value.IndexOf(' ') - 1);
+                return $"{m.Value.Replace("/>", "")}></{tagName}>";
+            });
+
+            return content;
+        }
+
+        private string ContentPostProcess(string content)
+        {
+            // LR: TODO Inline CSS
+
+            return content;
+        }
 
         private BaseComponent CreateMjmlComponent(IElement element, BaseComponent parent = null)
         {
