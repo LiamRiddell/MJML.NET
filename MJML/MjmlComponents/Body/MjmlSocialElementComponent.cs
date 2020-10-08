@@ -4,6 +4,7 @@ using Mjml.Helpers;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 
 namespace Mjml.MjmlComponents.Body
@@ -64,11 +65,11 @@ namespace Mjml.MjmlComponents.Body
             { "dribbble-noshare", new SocialNetworkSettings("[[URL]]", "#D95988", $"{IMAGE_BASE_URL}dribbble.png") },
         };
 
-        private readonly Dictionary<string, string> socialAttributes;
+        private Dictionary<string, string> socialAttributes;
 
         public MjmlSocialElementComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
-            socialAttributes = GetSocialAttributes();
+            
         }
 
         public override Dictionary<string, string> SetAllowedAttributes()
@@ -109,6 +110,8 @@ namespace Mjml.MjmlComponents.Body
 
         public override void SetupStyles()
         {
+            socialAttributes = GetSocialAttributes();
+
             StyleLibraries.AddStyleLibrary("td", new Dictionary<string, string>() {
                 { "padding", $"{GetAttribute("padding")}" },
                 { "vertical-align", GetAttribute("vertical-align") }
@@ -190,7 +193,7 @@ namespace Mjml.MjmlComponents.Body
                     })}
                 >
                     <td {HtmlAttributes(new Dictionary<string, string> {
-                            { "style", GetAttribute("td") }
+                            { "style", "td" }
                         })}
                     >
                         <table {HtmlAttributes(new Dictionary<string, string> {
@@ -203,7 +206,7 @@ namespace Mjml.MjmlComponents.Body
                         >
                             <tr>
                                 <td {HtmlAttributes(new Dictionary<string, string> {
-                                        { "style", GetAttribute("icon") }
+                                        { "style", "icon" }
                                     })}
                                 >
                                     {( 
