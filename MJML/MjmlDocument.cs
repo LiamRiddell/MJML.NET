@@ -81,12 +81,12 @@ namespace Mjml
         private string ContentPreProcess(string content)
         {
             // HACK: Unknown self-closing tags break AngleSharps DOM. Any siblings after unknown self-closing element becomes a child of the unkown element.
-            // We use regex to find and close the self-closing tags for mjml
+            // We can use regex to find and close the self-closing tags for AOT.
             Regex selfClosingMjml = new Regex(@"(<mj-.*\/>)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
             content = selfClosingMjml.Replace(content, delegate (Match m)
             {
-                var tagName = m.Value.Substring(1, m.Value.IndexOf(' ') - 1);
+                string tagName = m.Value.Substring(1, m.Value.IndexOf(' ') - 1);
                 return $"{m.Value.Replace("/>", "")}></{tagName}>";
             });
 
