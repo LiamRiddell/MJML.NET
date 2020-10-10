@@ -138,14 +138,15 @@ namespace MjmlConsoleTest
                     <mj-wrapper full-width=""full-width"">
                       <mj-section>
                         <mj-column width=""100%"" padding=""0"">
-                          <mj-social font-size=""15px"" icon-size=""30px"" mode=""horizontal"" padding=""0"" align=""center"">
-                            <mj-social-element name=""facebook"" href=""https://mjml.io/"" background-color=""#A1A0A0"">
+                          <mj-social font-size=""15px"" icon-size=""30px"" mode=""horizontal"" padding=""0"" align=""center"" background-color=""#A1A0A0"">
+                            <mj-social-element name=""facebook"" href=""https://mjml.io/"" background-color=""#A1A0A0"" icon-size=""24px"">
+                                Facebook 
                             </mj-social-element>
-                            <mj-social-element name=""google"" href=""https://mjml.io/"" background-color=""#A1A0A0"">
+                            <mj-social-element name=""google"" href=""https://mjml.io/"" background-color=""#333333"" icon-size=""42px"">
                             </mj-social-element>
-                            <mj-social-element name=""twitter"" href=""https://mjml.io/"" background-color=""#A1A0A0"">
+                            <mj-social-element name=""twitter"" href=""https://mjml.io/"">
                             </mj-social-element>
-                            <mj-social-element name=""linkedin"" href=""https://mjml.io/"" background-color=""#A1A0A0"">
+                            <mj-social-element name=""linkedin"" href=""https://mjml.io/"" background-color=""#A1A0A0"" icon-size=""62px"">
                             </mj-social-element>
                           </mj-social>
                           <mj-text color=""#445566"" font-size=""11px"" font-weight=""bold"" align=""center"">

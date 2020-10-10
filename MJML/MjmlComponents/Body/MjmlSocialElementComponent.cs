@@ -2,6 +2,7 @@
 using Mjml.Core.Component;
 using Mjml.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
@@ -183,6 +184,34 @@ namespace Mjml.MjmlComponents.Body
             return attributes;
         }
 
+        public string RenderContent(bool hasLink)
+        {
+            return $@"
+                <td {HtmlAttributes(new Dictionary<string, string> {
+                        { "style", "tdText" }
+                    })}
+                >
+                    {(
+                        hasLink ?
+                            $@"<a {HtmlAttributes(new Dictionary<string, string> {
+                                { "href", socialAttributes["href"] },
+                                { "style", "text" },
+                                { "rel", GetAttribute("rel") },
+                                { "target", GetAttribute("target") }
+                            })}>"
+                            :
+                            $@"<span {HtmlAttributes(new Dictionary<string, string> {
+                                { "style", "text" },
+                            })}>"
+                    )}
+
+                    {GetContent()}
+
+                    {(hasLink ? "</a>" : "</span>")}
+                </tr>
+            ";
+        }
+
         public override string RenderMjml()
         {
             var hasLink = HasAttribute("href");
@@ -236,6 +265,9 @@ namespace Mjml.MjmlComponents.Body
                             </tr>
                         </table>
                     </td>
+
+                    {(Children.Any() ? RenderContent(hasLink) : string.Empty)}
+
                 </tr>
             ";
         }
