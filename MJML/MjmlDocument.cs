@@ -43,10 +43,10 @@ namespace Mjml
             _htmlParser = new HtmlParser();
 
             // LR: Pass to the content pre-processor
-            string preProcessedContent = ContentPreProcess(content);
+            string processed = ContentPreProcess(content);
 
             // LR: Parse mjml document
-            _document = _htmlParser.ParseDocument(preProcessedContent);
+            _document = _htmlParser.ParseDocument(processed);
         }
 
         #region Public
@@ -68,10 +68,10 @@ namespace Mjml
             string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
 
             // LR: Pass to the content post-processor
-            ContentPostProcess(html);
+            string processed = ContentPostProcess(html);
 
             // LR: Decide on prettfying
-            return prettify ? PrettifyHtml(html) : html;
+            return prettify ? PrettifyHtml(processed) : processed;
         }
 
         #endregion Public
