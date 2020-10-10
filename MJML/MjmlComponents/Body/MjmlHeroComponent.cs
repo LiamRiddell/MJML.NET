@@ -1,6 +1,8 @@
 ﻿using AngleSharp.Dom;
 using Mjml.Core.Component;
+using Mjml.Helpers;
 using Mjml.HtmlComponents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,17 +29,30 @@ namespace Mjml.MjmlComponents.Body
                 { "height", "0px" },
                 { "mode", "fluid-height" },
                 { "padding", "0px" },
-                { "padding-bottom", "0px" },
-                { "padding-left", "0px" },
-                { "padding-right", "0px" },
-                { "padding-top", "0px" },
+                { "padding-bottom", null },
+                { "padding-left", null },
+                { "padding-right", null },
+                { "padding-top", null },
                 { "vertical-align", "top" },
                 { "width", null },
             };
         }
 
+        public string GetBackground()
+        {
+            string backgroundColor = GetAttribute("background-color");
+            bool hasBackgroundUrl = Element.HasAttribute("background-url");
+
+            return $"{backgroundColor} {(hasBackgroundUrl ? $"url({GetAttribute("background-url")}) no-repeat {GetAttribute("background-position")} / cover" : string.Empty )}";
+        }
+
         public override void SetupStyles()
         {
+            var backgroundHeight = CssUnitParser.Parse(GetAttribute("background-height"));
+            var backgroundWidth = CssUnitParser.Parse(GetAttribute("background-width"));
+            var backgroundRatio = Math.Round(backgroundHeight.Value / backgroundWidth.Value * 100d);
+            var width = Element.HasAttribute("background-width") ? GetAttribute("background-width") : $"{GetContainerInnerWidth()}px";
+
             StyleLibraries.AddStyleLibrary("div", new Dictionary<string, string>() {
                 { "margin", "0 auto" },
                 { "max-width", $"{GetContainerInnerWidth()}px" }
@@ -53,12 +68,12 @@ namespace Mjml.MjmlComponents.Body
 
             StyleLibraries.AddStyleLibrary("td-fluid", new Dictionary<string, string>() {
                 { "width", "0.01%" },
-                { "padding-bottom", $"{GetContainerInnerWidth()}px" }, // `${backgroundRatio}%`
+                { "padding-bottom", $"{backgroundRatio}%" },
                 { "mso-padding-bottom-alt", "0" }
             });
 
             StyleLibraries.AddStyleLibrary("hero", new Dictionary<string, string>() {
-                { "background", null }, // TODO
+                { "background", GetBackground() },
                 { "background-position", GetAttribute("background-position") },
                 { "background-repeat", "no-repeat" },
                 { "padding", GetAttribute("padding") },
@@ -89,7 +104,7 @@ namespace Mjml.MjmlComponents.Body
                 { "mso-position-horizontal", "center" },
                 { "position", "absolute" },
                 { "top", "0" },
-                { "width", null }, // TODO
+                { "width", width },
                 { "z-index", "-3" }
             });
 
@@ -115,9 +130,213 @@ namespace Mjml.MjmlComponents.Body
             });
         }
 
+        public override string RenderChildren()
+        {
+            if (!Children.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var childComponent in Children)
+            {
+                string childContent = childComponent.RenderMjml();
+
+                if (string.IsNullOrWhiteSpace(childContent))
+                    continue;
+
+                if (childComponent.IsRawElement())
+                {
+                    sb.Append(childContent);
+                }
+                else
+                {
+                    var bodyComponent = childComponent as BodyComponent;
+
+                    sb.Append($@"
+                        <tr>
+                            <td {bodyComponent.HtmlAttributes(new Dictionary<string, string>() {
+                                { "align", bodyComponent.GetAttribute("align") },
+                                { "background", bodyComponent.GetAttribute("container-background-color") },
+                                { "class", bodyComponent.GetAttribute("css-class") },
+                                { "style", InlineCss(new Dictionary<string, string>() {
+                                    { "background", bodyComponent.GetAttribute("container-background-color") },
+                                    { "font-size", "0px" },
+                                    { "padding", bodyComponent.GetAttribute("padding") },
+                                    { "padding-top", bodyComponent.GetAttribute("padding-top") },
+                                    { "padding-right", bodyComponent.GetAttribute("padding-right") },
+                                    { "padding-bottom", bodyComponent.GetAttribute("padding-bottom") },
+                                    { "padding-left", bodyComponent.GetAttribute("padding-left") },
+                                    { "word-break", "break-word" }
+                                })}
+                            })}>
+                                {childContent}
+                           </td>
+                        </tr>
+                    ");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private object RenderContent()
+        {
+            return $@"
+                <!--[if mso | IE]>
+                <table {HtmlAttributes(new Dictionary<string, string> {
+                        { "align", GetAttribute("align") },
+                        { "border", "0" },
+                        { "cellpadding", "0" },
+                        { "cellspacing", "0" },
+                        { "role", "presentation" },
+                        { "style", "outlook-inner-table" },
+                        { "width", $"{GetContainerInnerWidth()}px" }
+                })}>
+                    <tr>
+                        <td {HtmlAttributes(new Dictionary<string, string> {
+                            { "style", "outlook-inner-td" }
+                        })}>
+            <![endif]-->
+                            <div {HtmlAttributes(new Dictionary<string, string> {
+                                { "align", GetAttribute("align") },
+                                { "class", GetAttribute("mj-hero-content") },
+                                { "style", "inner-div" }
+                            })}>
+                                <table {HtmlAttributes(new Dictionary<string, string> {
+                                    { "border", "0" },
+                                    { "cellpadding", "0" },
+                                    { "cellspacing", "0" },
+                                    { "role", "presentation" },
+                                    { "style", "inner-table" }
+                                })}>
+                                    <tr>
+                                        <td {HtmlAttributes(new Dictionary<string, string> {
+                                            { "style", "inner-td" }
+                                        })}>
+                                            <table {HtmlAttributes(new Dictionary<string, string> {
+                                                { "border", "0" },
+                                                { "cellpadding", "0" },
+                                                { "cellspacing", "0" },
+                                                { "role", "presentation" },
+                                                { "style", "inner-table" }
+                                            })}>
+                                                {RenderChildren()}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div> 
+            <!--[if mso | IE]>
+                        </td>
+                    </tr>
+                </td>
+            <![endif]-->
+            ";
+        }
+
+        private object RenderMode()
+        {
+            string background = GetAttribute("background-url");
+
+            switch (GetAttribute("mode"))
+            {
+                case "fluid-height":
+                    string magicTd = HtmlAttributes(new Dictionary<string, string> {
+                            { "style", "td-fluid" },
+                    });
+
+                    return $@"
+                        <td {magicTd} />
+                        <td {HtmlAttributes(new Dictionary<string, string> {
+                                    { "background", background },
+                                    { "style", "hero" }
+                                })}
+                        >
+                           {RenderContent()}
+                        </td>
+                        <td {magicTd} />
+                    ";
+                default:
+                    var heightCss = CssUnitParser.Parse(GetAttribute("height"));
+                    var paddingTop = GetShorthandAttributeValue("padding", "top");
+                    var paddingBottom = GetShorthandAttributeValue("padding", "bottom");
+
+                    // LR: Start with the height value. e.g. 500px
+                    var height = heightCss.Value;
+
+                    // LR: Convert % to PX 
+                    if (heightCss.Unit.Equals("%")) height = GetContainerInnerWidth() / 100 * height;
+
+                    // LR: Remove the top and bottom padding from the height e.g. 500px - 24px - 24px = 452px
+                    height -= paddingTop + paddingBottom;
+
+                    return $@"
+                        <td {HtmlAttributes(new Dictionary<string, string> {
+                                { "background", background },
+                                { "style", "hero" },
+                                { "height", $"{height}" }
+                            })}
+                        >
+                           {RenderContent()}
+                        </td>
+                    ";
+            }
+        }
+
         public override string RenderMjml()
         {
-            return ""; // TODO;
+            return $@"
+            <!--[if mso | IE]>
+                <table {HtmlAttributes(new Dictionary<string, string> {
+                            { "align", "center" },
+                            { "border", "0" },
+                            { "cellpadding", "0" },
+                            { "cellspacing", "0" },
+                            { "role", "presentation" },
+                            { "style", "outlook-table" },
+                            { "class", $"{GetContainerInnerWidth()}px" }
+                        })}
+                >
+                    <tr>
+                        <td {HtmlAttributes(new Dictionary<string, string> {
+                                { "style", "outlook-td" }
+                            })}
+                        >
+                            <v:image {HtmlAttributes(new Dictionary<string, string> {
+                                    { "style", "outlook-image" },
+                                    { "src", GetAttribute("background-url") },
+                                    { "xmlns:v", "urn:schemas-microsoft-com:vml" }
+                                })}
+                            />
+            <![endif]-->
+                            <div {HtmlAttributes(new Dictionary<string, string> {
+                                        { "align", GetAttribute("align") },
+                                        { "class", GetAttribute("css-class") },
+                                        { "style", "div" }
+                                    })}
+                            >
+                                <table {HtmlAttributes(new Dictionary<string, string> {
+                                            { "border", "0" },
+                                            { "cellpadding", "0" },
+                                            { "cellspacing", "0" },
+                                            { "role", "presentation" },
+                                            { "style", "table" }
+                                        })}
+                                >
+                                    <tr {HtmlAttributes(new Dictionary<string, string> {
+                                            { "style", "tr" }
+                                        })}
+                                    >
+                                       {RenderMode()}
+                                    </tr>
+                                </table>
+                            </div>
+            <!--[if mso | IE]>
+                        </td>
+                    </tr>
+                </table>
+            <![endif]-->
+            ";
         }
     }
 }
