@@ -108,6 +108,16 @@ namespace MjmlConsoleTest
                           </mj-text>
                         </mj-column>
                       </mj-section>
+                      <mj-section background-color=""#ffffff"" padding=""0 15px 0 15px"">
+                        <mj-hero mode=""fixed-height"" height=""469px"" background-width=""600px"" background-height=""469px"" background-url=""https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg"" background-color=""#2a3448"" padding=""100px 0px"">
+                          <mj-text padding=""20px"" color=""#ffffff"" font-family=""Helvetica"" align=""center"" font-size=""45px"" line-height=""45px"" font-weight=""900"">
+                            GO TO SPACE
+                          </mj-text>
+                          <mj-button href=""https://mjml.io/"" align=""center"">
+                            ORDER YOUR TICKET NOW
+                          </mj-button>
+                        </mj-hero>
+                      </mj-section>
                       <mj-section background-color=""#ffffff"" padding-left=""15px"" padding-right=""15px"">
                         <mj-column width=""50%"">
                           <mj-text color=""#212b35"" font-size=""12px"" text-transform=""uppercase"" font-weight=""bold"" padding-bottom=""0"">

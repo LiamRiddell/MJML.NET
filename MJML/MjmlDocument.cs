@@ -160,6 +160,9 @@ namespace Mjml
                 case "mj-button":
                     return new MjmlButtonComponent(element, parent);
 
+                case "mj-hero":
+                    return new MjmlHeroComponent(element, parent);
+
                 case "mj-social":
                     return new MjmlSocialComponent(element, parent);
 
