@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Mjml.Helpers
+namespace MjmlDotNet.Helpers
 {
     public class CssParsedUnit
     {

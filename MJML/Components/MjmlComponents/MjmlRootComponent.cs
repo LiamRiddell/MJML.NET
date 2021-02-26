@@ -1,10 +1,8 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Core.Interfaces;
+using MjmlDotNet.Core.Component;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents
+namespace MjmlDotNet.Components.Mjml
 {
     public class MjmlRootComponent : BodyComponent
     {

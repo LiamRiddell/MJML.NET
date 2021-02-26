@@ -1,14 +1,12 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Helpers;
-using Mjml.HtmlComponents;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents.Body
+namespace MjmlDotNet.Components.Mjml.Body
 {
     public class MjmlHeroComponent : BodyComponent
     {
@@ -43,7 +41,7 @@ namespace Mjml.MjmlComponents.Body
             string backgroundColor = GetAttribute("background-color");
             bool hasBackgroundUrl = Element.HasAttribute("background-url");
 
-            return $"{backgroundColor} {(hasBackgroundUrl ? $"url({GetAttribute("background-url")}) no-repeat {GetAttribute("background-position")} / cover" : string.Empty )}";
+            return $"{backgroundColor} {(hasBackgroundUrl ? $"url({GetAttribute("background-url")}) no-repeat {GetAttribute("background-position")} / cover" : string.Empty)}";
         }
 
         public override void SetupStyles()
@@ -225,7 +223,7 @@ namespace Mjml.MjmlComponents.Body
                                         </td>
                                     </tr>
                                 </table>
-                            </div> 
+                            </div>
             <!--[if mso | IE]>
                         </td>
                     </tr>
@@ -256,6 +254,7 @@ namespace Mjml.MjmlComponents.Body
                         </td>
                         <td {magicTd} />
                     ";
+
                 default:
                     var heightCss = CssUnitParser.Parse(GetAttribute("height"));
                     var paddingTop = GetShorthandAttributeValue("padding", "top");
@@ -264,7 +263,7 @@ namespace Mjml.MjmlComponents.Body
                     // LR: Start with the height value. e.g. 500px
                     var height = heightCss.Value;
 
-                    // LR: Convert % to PX 
+                    // LR: Convert % to PX
                     if (heightCss.Unit.Equals("%")) height = GetContainerInnerWidth() / 100 * height;
 
                     // LR: Remove the top and bottom padding from the height e.g. 500px - 24px - 24px = 452px

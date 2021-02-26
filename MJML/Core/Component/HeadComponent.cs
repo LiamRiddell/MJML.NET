@@ -1,9 +1,7 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Interfaces;
 using System;
-using System.Xml.Linq;
 
-namespace Mjml.Core.Component
+namespace MjmlDotNet.Core.Component
 {
     public class HeadComponent : BaseComponent
     {

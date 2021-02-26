@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>MJML</AssemblyName>
-    <RootNamespace>Mjml</RootNamespace>
+    <AssemblyName>MjmlDotNet</AssemblyName>
+    <RootNamespace>MjmlDotNet</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

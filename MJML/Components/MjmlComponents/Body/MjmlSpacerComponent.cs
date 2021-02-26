@@ -1,10 +1,9 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Helpers;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Helpers;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents.Body
+namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-spacer/src/index.js
     public class MjmlSpacerComponent : BodyComponent

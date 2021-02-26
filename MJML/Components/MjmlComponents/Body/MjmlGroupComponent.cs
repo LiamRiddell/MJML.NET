@@ -1,16 +1,13 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Core.Css;
-using Mjml.Helpers;
-using Mjml.HtmlComponents;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Core.Css;
+using MjmlDotNet.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents.Body
+namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-group/src/index.js
     public class MjmlGroupComponent : BodyComponent

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mjml.Helpers
+namespace MjmlDotNet.Helpers
 {
-    static class CssHelper
+    internal static class CssHelper
     {
         private readonly static List<string> CssProperties = new List<string>
         {
@@ -134,7 +133,7 @@ namespace Mjml.Helpers
         {
             if (string.IsNullOrWhiteSpace(propertyName))
                 return false;
-  
+
             return CssProperties.Contains(propertyName.ToLower());
         }
     }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MjmlDotNet;
+using System;
 using System.Diagnostics;
 using System.IO;
-using Mjml;
 
 namespace MjmlConsoleTest
 {

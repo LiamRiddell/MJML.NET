@@ -1,17 +1,15 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Css;
-using Mjml.Core.Interfaces;
-using Mjml.Extensions;
-using Mjml.Helpers;
-using Mjml.HtmlComponents;
-using Mjml.MjmlComponents.Body;
+using MjmlDotNet.Components.Html;
+using MjmlDotNet.Components.Mjml.Body;
+using MjmlDotNet.Core.Css;
+using MjmlDotNet.Extensions;
+using MjmlDotNet.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
-namespace Mjml.Core.Component
+namespace MjmlDotNet.Core.Component
 {
     public abstract class BodyComponent : BaseComponent
     {

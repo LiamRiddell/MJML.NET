@@ -1,23 +1,17 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
-using Mjml.Core.Component;
-using Mjml.Helpers;
-using Mjml.HtmlComponents;
-using Mjml.MjmlComponents;
-using Mjml.MjmlComponents.Body;
-using Mjml.MjmlComponents.Head;
+using MjmlDotNet.Components.Html;
+using MjmlDotNet.Components.Mjml;
+using MjmlDotNet.Components.Mjml.Body;
+using MjmlDotNet.Components.Mjml.Head;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Helpers;
 using System;
-using System.IO;
 using System.Linq;
-using System.Net.Mime;
-using System.Security;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
 
-namespace Mjml
+namespace MjmlDotNet
 {
     public class MjmlDocument
     {
@@ -29,7 +23,7 @@ namespace Mjml
         private IHtmlParser _htmlParser { get; set; }
 
         /// <summary>
-        /// Root element containg all child components
+        /// Root element containg all document components
         /// </summary>
         public MjmlRootComponent VirtualDocument { get; set; }
 
@@ -217,8 +211,10 @@ namespace Mjml
                         // LR: Traverse the child element and change the parent context
                         TraverseElementTree(childElement, childComponent);
                         break;
+
                     case NodeType.Attribute:
                         break;
+
                     case NodeType.Text:
                         var childElementText = childElement as IText;
 
@@ -236,24 +232,34 @@ namespace Mjml
                         // LR: Add child component to parent
                         parentComponent.Children.Add(childComponent);
                         break;
+
                     case NodeType.CharacterData:
                         break;
+
                     case NodeType.EntityReference:
                         break;
+
                     case NodeType.Entity:
                         break;
+
                     case NodeType.ProcessingInstruction:
                         break;
+
                     case NodeType.Comment:
                         break;
+
                     case NodeType.Document:
                         break;
+
                     case NodeType.DocumentType:
                         break;
+
                     case NodeType.DocumentFragment:
                         break;
+
                     case NodeType.Notation:
                         break;
+
                     default:
                         break;
                 }

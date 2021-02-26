@@ -1,4 +1,4 @@
-﻿namespace Mjml
+﻿namespace MjmlDotNet
 {
     public class MjmlParser
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mjml.Core.Css
+namespace MjmlDotNet.Core.Css
 {
     public class CssStyleLibraries
     {

@@ -1,9 +1,8 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
+using MjmlDotNet.Core.Component;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
-namespace Mjml.Core.Interfaces
+namespace MjmlDotNet.Core.Interfaces
 {
     public interface IComponent
     {

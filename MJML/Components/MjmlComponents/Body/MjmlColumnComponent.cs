@@ -1,15 +1,13 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Core.Css;
-using Mjml.Helpers;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Core.Css;
+using MjmlDotNet.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents.Body
+namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-column/src/index.js
     public class MjmlColumnComponent : BodyComponent
@@ -32,7 +30,7 @@ namespace Mjml.MjmlComponents.Body
 
         public int GetSectionColumnCount()
         {
-            return Element.ParentElement.ChildNodes.Count(e => e.NodeType.Equals(NodeType.Element) );
+            return Element.ParentElement.ChildNodes.Count(e => e.NodeType.Equals(NodeType.Element));
         }
 
         public override CssBoxModel GetBoxModel()

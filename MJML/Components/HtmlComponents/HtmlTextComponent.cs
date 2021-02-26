@@ -1,10 +1,9 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Core.Css;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Core.Css;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
-namespace Mjml.HtmlComponents
+namespace MjmlDotNet.Components.Html
 {
     /// <summary>
     /// HtmlText outputs the text content of html node.

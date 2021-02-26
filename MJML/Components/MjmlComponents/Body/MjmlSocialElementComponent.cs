@@ -1,19 +1,15 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core.Component;
-using Mjml.Helpers;
+using MjmlDotNet.Core.Component;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Net.Http.Headers;
-using System.Security.Cryptography;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents.Body
+namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-text/src/index.js
     public class MjmlSocialElementComponent : BodyComponent
     {
-        private class SocialNetworkSettings {
+        private class SocialNetworkSettings
+        {
             public string ShareUrl { get; set; }
             public string BackgroundColor { get; set; }
             public string Src { get; set; }
@@ -70,7 +66,6 @@ namespace Mjml.MjmlComponents.Body
 
         public MjmlSocialElementComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
-            
         }
 
         public override Dictionary<string, string> SetAllowedAttributes()
@@ -156,7 +151,7 @@ namespace Mjml.MjmlComponents.Body
         public Dictionary<string, string> GetSocialAttributes()
         {
             var socialNetworkName = GetAttribute("name");
-         
+
             // LR: If the social network was not found then ignore it.
             if (!_defaultSocialNetworks.ContainsKey(socialNetworkName))
                 return new Dictionary<string, string>();
@@ -217,8 +212,8 @@ namespace Mjml.MjmlComponents.Body
             var hasLink = HasAttribute("href");
 
             return $@"
-                <tr {HtmlAttributes(new Dictionary<string, string> { 
-                        { "class", GetAttribute("css-class") } 
+                <tr {HtmlAttributes(new Dictionary<string, string> {
+                        { "class", GetAttribute("css-class") }
                     })}
                 >
                     <td {HtmlAttributes(new Dictionary<string, string> {
@@ -238,14 +233,14 @@ namespace Mjml.MjmlComponents.Body
                                         { "style", "icon" }
                                     })}
                                 >
-                                    {( 
-                                        hasLink ? 
+                                    {(
+                                        hasLink ?
                                             $@"<a {HtmlAttributes(new Dictionary<string, string> {
                                                 { "href", socialAttributes["href"] },
                                                 { "rel", GetAttribute("rel") },
                                                 { "target", GetAttribute("target") }
-                                            })}>" 
-                                            : string.Empty 
+                                            })}>"
+                                            : string.Empty
                                     )}
 
                                     <img {HtmlAttributes(new Dictionary<string, string> {
@@ -260,7 +255,7 @@ namespace Mjml.MjmlComponents.Body
                                         })}
                                     />
 
-                                    {( hasLink ? $@"</a>" : string.Empty )}                        
+                                    {(hasLink ? $@"</a>" : string.Empty)}
                                 </td>
                             </tr>
                         </table>

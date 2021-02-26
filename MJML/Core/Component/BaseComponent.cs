@@ -1,13 +1,11 @@
 ﻿using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using Mjml.Core.Interfaces;
+using MjmlDotNet.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml.Linq;
 
-namespace Mjml.Core.Component
+namespace MjmlDotNet.Core.Component
 {
     public abstract class BaseComponent : IComponent
     {

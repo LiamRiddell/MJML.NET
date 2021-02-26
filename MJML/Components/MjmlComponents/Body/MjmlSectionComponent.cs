@@ -1,15 +1,14 @@
 ﻿using AngleSharp.Dom;
-using Mjml.Core;
-using Mjml.Core.Component;
-using Mjml.Extensions;
-using Mjml.Helpers;
+using MjmlDotNet.Core;
+using MjmlDotNet.Core.Component;
+using MjmlDotNet.Extensions;
+using MjmlDotNet.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml.Linq;
 
-namespace Mjml.MjmlComponents.Body
+namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-section/src/index.js
     public class MjmlSectionComponent : BodyComponent
