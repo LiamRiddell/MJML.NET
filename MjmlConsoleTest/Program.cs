@@ -197,7 +197,7 @@ namespace MjmlConsoleTest
             var sw = Stopwatch.StartNew();
             var mjmlParser = new MjmlParser();
 
-            for (int i = 0; i <= 0; i++)
+            for (int i = 0; i <= 10000; i++)
             {
                 if (!mjmlParser.TryParseDocument(mjmlString, out var html))
                 {
@@ -215,6 +215,7 @@ namespace MjmlConsoleTest
             sw.Stop();
 
             Console.WriteLine($"Parsed: {sw.Elapsed}");
+            Console.ReadKey();
         }
     }
 }

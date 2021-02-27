@@ -60,8 +60,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MJML\MjmlDotNet.csproj">
-      <Project>{ed14ed87-0e49-4624-98d2-876277d59f9d}</Project>
+    <ProjectReference Include="..\MjmlDotNet\MjmlDotNet.csproj">
+      <Project>{cb0b9437-25fa-433a-8410-0d120e5c7252}</Project>
       <Name>MjmlDotNet</Name>
     </ProjectReference>
   </ItemGroup>

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MjmlDotNet\MjmlDotNet.csproj" />
     <ProjectReference Include="..\MJML\MjmlDotNet.csproj" />
   </ItemGroup>
 
