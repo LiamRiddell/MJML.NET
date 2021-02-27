@@ -1,5 +1,5 @@
 ﻿using AngleSharp.Dom;
-using MjmlDotNet.Core.Component;
+using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
 

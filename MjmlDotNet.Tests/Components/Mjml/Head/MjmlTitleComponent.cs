@@ -32,7 +32,7 @@ namespace MjmlDotNet.Tests.Components.Mjml.Head
                 </mjml>
             ";
 
-            var html = _MjmlParser.Parse(mjml, new object { });
+            var html = _MjmlParser.ParseDocument(mjml);
 
             _HtmlDocument = _HtmlParser.ParseDocument(html);
 

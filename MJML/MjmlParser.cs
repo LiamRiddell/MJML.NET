@@ -1,4 +1,6 @@
-﻿namespace MjmlDotNet
+﻿using MjmlDotNet.Core.Document;
+
+namespace MjmlDotNet
 {
     public class MjmlParser : IMjmlParser
     {
@@ -6,22 +8,19 @@
         {
         }
 
-        public string Parse(string content, object options)
+        public string ParseDocument(string mjml)
         {
-            MjmlDocument mjmlDocument = new MjmlDocument(content);
-
-            mjmlDocument.Parse();
-
-            return mjmlDocument.Render(true);
+            MjmlDocument mjmlDocument = new MjmlDocument(mjml);
+            return mjmlDocument.Compile(true);
         }
 
-        public bool TryParse(string content, object options, out string html)
+        public bool TryParseDocument(string content, out string html)
         {
             html = string.Empty;
 
             try
             {
-                html = Parse(content, options);
+                html = ParseDocument(content);
                 return true;
             }
             catch (System.Exception)

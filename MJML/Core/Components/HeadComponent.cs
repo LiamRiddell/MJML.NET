@@ -1,7 +1,7 @@
 ﻿using AngleSharp.Dom;
 using System;
 
-namespace MjmlDotNet.Core.Component
+namespace MjmlDotNet.Core.Components
 {
     public class HeadComponent : BaseComponent
     {

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MjmlDotNet.Core.Component
+namespace MjmlDotNet.Core.Components
 {
     public abstract class BodyComponent : BaseComponent
     {

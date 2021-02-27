@@ -185,12 +185,21 @@ namespace MjmlConsoleTest
                 </mjml>
             ";
 
+            // DI
+            // IMjmlParser _mjmlParser = new MjmlParser();
+
+            // Class
+            // IMjmlDocument document = _mjmlParser.ParseDocument(mjml, new MjmlParserOptions() {
+            //  Minify = true,
+            //  Prettify = false
+            // });
+
             var sw = Stopwatch.StartNew();
+            var mjmlParser = new MjmlParser();
+
             for (int i = 0; i <= 0; i++)
             {
-                var mjmlParser = new MjmlParser();
-
-                if (!mjmlParser.TryParse(mjmlString, new { }, out var html))
+                if (!mjmlParser.TryParseDocument(mjmlString, out var html))
                 {
                     // ... handle failure
                 }

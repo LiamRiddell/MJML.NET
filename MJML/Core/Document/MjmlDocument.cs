@@ -5,21 +5,25 @@ using MjmlDotNet.Components.Html;
 using MjmlDotNet.Components.Mjml;
 using MjmlDotNet.Components.Mjml.Body;
 using MjmlDotNet.Components.Mjml.Head;
-using MjmlDotNet.Core.Component;
+using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
+using MjmlDotNet.Core.Interfaces;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace MjmlDotNet
+namespace MjmlDotNet.Core.Document
 {
-    internal class MjmlDocument
+    internal class MjmlDocument : IMjmlDocument
     {
         /// <summary>
         /// AngleSharp document used for traversing the mjml template
         /// </summary>
         private IDocument _document { get; set; }
 
+        /// <summary>
+        /// AngleSharp HtmlParser used for parsing the mjml template
+        /// </summary>
         private IHtmlParser _htmlParser { get; set; }
 
         /// <summary>
@@ -33,30 +37,19 @@ namespace MjmlDotNet
         /// <param name="content"></param>
         public MjmlDocument(string content)
         {
-            // LR: AngleSharp HtmlParser
             _htmlParser = new HtmlParser();
 
-            // LR: Pass to the content pre-processor
-            string processed = ContentPreProcess(content);
+            string preProcessed = ContentPreProcess(content);
 
-            // LR: Parse mjml document
-            _document = _htmlParser.ParseDocument(processed);
+            _document = _htmlParser.ParseDocument(preProcessed);
+
+            if (_document.All.Any())
+                GenerateVirtualDocument();
         }
 
         #region Public
 
-        public bool Parse()
-        {
-            // LR: Parse the XML document
-            if (!_document.All.Any())
-                return false;
-
-            GenerateVirtualDocument();
-
-            return true;
-        }
-
-        public string Render(bool prettify = false)
+        public string Compile(bool prettify = false)
         {
             // LR: Wrap the dynamically generated content in a the skeleton template
             string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
@@ -66,6 +59,28 @@ namespace MjmlDotNet
 
             // LR: Should Prettify
             return prettify ? PrettifyHtml(processed) : processed;
+        }
+
+        public string PrettifyHtml(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return string.Empty;
+
+            // LR: Parse the document using AngleSharp
+            var document = _htmlParser.ParseDocument(content);
+
+            return document.Prettify();
+        }
+
+        public string MinifyHtml(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return string.Empty;
+
+            // LR: Parse the document using AngleSharp
+            var document = _htmlParser.ParseDocument(content);
+
+            return document.Minify();
         }
 
         #endregion Public
@@ -264,28 +279,6 @@ namespace MjmlDotNet
                         break;
                 }
             }
-        }
-
-        private string PrettifyHtml(string content)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-                return string.Empty;
-
-            // LR: Parse the document using AngleSharp
-            var document = _htmlParser.ParseDocument(content);
-
-            return document.Prettify();
-        }
-
-        private string MinifyHtml(string content)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-                return string.Empty;
-
-            // LR: Parse the document using AngleSharp
-            var document = _htmlParser.ParseDocument(content);
-
-            return document.Minify();
         }
 
         #endregion Private

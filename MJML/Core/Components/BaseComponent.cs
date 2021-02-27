@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MjmlDotNet.Core.Component
+namespace MjmlDotNet.Core.Components
 {
     public abstract class BaseComponent : IComponent
     {
