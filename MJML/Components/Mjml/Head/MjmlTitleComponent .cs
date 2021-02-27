@@ -27,10 +27,9 @@ namespace MjmlDotNet.Components.Mjml.Head
                 HtmlSkeleton.Title = content;
         }
 
-        
         public override string RenderMjml()
         {
-            // LR: Run the handler instead. 
+            // LR: Run the handler instead.
             Handler();
 
             // LR: Omit the child components

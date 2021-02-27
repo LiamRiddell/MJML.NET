@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom;
-using MjmlDotNet.Core.Css;
 using MjmlDotNet.Core.Component;
+using MjmlDotNet.Core.Css;
 using MjmlDotNet.Core.Extensions;
 using MjmlDotNet.Core.Helpers;
 using System;

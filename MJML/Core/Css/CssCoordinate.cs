@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MjmlDotNet.Core.Css
+﻿namespace MjmlDotNet.Core.Css
 {
     public class CssCoordinate
     {

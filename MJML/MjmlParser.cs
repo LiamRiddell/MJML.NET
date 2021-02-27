@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MjmlDotNet
+﻿namespace MjmlDotNet
 {
     public class MjmlParser
     {
