@@ -189,7 +189,7 @@ namespace MjmlDotNet
 
         private void TraverseElementTree(INode element, BaseComponent parentComponent)
         {
-            Console.WriteLine($"Traversing <{element.NodeName.ToLowerInvariant()}>");
+            // Console.WriteLine($"Traversing <{element.NodeName.ToLowerInvariant()}>");
 
             if (!element.ChildNodes.Any())
                 return;

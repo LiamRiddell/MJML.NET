@@ -100,7 +100,7 @@ namespace MjmlDotNet.Core.Component
 
                 if (!CssHelper.IsCssProperty(attribute.Key))
                 {
-                    Console.WriteLine($"[IsCssProperty] => Omitted {attribute.Key} as it's not a CssProperty");
+                    // Console.WriteLine($"[IsCssProperty] => Omitted {attribute.Key} as it's not a CssProperty");
                     continue;
                 }
 

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MjmlDotNet", "MJML\MjmlDotN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjmlConsoleTest", "MjmlConsoleTest\MjmlConsoleTest.csproj", "{A2867BB0-F05E-4A32-B750-546FAEF96E04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjmlDotNet.Tests", "MjmlDotNet.Tests\MjmlDotNet.Tests.csproj", "{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A2867BB0-F05E-4A32-B750-546FAEF96E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2867BB0-F05E-4A32-B750-546FAEF96E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2867BB0-F05E-4A32-B750-546FAEF96E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
