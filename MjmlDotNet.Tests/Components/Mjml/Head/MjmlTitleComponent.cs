@@ -1,7 +1,6 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MjmlDotNet;
 
 namespace MjmlDotNet.Tests.Components.Mjml.Head
 {
@@ -10,7 +9,7 @@ namespace MjmlDotNet.Tests.Components.Mjml.Head
     {
         private IHtmlParser _HtmlParser { get; set; }
         private IDocument _HtmlDocument { get; set; }
-        private MjmlParser _MjmlParser { get; set; }
+        private IMjmlParser _MjmlParser { get; set; }
 
         public MjmlTitleComponent()
         {
@@ -33,13 +32,10 @@ namespace MjmlDotNet.Tests.Components.Mjml.Head
                 </mjml>
             ";
 
-            // LR: Compile to HTML
             var html = _MjmlParser.Parse(mjml, new object { });
 
-            // LR: Feed the output into AngleSharp
             _HtmlDocument = _HtmlParser.ParseDocument(html);
 
-            // LR: Validate the document title
             Assert.AreEqual(documentTitle, _HtmlDocument.Title);
         }
     }

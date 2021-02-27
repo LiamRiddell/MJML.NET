@@ -1,6 +1,6 @@
 ﻿namespace MjmlDotNet
 {
-    public class MjmlParser
+    public class MjmlParser : IMjmlParser
     {
         public MjmlParser()
         {
@@ -8,19 +8,15 @@
 
         public string Parse(string content, object options)
         {
-            // LR: Intialise MjmlDocument with the content
             MjmlDocument mjmlDocument = new MjmlDocument(content);
 
-            // LR: Parse the Mjml
             mjmlDocument.Parse();
 
-            // LR: Render the MJML to HTML
             return mjmlDocument.Render(true);
         }
 
         public bool TryParse(string content, object options, out string html)
         {
-            // LR: Default output to an empty string
             html = string.Empty;
 
             try
