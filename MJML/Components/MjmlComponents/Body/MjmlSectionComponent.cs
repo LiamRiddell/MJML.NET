@@ -1,8 +1,8 @@
 ﻿using AngleSharp.Dom;
 using MjmlDotNet.Core;
 using MjmlDotNet.Core.Component;
-using MjmlDotNet.Extensions;
-using MjmlDotNet.Helpers;
+using MjmlDotNet.Core.Extensions;
+using MjmlDotNet.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

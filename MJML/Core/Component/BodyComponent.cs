@@ -2,8 +2,8 @@
 using MjmlDotNet.Components.Html;
 using MjmlDotNet.Components.Mjml.Body;
 using MjmlDotNet.Core.Css;
-using MjmlDotNet.Extensions;
-using MjmlDotNet.Helpers;
+using MjmlDotNet.Core.Extensions;
+using MjmlDotNet.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;

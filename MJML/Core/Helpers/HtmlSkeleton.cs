@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MjmlDotNet.Helpers
+namespace MjmlDotNet.Core.Helpers
 {
     // https://github.com/mjmlio/mjml/blob/604a9f2d2c19a224590814615fda8666fe1fd4e4/packages/mjml-core/src/helpers/skeleton.js
     public static class HtmlSkeleton

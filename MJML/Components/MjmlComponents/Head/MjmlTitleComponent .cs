@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom;
 using MjmlDotNet.Core.Component;
-using MjmlDotNet.Helpers;
+using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
 
 namespace MjmlDotNet.Components.Mjml.Head
@@ -27,10 +27,13 @@ namespace MjmlDotNet.Components.Mjml.Head
                 HtmlSkeleton.Title = content;
         }
 
-        // LR: Omit the child components
+        
         public override string RenderMjml()
         {
-            this.Handler();
+            // LR: Run the handler instead. 
+            Handler();
+
+            // LR: Omit the child components
             return string.Empty;
         }
     }

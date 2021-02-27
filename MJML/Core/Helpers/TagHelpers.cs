@@ -1,4 +1,4 @@
-﻿namespace MjmlDotNet.Helpers
+﻿namespace MjmlDotNet.Core.Helpers
 {
     public static class TagHelpers
     {

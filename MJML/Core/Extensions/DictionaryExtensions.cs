@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace MjmlDotNet.Extensions
+namespace MjmlDotNet.Core.Extensions
 {
     public static class DictionaryExtensions
     {

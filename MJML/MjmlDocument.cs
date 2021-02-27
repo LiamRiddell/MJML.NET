@@ -6,14 +6,14 @@ using MjmlDotNet.Components.Mjml;
 using MjmlDotNet.Components.Mjml.Body;
 using MjmlDotNet.Components.Mjml.Head;
 using MjmlDotNet.Core.Component;
-using MjmlDotNet.Helpers;
+using MjmlDotNet.Core.Helpers;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace MjmlDotNet
 {
-    public class MjmlDocument
+    internal class MjmlDocument
     {
         /// <summary>
         /// AngleSharp document used for traversing the mjml template
@@ -25,10 +25,10 @@ namespace MjmlDotNet
         /// <summary>
         /// Root element containg all document components
         /// </summary>
-        public MjmlRootComponent VirtualDocument { get; set; }
+        private MjmlRootComponent VirtualDocument { get; set; }
 
         /// <summary>
-        /// Load the content into string reader and then create XDocument
+        /// Initialise document by pre-processing input and parsing with AngleSharp.
         /// </summary>
         /// <param name="content"></param>
         public MjmlDocument(string content)
@@ -64,7 +64,7 @@ namespace MjmlDotNet
             // LR: Pass to the content post-processor
             string processed = ContentPostProcess(html);
 
-            // LR: Decide on prettfying
+            // LR: Should Prettify
             return prettify ? PrettifyHtml(processed) : processed;
         }
 

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace MjmlDotNet.Helpers
+namespace MjmlDotNet.Core.Helpers
 {
     internal static class CssHelper
     {

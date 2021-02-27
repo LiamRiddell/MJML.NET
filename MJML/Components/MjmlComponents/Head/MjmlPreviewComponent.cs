@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom;
 using MjmlDotNet.Core.Component;
-using MjmlDotNet.Helpers;
+using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
 
 namespace MjmlDotNet.Components.Mjml.Head
