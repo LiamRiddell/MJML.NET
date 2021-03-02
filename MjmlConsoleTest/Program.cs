@@ -7,8 +7,14 @@ namespace MjmlConsoleTest
 {
     internal class Program
     {
+        static IMjmlParser _mjmlParser { get; set; }
+
         private static void Main(string[] args)
         {
+            // DI in future
+            _mjmlParser = new MjmlParser();
+
+            // Input
             string mjmlString = @"
                 <mjml>
                   <mj-head>
@@ -185,26 +191,10 @@ namespace MjmlConsoleTest
                 </mjml>
             ";
 
-            // DI
-            // IMjmlParser _mjmlParser = new MjmlParser(defaultOptions = MjmlParserOptions);
-
-            // Class
-            // string html = _mjmlParser.ParseDocument(mjml, new MjmlParserOptions() {
-            //  Minify = true,
-            //  Prettify = false
-            // });
-
             var sw = Stopwatch.StartNew();
-            var mjmlParser = new MjmlParser();
-
             for (int i = 0; i <= 10000; i++)
             {
-                //if (!mjmlParser.TryParseDocument(mjmlString, out var html))
-                //{
-                //    // ... handle failure
-                //}
-
-                string html = mjmlParser.ParseDocument(mjmlString, new MjmlParserOptions() { 
+                string html = _mjmlParser.ParseDocument(mjmlString, new MjmlParserOptions() { 
                     Minify = true 
                 });
 
@@ -213,8 +203,7 @@ namespace MjmlConsoleTest
                     html = html.ToString();
                 }
                 catch (Exception) { }
-
-                File.WriteAllText("./index.html", html);
+                // File.WriteAllText("./index.html", html);
             }
             sw.Stop();
 
