@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjmlConsoleTest", "MjmlConsoleTest\MjmlConsoleTest.csproj", "{A2867BB0-F05E-4A32-B750-546FAEF96E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjmlDotNet.Tests", "MjmlDotNet.Tests\MjmlDotNet.Tests.csproj", "{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MjmlDotNet.Tests", "MjmlDotNet.Tests\MjmlDotNet.Tests.csproj", "{69924AFF-FE5A-4555-AE4B-EAB8CDBBEA5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MjmlDotNet", "MjmlDotNet\MjmlDotNet.csproj", "{CB0B9437-25FA-433A-8410-0D120E5C7252}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjmlDotNet.PerformanceTests", "MjmlDotNet.PerformanceTests\MjmlDotNet.PerformanceTests.csproj", "{1B904567-F32C-47F4-A3D4-A2AAB5DFCEC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{CB0B9437-25FA-433A-8410-0D120E5C7252}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB0B9437-25FA-433A-8410-0D120E5C7252}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB0B9437-25FA-433A-8410-0D120E5C7252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B904567-F32C-47F4-A3D4-A2AAB5DFCEC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B904567-F32C-47F4-A3D4-A2AAB5DFCEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B904567-F32C-47F4-A3D4-A2AAB5DFCEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B904567-F32C-47F4-A3D4-A2AAB5DFCEC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
