@@ -2,7 +2,7 @@
 
 namespace MjmlDotNet.Core.Css
 {
-    public class CssStyleLibraries
+    internal class CssStyleLibraries
     {
         private Dictionary<string, Dictionary<string, string>> Libraries { get; set; } = new Dictionary<string, Dictionary<string, string>>();
 

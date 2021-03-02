@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace MjmlDotNet.Components.Mjml.Head
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-head/src/index.js
-    public class MjmlHeadComponent : HeadComponent
+    internal class MjmlHeadComponent : HeadComponent
     {
         public MjmlHeadComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MjmlDotNet.Core.Extensions
 {
-    public static class DictionaryExtensions
+    internal static class DictionaryExtensions
     {
         // Works in C#3/VS2008:
         // Returns a new dictionary of this ... others merged leftward.

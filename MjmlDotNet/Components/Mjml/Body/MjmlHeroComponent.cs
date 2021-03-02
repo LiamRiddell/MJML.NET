@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MjmlDotNet.Components.Mjml.Body
 {
-    public class MjmlHeroComponent : BodyComponent
+    internal class MjmlHeroComponent : BodyComponent
     {
         public MjmlHeroComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

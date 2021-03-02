@@ -1,6 +1,6 @@
 ﻿namespace MjmlDotNet.Core.Helpers
 {
-    public static class TagHelpers
+    internal static class TagHelpers
     {
         private const string startConditionalTag = "<!--[if mso | IE]>";
         private const string startMsoConditionalTag = "<!--[if mso]>";

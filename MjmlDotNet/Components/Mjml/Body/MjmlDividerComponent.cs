@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-text/src/index.js
-    public class MjmlDividerComponent : BodyComponent
+    internal class MjmlDividerComponent : BodyComponent
     {
         public MjmlDividerComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

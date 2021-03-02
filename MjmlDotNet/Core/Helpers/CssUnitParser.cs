@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace MjmlDotNet.Core.Helpers
 {
-    public class CssParsedUnit
+    internal class CssParsedUnit
     {
         public string Unit { get; set; }
         public float Value { get; set; }
@@ -17,7 +17,7 @@ namespace MjmlDotNet.Core.Helpers
         public override string ToString() => $"{Value}{Unit}";
     }
 
-    public static class CssUnitParser
+    internal static class CssUnitParser
     {
         public static CssParsedUnit Parse(string cssValue)
         {

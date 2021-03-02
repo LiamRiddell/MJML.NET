@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-spacer/src/index.js
-    public class MjmlSpacerComponent : BodyComponent
+    internal class MjmlSpacerComponent : BodyComponent
     {
         public MjmlSpacerComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

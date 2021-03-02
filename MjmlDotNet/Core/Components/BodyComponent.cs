@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace MjmlDotNet.Core.Components
 {
-    public abstract class BodyComponent : BaseComponent
+    internal abstract class BodyComponent : BaseComponent
     {
         public CssBoxModel CssBoxModel { get; set; }
         public CssStyleLibraries StyleLibraries { get; set; } = new CssStyleLibraries();

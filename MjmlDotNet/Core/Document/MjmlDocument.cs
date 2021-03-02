@@ -99,7 +99,7 @@ namespace MjmlDotNet.Core.Document
             return processed;
         }
 
-        public string PrettifyHtml(string html)
+        private string PrettifyHtml(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
@@ -109,8 +109,8 @@ namespace MjmlDotNet.Core.Document
 
             return document.Prettify();
         }
-            
-        public async Task<string> PrettifyHtmlAsync(string html)
+
+        private async Task<string> PrettifyHtmlAsync(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
@@ -121,7 +121,7 @@ namespace MjmlDotNet.Core.Document
             return document.Prettify();
         }
 
-        public string MinifyHtml(string html)
+        private string MinifyHtml(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
@@ -131,7 +131,7 @@ namespace MjmlDotNet.Core.Document
             return document.Minify();
         }
 
-        public async Task<string> MinifyHtmlAsync(string html)
+        private async Task<string> MinifyHtmlAsync(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MjmlDotNet.Core.Components
 {
-    public abstract class BaseComponent : IComponent
+    internal abstract class BaseComponent : IComponent
     {
         public IElement Element { get; set; }
 

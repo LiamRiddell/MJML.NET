@@ -8,7 +8,7 @@ namespace MjmlDotNet.Components.Html
     /// <summary>
     /// HtmlText outputs the text content of html node.
     /// </summary>
-    public class HtmlTextComponent : BodyComponent
+    internal class HtmlTextComponent : BodyComponent
     {
         public HtmlTextComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

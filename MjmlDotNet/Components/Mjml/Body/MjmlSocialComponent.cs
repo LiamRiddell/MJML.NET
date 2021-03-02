@@ -7,7 +7,7 @@ using System.Text;
 namespace MjmlDotNet.Components.Mjml.Body
 {
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-text/src/index.js
-    public class MjmlSocialComponent : BodyComponent
+    internal class MjmlSocialComponent : BodyComponent
     {
         public MjmlSocialComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

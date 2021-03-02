@@ -1,6 +1,6 @@
 ﻿namespace MjmlDotNet.Core.Css
 {
-    public class CssCoordinate
+    internal class CssCoordinate
     {
         public string X { get; set; }
         public string Y { get; set; }

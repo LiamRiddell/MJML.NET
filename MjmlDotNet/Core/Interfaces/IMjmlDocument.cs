@@ -1,11 +1,27 @@
-﻿namespace MjmlDotNet.Core.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace MjmlDotNet.Core.Interfaces
 {
-    public interface IMjmlDocument
+    internal interface IMjmlDocument
     {
-        string Compile(bool prettify = false);
+        /// <summary>
+        /// Compiles the MJML document to native HTML.
+        /// </summary>
+        string Compile();
 
-        string PrettifyHtml(string content);
+        /// <summary>
+        /// Compiles the MJML document to native HTML.
+        /// </summary>
+        Task<string> CompileAsync();
 
-        string MinifyHtml(string content);
+        /// <summary>
+        /// Parses the MJML.
+        /// </summary>
+        void Parse(string mjml);
+
+        /// <summary>
+        /// Parses the MJML.
+        /// </summary>
+        Task ParseAsync(string mjml);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MjmlDotNet.Core.Css
 {
-    public class CssBoxModel
+    internal class CssBoxModel
     {
         public float TotalWidth { get; set; }
         public float BorderWidth { get; set; }

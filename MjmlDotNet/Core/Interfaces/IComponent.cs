@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MjmlDotNet.Core.Interfaces
 {
-    public interface IComponent
+    internal interface IComponent
     {
         IElement Element { get; set; }
 

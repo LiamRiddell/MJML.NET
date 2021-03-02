@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MjmlDotNet.Components.Mjml
 {
-    public class MjmlRootComponent : BodyComponent
+    internal class MjmlRootComponent : BodyComponent
     {
         public MjmlRootComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

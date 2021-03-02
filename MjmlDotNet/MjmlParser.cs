@@ -27,7 +27,7 @@ namespace MjmlDotNet
             using (MjmlDocument mjmlDocument = new MjmlDocument(_defaultOptions))
             {
                 mjmlDocument.Parse(mjml);
-                return mjmlDocument.Compile(true);
+                return mjmlDocument.Compile();
             }
         }
 
@@ -36,7 +36,7 @@ namespace MjmlDotNet
             using (MjmlDocument mjmlDocument = new MjmlDocument(parserOptions))
             {
                 mjmlDocument.Parse(mjml);
-                return mjmlDocument.Compile(true);
+                return mjmlDocument.Compile();
             }
         }
 
@@ -75,7 +75,7 @@ namespace MjmlDotNet
             using (MjmlDocument mjmlDocument = new MjmlDocument(_defaultOptions))
             {
                 await mjmlDocument.ParseAsync(mjml);
-                return await mjmlDocument.CompileAsync(true);
+                return await mjmlDocument.CompileAsync();
             }
         }
 
@@ -84,7 +84,7 @@ namespace MjmlDotNet
             using (MjmlDocument mjmlDocument = new MjmlDocument(parserOptions))
             {
                 await mjmlDocument.ParseAsync(mjml);
-                return await mjmlDocument.CompileAsync(true);
+                return await mjmlDocument.CompileAsync();
             }
         }
     }

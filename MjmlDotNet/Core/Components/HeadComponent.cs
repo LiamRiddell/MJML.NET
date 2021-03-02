@@ -3,7 +3,7 @@ using System;
 
 namespace MjmlDotNet.Core.Components
 {
-    public class HeadComponent : BaseComponent
+    internal class HeadComponent : BaseComponent
     {
         public HeadComponent(IElement element, BaseComponent parent) : base(element, parent)
         {
