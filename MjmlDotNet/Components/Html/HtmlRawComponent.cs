@@ -7,7 +7,7 @@ namespace MjmlDotNet.Components.Html
     /// <summary>
     /// HtmlText outputs the text content of html node.
     /// </summary>
-    public class HtmlRawComponent : BodyComponent
+    internal class HtmlRawComponent : BodyComponent
     {
         public HtmlRawComponent(IElement element, BaseComponent parent) : base(element, parent)
         {

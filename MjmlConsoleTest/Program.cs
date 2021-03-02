@@ -186,10 +186,10 @@ namespace MjmlConsoleTest
             ";
 
             // DI
-            // IMjmlParser _mjmlParser = new MjmlParser();
+            // IMjmlParser _mjmlParser = new MjmlParser(defaultOptions = MjmlParserOptions);
 
             // Class
-            // IMjmlDocument document = _mjmlParser.ParseDocument(mjml, new MjmlParserOptions() {
+            // string html = _mjmlParser.ParseDocument(mjml, new MjmlParserOptions() {
             //  Minify = true,
             //  Prettify = false
             // });
@@ -199,10 +199,14 @@ namespace MjmlConsoleTest
 
             for (int i = 0; i <= 10000; i++)
             {
-                if (!mjmlParser.TryParseDocument(mjmlString, out var html))
-                {
-                    // ... handle failure
-                }
+                //if (!mjmlParser.TryParseDocument(mjmlString, out var html))
+                //{
+                //    // ... handle failure
+                //}
+
+                string html = mjmlParser.ParseDocument(mjmlString, new MjmlParserOptions() { 
+                    Minify = true 
+                });
 
                 try
                 {

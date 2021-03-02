@@ -11,11 +11,17 @@ using MjmlDotNet.Core.Interfaces;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace MjmlDotNet.Core.Document
 {
-    internal class MjmlDocument : IMjmlDocument
+    internal class MjmlDocument : IMjmlDocument, IDisposable
     {
+        /// <summary>
+        /// Options
+        /// </summary>
+        private readonly MjmlParserOptions _parserOptions;
+
         /// <summary>
         /// AngleSharp document used for traversing the mjml template
         /// </summary>
@@ -31,25 +37,31 @@ namespace MjmlDotNet.Core.Document
         /// </summary>
         private MjmlRootComponent VirtualDocument { get; set; }
 
-        /// <summary>
-        /// Initialise document by pre-processing input and parsing with AngleSharp.
-        /// </summary>
-        /// <param name="content"></param>
-        public MjmlDocument(string content)
+        public MjmlDocument(MjmlParserOptions parserOptions)
         {
             _htmlParser = new HtmlParser();
+            _parserOptions = parserOptions;
+        }
 
-            string preProcessed = ContentPreProcess(content);
+        public void Parse(string mjml)
+        {
+            string preProcessed = ContentPreProcess(mjml);
 
             _document = _htmlParser.ParseDocument(preProcessed);
 
-            if (_document.All.Any())
-                GenerateVirtualDocument();
+            if (_document.All.Any()) GenerateVirtualDocument();
         }
 
-        #region Public
+        public async Task ParseAsync(string mjml)
+        {
+            string preProcessed = ContentPreProcess(mjml);
 
-        public string Compile(bool prettify = false)
+            _document = await _htmlParser.ParseDocumentAsync(preProcessed);
+
+            if (_document.All.Any()) GenerateVirtualDocument();
+        }
+
+        public string Compile()
         {
             // LR: Wrap the dynamically generated content in a the skeleton template
             string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
@@ -57,56 +69,98 @@ namespace MjmlDotNet.Core.Document
             // LR: Pass to the content post-processor
             string processed = ContentPostProcess(html);
 
-            // LR: Should Prettify
-            return prettify ? PrettifyHtml(processed) : processed;
+            // LR: Respect parser options
+            if (_parserOptions.Minify)
+                return MinifyHtml(processed);
+
+            else if (_parserOptions.Prettify)
+                return PrettifyHtml(processed);
+
+            // Faster
+            return processed;
         }
 
-        public string PrettifyHtml(string content)
+        public async Task<string> CompileAsync()
         {
-            if (string.IsNullOrWhiteSpace(content))
+            // LR: Wrap the dynamically generated content in a the skeleton template
+            string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
+
+            // LR: Pass to the content post-processor
+            string processed = ContentPostProcess(html);
+
+            // LR: Respect parser options
+            if (_parserOptions.Minify)
+                return await MinifyHtmlAsync(processed);
+
+            else if (_parserOptions.Prettify)
+                return await PrettifyHtmlAsync(processed);
+
+            // Faster
+            return processed;
+        }
+
+        public string PrettifyHtml(string html)
+        {
+            if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
 
             // LR: Parse the document using AngleSharp
-            var document = _htmlParser.ParseDocument(content);
+            var document = _htmlParser.ParseDocument(html);
+
+            return document.Prettify();
+        }
+            
+        public async Task<string> PrettifyHtmlAsync(string html)
+        {
+            if (string.IsNullOrWhiteSpace(html))
+                return string.Empty;
+
+            // LR: Parse the document using AngleSharp
+            var document = await _htmlParser.ParseDocumentAsync(html);
 
             return document.Prettify();
         }
 
-        public string MinifyHtml(string content)
+        public string MinifyHtml(string html)
         {
-            if (string.IsNullOrWhiteSpace(content))
+            if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
 
-            // LR: Parse the document using AngleSharp
-            var document = _htmlParser.ParseDocument(content);
+            var document = _htmlParser.ParseDocument(html);
 
             return document.Minify();
         }
 
-        #endregion Public
+        public async Task<string> MinifyHtmlAsync(string html)
+        {
+            if (string.IsNullOrWhiteSpace(html))
+                return string.Empty;
 
-        #region Private
+            var document = await _htmlParser.ParseDocumentAsync(html);
 
-        private string ContentPreProcess(string content)
+            return document.Minify();
+        }
+
+        private string ContentPreProcess(string mjml)
         {
             // HACK: Unknown self-closing tags break AngleSharps DOM. Any siblings after unknown self-closing element becomes a child of the unkown element.
             // We can use regex to find and close the self-closing tags for AOT.
             Regex selfClosingMjml = new Regex(@"(<mj-.*\/>)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-            content = selfClosingMjml.Replace(content, delegate (Match m)
+            mjml = selfClosingMjml.Replace(mjml, delegate (Match m)
             {
                 string tagName = m.Value.Substring(1, m.Value.IndexOf(' ') - 1);
                 return $"{m.Value.Replace("/>", "")}></{tagName}>";
             });
 
-            return content;
+            return mjml;
         }
 
-        private string ContentPostProcess(string content)
+        private string ContentPostProcess(string html)
         {
             // LR: TODO Inline CSS
 
-            return content;
+            return html;
         }
 
         private BaseComponent CreateMjmlComponent(IElement element, BaseComponent parent = null)
@@ -281,6 +335,9 @@ namespace MjmlDotNet.Core.Document
             }
         }
 
-        #endregion Private
+        public void Dispose()
+        {
+            _document?.Dispose();
+        }
     }
 }
