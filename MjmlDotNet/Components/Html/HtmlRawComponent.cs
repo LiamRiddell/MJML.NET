@@ -31,6 +31,7 @@ namespace MjmlDotNet.Components.Html
                 Attributes.Add(attribute.Name, attribute.Value);
             }
         }
+
         public override bool IsRawElement()
         {
             return true;

@@ -3,8 +3,6 @@ using MjmlDotNet.Components.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MjmlDotNet.Components.Mjml.Body
 {

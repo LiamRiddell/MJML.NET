@@ -215,7 +215,6 @@ namespace MjmlDotNet.Components.Attributes
                 { "text-transform", "uppercase" }
             };
 
-
             internal static Dictionary<string, string> MjmlSection = new Dictionary<string, string> {
                 { "background-color", null },
                 { "background-repeat", "repeat" },

@@ -142,7 +142,7 @@ namespace MjmlDotNet.Components.Mjml.Body
         public override string RenderMjml()
         {
             return $@"
-                {(GetAttribute("hamburger").Equals("hamburger", System.StringComparison.InvariantCultureIgnoreCase) ? RenderHamburger() : string.Empty )}
+                {(GetAttribute("hamburger").Equals("hamburger", System.StringComparison.InvariantCultureIgnoreCase) ? RenderHamburger() : string.Empty)}
 
                 <div {HtmlAttributes(new Dictionary<string, string> {
                     { "class", "mj-inline-links" },
@@ -152,7 +152,7 @@ namespace MjmlDotNet.Components.Mjml.Body
                         <table role=""presentation"" border=""0"" cellpadding=""0"" cellspacing=""0"" align=""{GetAttribute("align")}"">
                             <tr>
                     ")}
-                                
+
                     {RenderChildren()}
 
                     {TagHelpers.ConditionalTag($@"

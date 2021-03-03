@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using PreMailer.Net;
 
 namespace MjmlDotNet.Core.Helpers
 {
@@ -17,6 +16,7 @@ namespace MjmlDotNet.Core.Helpers
         public static string ContainerWidth { get; set; } = "600px";
         public static string BackgroundColor { get; set; } = "white";
         public static string Breakpoint { get; set; } = "320px";
+
         public static Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>() {
             { "Open Sans", "https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700" },
             { "Droid Sans", "https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700" },
@@ -24,6 +24,7 @@ namespace MjmlDotNet.Core.Helpers
             { "Roboto", "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" },
             { "Ubuntu", "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" }
         };
+
         public static Dictionary<string, string> MediaQueries { get; set; } = new Dictionary<string, string>();
         public static List<string> Styles { get; set; } = new List<string>();
         public static List<string> InlineStyles { get; set; } = new List<string>();
@@ -227,8 +228,8 @@ namespace MjmlDotNet.Core.Helpers
             string body = RenderBody(virtualDocument);
 
             bool forceOWADesktop = false;
-            
-            string html =  $@"
+
+            string html = $@"
             <!doctype html>
             <html {(!string.IsNullOrWhiteSpace(Language) ? $@"lang=""{Language}"" " : string.Empty)}xmlns=""http://www.w3.org/1999/xhtml"" xmlns:v=""urn:schemas-microsoft-com:vml"" xmlns:o=""urn:schemas-microsoft-com:office:office"">
                 <head>

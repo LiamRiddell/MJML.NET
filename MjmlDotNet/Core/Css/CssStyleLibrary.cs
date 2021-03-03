@@ -15,7 +15,7 @@ namespace MjmlDotNet.Core.Css
                 return;
             }
 
-            Libraries.Add(libraryName, libraryStyles); 
+            Libraries.Add(libraryName, libraryStyles);
         }
 
         public Dictionary<string, string> GetStyleLibrary(string libraryName)

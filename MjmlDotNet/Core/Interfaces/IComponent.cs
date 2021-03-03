@@ -48,6 +48,7 @@ namespace MjmlDotNet.Core.Interfaces
         bool IsHeadComponent();
 
         void SetupComponentAttributes();
+
         void AddAttributeRaw(string attributeName, string attributeValue);
     }
 }
