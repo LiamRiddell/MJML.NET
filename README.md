@@ -123,7 +123,7 @@ As the project is currently still in experimental state not all MJML components 
 | Body | [mjml-group](https://documentation.mjml.io/#mj-group) | :white_check_mark: | :x: | Awaiting Tests
 | Body | [mjml-hero](https://documentation.mjml.io/#mj-hero) | :white_check_mark: | :x: | Awaiting Tests 
 | Body | [mjml-image](https://documentation.mjml.io/#mj-image) | :white_check_mark: | :x: | Awaiting Tests
-| Body | [mjml-navbar](https://documentation.mjml.io/#mj-navbar) | :x: | :x: | Not Implemented 
+| Body | [mjml-navbar](https://documentation.mjml.io/#mj-navbar) | :white_check_mark: | :x: | Awaiting Tests
 | Body | [mjml-raw](https://documentation.mjml.io/#mj-raw) | :white_check_mark: | :x: | Awaiting Tests
 | Body | [mjml-section](https://documentation.mjml.io/#mj-section) | :ballot_box_with_check: | :x: | Partially Complete (Background Position Bug)
 | Body | [mjml-social](https://documentation.mjml.io/#mj-social) | :white_check_mark:  | :x: | Awaiting Tests
