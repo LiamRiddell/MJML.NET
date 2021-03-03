@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using System.Collections.Generic;
 
@@ -15,11 +16,12 @@ namespace MjmlDotNet.Components.Html
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-            };
+            return GlobalDefaultAttributes.NoAttributes;
         }
 
+        /// <summary>
+        /// Passes the original html tag attributes to output.
+        /// </summary>
         public override void SetAttributes()
         {
             var attributes = Element.Attributes;

@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
@@ -14,10 +15,7 @@ namespace MjmlDotNet.Components.Mjml.Head
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "inline", null }
-            };
+            return GlobalDefaultAttributes.Head.MjmlStyle;
         }
 
         public override void Handler()

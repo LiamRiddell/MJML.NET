@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
@@ -14,41 +15,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "align", "center" },
-                { "background-color", "#414141" },
-                { "border-bottom", null },
-                { "border-left", null },
-                { "border-radius", "3px" },
-                { "border-right", null },
-                { "border-top", null },
-                { "border", "none" },
-                { "color", "#ffffff" },
-                { "container-background-color", null },
-                { "font-family", "Ubuntu, Helvetica, Arial, sans-serif" },
-                { "font-size", "13px" },
-                { "font-style", null },
-                { "font-weight", "normal" },
-                { "height", null },
-                { "href", null },
-                { "name", null },
-                { "inner-padding", "10px 25px" },
-                { "letter-spacing", null },
-                { "line-height", "120%" },
-                { "padding-bottom", null },
-                { "padding-left", null },
-                { "padding-right", null },
-                { "padding-top", null },
-                { "padding", "10px 25px" },
-                { "rel", null },
-                { "target", null },
-                { "text-decoration", "none" },
-                { "text-transform", "none" },
-                { "vertical-align", "middle" },
-                { "text-align", "center" },
-                { "width", null },
-            };
+            return GlobalDefaultAttributes.Body.MjmlButton;
         }
 
         public override void SetupStyles()

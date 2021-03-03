@@ -72,7 +72,6 @@ namespace MjmlDotNet.Core.Document
             // LR: Respect parser options
             if (_parserOptions.Minify)
                 return MinifyHtml(processed);
-
             else if (_parserOptions.Prettify)
                 return PrettifyHtml(processed);
 
@@ -91,7 +90,6 @@ namespace MjmlDotNet.Core.Document
             // LR: Respect parser options
             if (_parserOptions.Minify)
                 return await MinifyHtmlAsync(processed);
-
             else if (_parserOptions.Prettify)
                 return await PrettifyHtmlAsync(processed);
 

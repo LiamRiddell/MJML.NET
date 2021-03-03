@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
@@ -19,11 +20,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "width", "600px" },
-                { "background-color", string.Empty }
-            };
+            return GlobalDefaultAttributes.Body.MjmlBody;
         }
 
         public override void SetupStyles()

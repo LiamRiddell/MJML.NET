@@ -120,7 +120,8 @@ namespace MjmlDotNet.Core.Components
             Parent = parent;
 
             // LR: Sets the Allowed attributes along with the default values.
-            Attributes = SetAllowedAttributes();
+            // NOTE: This creates a copy of the dictionary opposed to referencing the original
+            Attributes = new Dictionary<string, string>(SetAllowedAttributes());
 
             if (Element.Attributes.Any())
                 SetAttributes();

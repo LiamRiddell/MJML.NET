@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace MjmlDotNet
 {
@@ -12,12 +9,10 @@ namespace MjmlDotNet
         /// </summary>
         string ParseDocument(string mjml);
 
-
         /// <summary>
         /// Parses the MJML document.
         /// </summary>
         string ParseDocument(string mjml, MjmlParserOptions parserOptions);
-
 
         /// <summary>
         /// Try parses the MJML document.
@@ -33,7 +28,6 @@ namespace MjmlDotNet
         /// Parses the MJML document.
         /// </summary>
         Task<string> ParseDocumentAsync(string mjml);
-
 
         /// <summary>
         /// Parses the MJML document.

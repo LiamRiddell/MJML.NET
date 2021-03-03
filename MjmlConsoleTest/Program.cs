@@ -192,7 +192,7 @@ namespace MjmlConsoleTest
             ";
 
             var sw = Stopwatch.StartNew();
-            for (int i = 0; i <= 10000; i++)
+            for (int i = 0; i <= 0; i++)
             {
                 string html = _mjmlParser.ParseDocument(mjmlString, new MjmlParserOptions() { 
                     Minify = true 
@@ -203,7 +203,7 @@ namespace MjmlConsoleTest
                     html = html.ToString();
                 }
                 catch (Exception) { }
-                // File.WriteAllText("./index.html", html);
+                File.WriteAllText("./index.html", html);
             }
             sw.Stop();
 

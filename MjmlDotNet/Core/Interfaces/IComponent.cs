@@ -14,6 +14,9 @@ namespace MjmlDotNet.Core.Interfaces
 
         Dictionary<string, string> Attributes { get; set; }
 
+        /// <summary>
+        /// Contains all the available attributes for this element and includes the default value. If no default then set value to null.
+        /// </summary>
         Dictionary<string, string> SetAllowedAttributes();
 
         string GetTagName();

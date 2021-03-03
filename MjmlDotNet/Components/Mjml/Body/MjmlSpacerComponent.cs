@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System.Collections.Generic;
@@ -14,23 +15,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "border", null },
-                { "border-bottom", null },
-                { "border-left", null },
-                { "border-right", null },
-                { "border-top", null },
-                { "container-background-color", null },
-                { "padding-bottom", null },
-                { "padding-left", null },
-                { "padding-right", null },
-                { "padding-top", null },
-                { "padding", null },
-                { "vertical-align", "middle" },
-                { "width", null },
-                { "height", "20px" },
-            };
+            return GlobalDefaultAttributes.Body.MjmlSpacer;
         }
 
         public override void SetupStyles()

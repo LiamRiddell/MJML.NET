@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,31 +16,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "align", "center" },
-                { "border-radius", "3px" },
-                { "color", "#333333" },
-                { "css-class", string.Empty },
-                { "container-background-color", string.Empty },
-                { "font-family", "Ubuntu, Helvetica, Arial, sans-serif" },
-                { "font-size", "13px" },
-                { "font-style", "normal" },
-                { "font-weight", "normal" },
-                { "icon-height", "icon-size" },
-                { "icon-size", "20px" },
-                { "inner-padding", "4px" },
-                { "line-height", "22px" },
-                { "mode", "horizontal" },
-                { "padding", "10px 25px" },
-                { "padding-top", string.Empty },
-                { "padding-bottom", string.Empty },
-                { "padding-left", string.Empty },
-                { "padding-right", string.Empty },
-                { "icon-padding", "0px" },
-                { "text-padding", "4px 4px 4px 0" },
-                { "text-decoration", string.Empty }
-            };
+            return GlobalDefaultAttributes.Body.MjmlSocial;
         }
 
         public override void SetupStyles()

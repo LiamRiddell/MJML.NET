@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,38 +71,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "align", "center" },
-                { "alt", string.Empty },
-                { "background-color", string.Empty },
-                { "border-radius", "3px" },
-                { "color", "#333333" },
-                { "css-color", string.Empty },
-                { "font-family", "Ubuntu, Helvetica, Arial, sans-serif" },
-                { "font-size", "13px" },
-                { "font-style", "normal" },
-                { "font-weight", "normal" },
-                { "href", string.Empty },
-                { "icon-height", "icon-size" },
-                { "icon-size", "20px" },
-                { "line-height", "22px" },
-                { "name", string.Empty },
-                { "padding", "4px" },
-                { "padding-top", string.Empty },
-                { "padding-bottom", string.Empty },
-                { "padding-left", string.Empty },
-                { "padding-right", string.Empty },
-                { "icon-padding", "0px" },
-                { "text-padding", "4px 4px 4px 0" },
-                { "sizes", string.Empty },
-                { "src", string.Empty },
-                { "srcset", string.Empty },
-                { "target", "_blank" },
-                { "title", string.Empty },
-                { "text-decoration", string.Empty },
-                { "vertical-align", "middle" },
-            };
+            return GlobalDefaultAttributes.Body.MjmlSocialElement;
         }
 
         public override void SetupStyles()

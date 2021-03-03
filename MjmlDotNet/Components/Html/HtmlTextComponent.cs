@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Css;
 using System.Collections.Generic;
@@ -16,9 +17,7 @@ namespace MjmlDotNet.Components.Html
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-            };
+            return GlobalDefaultAttributes.NoAttributes;
         }
 
         public override CssBoxModel GetBoxModel()

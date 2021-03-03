@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Css;
 using MjmlDotNet.Core.Extensions;
@@ -31,32 +32,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string> {
-                { "background-color", null },
-                { "background-repeat", "repeat" },
-                { "background-size", "auto" },
-                { "background-url", null },
-                { "border", string.Empty },
-                { "border-bottom", string.Empty },
-                { "border-left", string.Empty },
-                { "border-radius", string.Empty },
-                { "border-right", string.Empty },
-                { "border-top", string.Empty },
-                { "css-class", string.Empty },
-                { "direction", "ltr" },
-                { "full-width", string.Empty },
-                { "padding", "20px 0" },
-                { "padding-bottom", string.Empty },
-                { "padding-left", string.Empty },
-                { "padding-right", string.Empty },
-                { "padding-top", string.Empty },
-                { "text-align", "center" },
-                { "text-padding", "4px 4px 4px 0" },
-
-                { "background-position", "top center" },
-                { "background-position-x", null },
-                { "background-position-y", null },
-            };
+            return GlobalDefaultAttributes.Body.MjmlSection;
         }
 
         public string GetBackgroundString()

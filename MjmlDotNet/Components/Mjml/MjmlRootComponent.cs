@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using System.Collections.Generic;
 
@@ -12,14 +13,12 @@ namespace MjmlDotNet.Components.Mjml
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-            };
+            return GlobalDefaultAttributes.NoAttributes;
         }
 
         public override string RenderMjml()
         {
-            return this.RenderChildren();
+            return RenderChildren();
         }
     }
 }

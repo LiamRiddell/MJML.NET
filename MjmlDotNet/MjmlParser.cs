@@ -1,5 +1,4 @@
 ﻿using MjmlDotNet.Core.Document;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace MjmlDotNet

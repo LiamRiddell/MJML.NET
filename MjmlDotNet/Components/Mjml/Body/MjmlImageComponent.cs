@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System;
@@ -15,39 +16,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "alt", null },
-                { "href", null },
-                { "name", null },
-                { "src", null },
-                { "srcset", null },
-                { "sizes", null },
-                { "title", null },
-                { "rel", null },
-                { "align", "center" },
-                { "border", "0" },
-                { "border-bottom", null },
-                { "border-left", null },
-                { "border-right", null },
-                { "border-top", null },
-                { "border-radius", null },
-                { "container-background-color", null },
-                { "fluid-on-mobile", null },
-                { "padding", "10px 25px" },
-                { "padding-top", null },
-                { "padding-bottom", null },
-                { "padding-left", null },
-                { "padding-right", null },
-                { "target", "_blank" },
-                { "width", null },
-                { "height", "auto" },
-                { "max-height", null },
-                { "font-size", "13px" },
-                { "usemap", null },
-                { "vertical-align", null },
-                { "css-class", null }
-            };
+            return GlobalDefaultAttributes.Body.MjmlImage;
         }
 
         public bool IsFullWidth()

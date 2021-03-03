@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Core.Attributes;
 using MjmlDotNet.Core.Components;
 using MjmlDotNet.Core.Helpers;
 using System;
@@ -16,24 +17,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return new Dictionary<string, string>
-            {
-                { "background-color", "#FFFFFF" },
-                { "background-height", null },
-                { "background-position", "center center" },
-                { "background-url", null },
-                { "background-width", null },
-                { "css-class", null },
-                { "height", "0px" },
-                { "mode", "fluid-height" },
-                { "padding", "0px" },
-                { "padding-bottom", null },
-                { "padding-left", null },
-                { "padding-right", null },
-                { "padding-top", null },
-                { "vertical-align", "top" },
-                { "width", null },
-            };
+            return GlobalDefaultAttributes.Body.MjmlHero;
         }
 
         public string GetBackground()
