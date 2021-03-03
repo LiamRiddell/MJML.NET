@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using PreMailer.Net;
 
 namespace MjmlDotNet.Core.Helpers
 {
@@ -30,7 +31,7 @@ namespace MjmlDotNet.Core.Helpers
         public static Dictionary<string, string> ComponentsHeadStyle { get; set; } = new Dictionary<string, string>();
 
         // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/fonts.js
-        public static string BuildFontsTags(string content, string inlineStyle)
+        public static string BuildFontsTags(string content)
         {
             List<string> fontsToImport = new List<string>();
 
@@ -40,7 +41,7 @@ namespace MjmlDotNet.Core.Helpers
                 Regex inlineRegex = new Regex($@"font-family:[^;}}]*${font.Key}", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
                 // https://github.com/mjmlio/mjml/blob/d4c6ea0744e05c928044108c3117c16a9c4110fe/packages/mjml-core/src/helpers/fonts.js#L11
-                if (regex.IsMatch(content))
+                if (regex.IsMatch(content) || inlineRegex.IsMatch(content))
                 {
                     fontsToImport.Add(font.Value);
                 }
@@ -127,14 +128,33 @@ namespace MjmlDotNet.Core.Helpers
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append($@"<style type=""text/css"">");
+            //sb.Append($@"<style type=""text/css"">");
 
             foreach (var css in Styles)
             {
                 sb.Append($@"{css}");
             }
 
-            sb.Append($@"</style>");
+            //sb.Append($@"</style>");
+
+            return sb.ToString();
+        }
+
+        private static string BuildInlineStyles()
+        {
+            if (!InlineStyles.Any())
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+
+            //sb.Append($@"<style type=""text/css"">");
+
+            foreach (var css in InlineStyles)
+            {
+                sb.Append($@"{css}");
+            }
+
+            //sb.Append($@"</style>");
 
             return sb.ToString();
         }
@@ -208,7 +228,7 @@ namespace MjmlDotNet.Core.Helpers
 
             bool forceOWADesktop = false;
             
-            return $@"
+            string html =  $@"
             <!doctype html>
             <html {(!string.IsNullOrWhiteSpace(Language) ? $@"lang=""{Language}"" " : string.Empty)}xmlns=""http://www.w3.org/1999/xhtml"" xmlns:v=""urn:schemas-microsoft-com:vml"" xmlns:o=""urn:schemas-microsoft-com:office:office"">
                 <head>
@@ -246,15 +266,15 @@ namespace MjmlDotNet.Core.Helpers
                         </style>
                     <![endif]-->
 
-                    { BuildFontsTags(body, "") /* TODO: Inline Support */ }
+                    { BuildFontsTags(body) }
                     { BuildMediaQueriesTags(forceOWADesktop) }
 
                     <style type=""text/css"">
                         { BuildComponentsHeadStyle() }
                         { BuildHeadStyle() }
+                        { BuildStyles() }
                     </style>
 
-                    { BuildStyles() }
                     { BuildHeadRaw(virtualDocument) }
                 </head>
                 <body{(string.IsNullOrWhiteSpace(BackgroundColor) ? string.Empty : $@" style=""background-color:{BackgroundColor};""") }>
@@ -263,6 +283,13 @@ namespace MjmlDotNet.Core.Helpers
                 </body>
             </html>
             ";
+
+            var result = PreMailer.Net.PreMailer.MoveCssInline(html, false, "#ignore", BuildInlineStyles(), false);
+
+            if (result.Warnings.Any())
+                return html;
+
+            return result.Html;
         }
 
         public static void AddMediaQuery(string className, CssParsedUnit cssParsedUnit)

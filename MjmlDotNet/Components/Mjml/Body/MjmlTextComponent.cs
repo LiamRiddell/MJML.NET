@@ -53,7 +53,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
             if (string.IsNullOrWhiteSpace(height))
             {
-                return this.RenderContent();
+                return RenderContent();
             }
 
             return $@"

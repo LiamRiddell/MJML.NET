@@ -25,12 +25,12 @@ namespace MjmlDotNet.Core.Document
         /// <summary>
         /// AngleSharp document used for traversing the mjml template
         /// </summary>
-        private IDocument _document { get; set; }
+        private IDocument Document { get; set; }
 
         /// <summary>
         /// AngleSharp HtmlParser used for parsing the mjml template
         /// </summary>
-        private IHtmlParser _htmlParser { get; set; }
+        private IHtmlParser HtmlParser { get; set; }
 
         /// <summary>
         /// Root element containg all document components
@@ -39,7 +39,7 @@ namespace MjmlDotNet.Core.Document
 
         public MjmlDocument(MjmlParserOptions parserOptions)
         {
-            _htmlParser = new HtmlParser();
+            HtmlParser = new HtmlParser();
             _parserOptions = parserOptions;
         }
 
@@ -47,18 +47,18 @@ namespace MjmlDotNet.Core.Document
         {
             string preProcessed = ContentPreProcess(mjml);
 
-            _document = _htmlParser.ParseDocument(preProcessed);
+            Document = HtmlParser.ParseDocument(preProcessed);
 
-            if (_document.All.Any()) GenerateVirtualDocument();
+            if (Document.All.Any()) GenerateVirtualDocument();
         }
 
         public async Task ParseAsync(string mjml)
         {
             string preProcessed = ContentPreProcess(mjml);
 
-            _document = await _htmlParser.ParseDocumentAsync(preProcessed);
+            Document = await HtmlParser.ParseDocumentAsync(preProcessed);
 
-            if (_document.All.Any()) GenerateVirtualDocument();
+            if (Document.All.Any()) GenerateVirtualDocument();
         }
 
         public string Compile()
@@ -103,7 +103,7 @@ namespace MjmlDotNet.Core.Document
                 return string.Empty;
 
             // LR: Parse the document using AngleSharp
-            var document = _htmlParser.ParseDocument(html);
+            var document = HtmlParser.ParseDocument(html);
 
             return document.Prettify();
         }
@@ -114,7 +114,7 @@ namespace MjmlDotNet.Core.Document
                 return string.Empty;
 
             // LR: Parse the document using AngleSharp
-            var document = await _htmlParser.ParseDocumentAsync(html);
+            var document = await HtmlParser.ParseDocumentAsync(html);
 
             return document.Prettify();
         }
@@ -124,7 +124,7 @@ namespace MjmlDotNet.Core.Document
             if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
 
-            var document = _htmlParser.ParseDocument(html);
+            var document = HtmlParser.ParseDocument(html);
 
             return document.Minify();
         }
@@ -134,7 +134,7 @@ namespace MjmlDotNet.Core.Document
             if (string.IsNullOrWhiteSpace(html))
                 return string.Empty;
 
-            var document = await _htmlParser.ParseDocumentAsync(html);
+            var document = await HtmlParser.ParseDocumentAsync(html);
 
             return document.Minify();
         }
@@ -249,7 +249,7 @@ namespace MjmlDotNet.Core.Document
 
         private void GenerateVirtualDocument()
         {
-            var mjmlRoot = _document.QuerySelector<IElement>("mjml");
+            var mjmlRoot = Document.QuerySelector<IElement>("mjml");
 
             if (mjmlRoot == null)
                 throw new NullReferenceException();
@@ -298,7 +298,7 @@ namespace MjmlDotNet.Core.Document
                             continue;
 
                         // HACK: Convert raw-text to element - this prevents text with no parent tag being lost
-                        var textElement = _document.CreateElement("html-text");
+                        var textElement = Document.CreateElement("html-text");
                         textElement.NodeValue = childElement.TextContent;
                         textElement.TextContent = childElement.TextContent;
 
@@ -344,7 +344,7 @@ namespace MjmlDotNet.Core.Document
 
         public void Dispose()
         {
-            _document?.Dispose();
+            Document?.Dispose();
         }
     }
 }

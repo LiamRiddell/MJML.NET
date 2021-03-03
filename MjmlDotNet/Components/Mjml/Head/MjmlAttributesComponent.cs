@@ -9,7 +9,7 @@ namespace MjmlDotNet.Components.Mjml.Head
     // https://github.com/mjmlio/mjml/blob/246df840f4d0fcd812e51ca55bd6bef6592cb0e6/packages/mjml-head-style/src/index.js
     internal class MjmlAttributesComponent : HeadComponent
     {
-        private List<string> _modifiedComponents = new List<string>();
+        private readonly List<string> _modifiedComponents = new List<string>();
 
         public MjmlAttributesComponent(IElement element, BaseComponent parent, MjmlRootComponent documentRoot) : base(element, parent, documentRoot)
         {

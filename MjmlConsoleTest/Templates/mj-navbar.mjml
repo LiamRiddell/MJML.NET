@@ -6,6 +6,11 @@
     <meta name="keywords" content="HTML, CSS, JavaScript"/>
     <meta name="author" content="John Doe"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <mj-style inline="inline">
+      .blue-text div {
+        color: blue !important;
+      }
+    </mj-style>
   </mj-head>
   <mj-body>
     <mj-section background-color="#ef6451">
@@ -16,6 +21,11 @@
             <mj-navbar-link href="/templates" color="#ffffff">Templates</mj-navbar-link>
             <mj-navbar-link href="/components" color="#ffffff">Components</mj-navbar-link>
         </mj-navbar>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text css-class="mj-outlook-group-fix blue-text">I'm blue because of inline</mj-text>
         <mj-text font-family="Raleway">Test</mj-text>
       </mj-column>
     </mj-section>

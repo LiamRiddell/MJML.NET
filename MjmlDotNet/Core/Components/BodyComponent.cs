@@ -276,7 +276,7 @@ namespace MjmlDotNet.Core.Components
             switch (parsedWidth.Unit.ToLower())
             {
                 case "%":
-                    return $"{ containerWidth.Value * parsedWidth.Value / 100 - paddingSize}px";
+                    return $"{ (containerWidth.Value * parsedWidth.Value / 100) - paddingSize}px";
 
                 case "px":
                     return parsedWidth.ToString();

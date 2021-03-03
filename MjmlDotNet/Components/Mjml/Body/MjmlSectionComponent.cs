@@ -25,9 +25,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public bool IsFullWidth()
         {
-            return HasAttribute("full-width") ?
-                GetAttribute("full-width").Equals("full-width", StringComparison.InvariantCultureIgnoreCase) :
-                false;
+            return HasAttribute("full-width") && GetAttribute("full-width").Equals("full-width", StringComparison.InvariantCultureIgnoreCase);
         }
 
         public override Dictionary<string, string> SetAllowedAttributes()
@@ -155,8 +153,8 @@ namespace MjmlDotNet.Components.Mjml.Body
                 if (value1.Equals("top", StringComparison.InvariantCultureIgnoreCase) ||
                     value1.Equals("bottom", StringComparison.InvariantCultureIgnoreCase) ||
 
-                    value1.Equals("center", StringComparison.InvariantCultureIgnoreCase) &&
-                    value2.Equals("left", StringComparison.InvariantCultureIgnoreCase) ||
+                    (value1.Equals("center", StringComparison.InvariantCultureIgnoreCase) &&
+                    value2.Equals("left", StringComparison.InvariantCultureIgnoreCase)) ||
                     value2.Equals("right", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return new CssCoordinate(value2, value1);
@@ -182,13 +180,13 @@ namespace MjmlDotNet.Components.Mjml.Body
         public CssCoordinate CalculateBackgroundAxisOrigin(string axis, CssCoordinate coordinate)
         {
             bool isX = axis.Equals("x", StringComparison.InvariantCultureIgnoreCase);
-            bool isBackgroundRepeat = HasAttribute("background-repeat") ? GetAttribute("background-repeat").Equals("repeat", StringComparison.InvariantCultureIgnoreCase) : false;
+            bool isBackgroundRepeat = HasAttribute("background-repeat") && GetAttribute("background-repeat").Equals("repeat", StringComparison.InvariantCultureIgnoreCase);
 
             string position = isX ? coordinate.X : coordinate.Y;
             string origin = isX ? coordinate.X : coordinate.Y;
 
-            float positionFloat = 0;
-            float originFloat = 0;
+            float positionFloat;
+            float originFloat;
 
             if (position.Contains("%"))
             {
@@ -201,7 +199,7 @@ namespace MjmlDotNet.Components.Mjml.Body
                 }
                 else
                 {
-                    float computed = (-50 + percentage.Value * 100) / 100;
+                    float computed = (-50 + (percentage.Value * 100)) / 100;
                     positionFloat = computed;
                     originFloat = computed;
                 }

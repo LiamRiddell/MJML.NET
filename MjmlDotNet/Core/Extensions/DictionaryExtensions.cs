@@ -15,7 +15,7 @@ namespace MjmlDotNet.Core.Extensions
         {
             T newMap = new T();
             foreach (IDictionary<K, V> src in
-                (new List<IDictionary<K, V>> { me }).Concat(others))
+                new List<IDictionary<K, V>> { me }.Concat(others))
             {
                 // ^-- echk. Not quite there type-system.
                 foreach (KeyValuePair<K, V> p in src)

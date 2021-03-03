@@ -72,7 +72,7 @@ namespace MjmlDotNet.Components.Mjml.Body
                 // LR: Handle Percentage values
                 if (parsedWidth.Unit.Equals("%", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    parsedWidth.Value = (sectionWidth * parsedWidth.Value / 100);
+                    parsedWidth.Value = sectionWidth * parsedWidth.Value / 100;
                     ContainerWidth = $"{parsedWidth.Value}px";
                 }
                 else
@@ -105,7 +105,7 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public CssParsedUnit GetParsedWidth()
         {
-            string width = string.Empty;
+            string width;
 
             if (HasAttribute("width"))
                 width = GetAttribute("width");

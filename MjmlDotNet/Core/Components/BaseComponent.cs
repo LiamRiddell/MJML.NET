@@ -42,7 +42,7 @@ namespace MjmlDotNet.Core.Components
         public bool HasAttribute(string attributeName)
         {
             // LR: Key Exists && Value != string.Empty
-            return this.Attributes.ContainsKey(attributeName) ? !string.IsNullOrWhiteSpace(GetAttribute(attributeName)) : false;
+            return Attributes.ContainsKey(attributeName) && !string.IsNullOrWhiteSpace(GetAttribute(attributeName));
         }
 
         public string GetContent()

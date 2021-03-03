@@ -8,5 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
+    <PackageReference Include="PreMailer.Net" Version="2.2.0" />
   </ItemGroup>
 </Project>
