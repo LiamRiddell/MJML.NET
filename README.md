@@ -35,7 +35,7 @@ Firstly, you'll need to reference the `MJML.NET` NuGet Package into your project
 PM > Install-Package MjmlDotNet -Version 1.0.0
 ```
 
-Secondly, include `MJNL.NET` namespace into your project.
+Secondly, include `MJML.NET` namespace into your project.
 ```csharp
 using MjmlDotNet;
 ```

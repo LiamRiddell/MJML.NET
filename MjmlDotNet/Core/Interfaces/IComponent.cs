@@ -42,8 +42,11 @@ namespace MjmlDotNet.Core.Interfaces
         bool HasParentComponent();
 
         BaseComponent GetParentComponent();
+
         bool IsBodyComponent();
+
         bool IsHeadComponent();
+
         void SetupComponentAttributes();
     }
 }

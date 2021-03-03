@@ -1,8 +1,6 @@
 ﻿using AngleSharp.Dom;
 using MjmlDotNet.Components.Attributes;
 using MjmlDotNet.Core.Components;
-using MjmlDotNet.Core.Helpers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,7 +23,7 @@ namespace MjmlDotNet.Components.Mjml.Head
         public override void Handler()
         {
             // LR: Update the global default attributes
-            foreach (var child in Children.Where( c => c.IsBodyComponent() ))
+            foreach (var child in Children.Where(c => c.IsBodyComponent()))
             {
                 if (UpdateDefaultAttributes(child as BodyComponent))
                 {
@@ -86,7 +84,8 @@ namespace MjmlDotNet.Components.Mjml.Head
                 {
                     defaultAttributes[attribute.Name] = attribute.Value;
                     defaultStylesModified = true;
-                } else
+                }
+                else
                 {
                     // Attribute not allowed.
                 }
