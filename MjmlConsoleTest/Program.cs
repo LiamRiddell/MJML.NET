@@ -191,6 +191,9 @@ namespace MjmlConsoleTest
                 </mjml>
             ";
 
+            // Load Shit
+            mjmlString = File.ReadAllText("./Templates/mj-attributes.mjml");
+
             var sw = Stopwatch.StartNew();
             for (int i = 0; i <= 0; i++)
             {

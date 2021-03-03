@@ -20,6 +20,10 @@ namespace MjmlDotNet.Core.Components
         {
             string tagName = GetTagName();
 
+            // If inside the head of the document then ignore component setup which is used for rendering.
+            if (IsBodyComponentInDocumentHead())
+                return;
+
             // LR: Setup Box Model
             CssBoxModel = GetBoxModel();
 
@@ -304,6 +308,11 @@ namespace MjmlDotNet.Core.Components
                     }
                 }
             }
+        }
+
+        public bool IsBodyComponentInDocumentHead()
+        {
+            return Parent != null && Parent.GetType().IsSubclassOf(typeof(HeadComponent));
         }
     }
 }

@@ -179,6 +179,9 @@ namespace MjmlDotNet.Core.Document
                 case "mj-preview":
                     return new MjmlPreviewComponent(element, parent);
 
+                case "mj-attributes":
+                    return new MjmlAttributesComponent(element, parent, VirtualDocument);
+
                 case "mj-breakpoint":
                     return new MjmlBreakpointComponent(element, parent);
 

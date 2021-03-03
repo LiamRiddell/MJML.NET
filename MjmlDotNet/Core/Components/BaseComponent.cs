@@ -114,17 +114,31 @@ namespace MjmlDotNet.Core.Components
             Attributes[attributeName] = attributeValue;
         }
 
-        public BaseComponent(IElement element, BaseComponent parent)
+        public bool IsHeadComponent()
         {
-            Element = element;
-            Parent = parent;
+            return this is HeadComponent;
+        }
 
+        public bool IsBodyComponent()
+        {
+            return this is BodyComponent;
+        }
+
+        public void SetupComponentAttributes()
+        {
             // LR: Sets the Allowed attributes along with the default values.
             // NOTE: This creates a copy of the dictionary opposed to referencing the original
             Attributes = new Dictionary<string, string>(SetAllowedAttributes());
 
             if (Element.Attributes.Any())
                 SetAttributes();
+        }
+
+        public BaseComponent(IElement element, BaseComponent parent)
+        {
+            Element = element;
+            Parent = parent;
+            SetupComponentAttributes();
         }
     }
 }

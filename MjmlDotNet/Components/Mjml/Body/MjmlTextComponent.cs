@@ -20,6 +20,10 @@ namespace MjmlDotNet.Components.Mjml.Body
 
         public override void SetupStyles()
         {
+            // Clear the styles in case of rebuild
+            if (StyleLibraries.Any())
+                StyleLibraries.Clear();
+
             // LR: Add styles
             StyleLibraries.AddStyleLibrary("text", new Dictionary<string, string>() {
                 { "font-family", GetAttribute("font-family") },

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MjmlDotNet.Core.Css
 {
@@ -21,6 +23,16 @@ namespace MjmlDotNet.Core.Css
             this.AddStyleLibrary(libraryName, new Dictionary<string, string>() { });
 
             return GetStyleLibrary(libraryName);
+        }
+
+        public void Clear()
+        {
+            Libraries.Clear();
+        }
+
+        public bool Any()
+        {
+            return Libraries.Any();
         }
     }
 }

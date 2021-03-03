@@ -1,12 +1,16 @@
 ﻿using AngleSharp.Dom;
+using MjmlDotNet.Components.Mjml;
 using System;
 
 namespace MjmlDotNet.Core.Components
 {
     internal class HeadComponent : BaseComponent
     {
-        public HeadComponent(IElement element, BaseComponent parent) : base(element, parent)
+        public MjmlRootComponent VirtualDocument { get; set; }
+
+        public HeadComponent(IElement element, BaseComponent parent, MjmlRootComponent documentRoot = null) : base(element, parent)
         {
+            VirtualDocument = documentRoot;
         }
 
         public virtual void Handler()
