@@ -218,7 +218,6 @@ namespace MjmlDotNet.Core.Helpers
 
                     <style type=""text/css"">
                         { BuildComponentsHeadStyle() }
-
                         { BuildHeadStyle() }
                     </style>
 
