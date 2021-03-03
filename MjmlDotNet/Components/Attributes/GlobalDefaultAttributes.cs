@@ -172,6 +172,50 @@ namespace MjmlDotNet.Components.Attributes
                 { "css-class", null }
             };
 
+            internal static Dictionary<string, string> MjmlNavbar = new Dictionary<string, string>
+            {
+                { "align", "center" },
+                { "base-url", null },
+                { "css-class", null },
+                { "hamburger", null },
+                { "ico-align", "center" },
+                { "ico-open", "&#9776;" },
+                { "ico-close", "&#8855;" },
+                { "ico-color", "#000000" },
+                { "ico-font-family", "Ubuntu, Helvetica, Arial, sans-serif" },
+                { "ico-font-size", "30px" },
+                { "ico-line-height", "30px" },
+                { "ico-padding", "10px" },
+                { "ico-padding-bottom", "10px" },
+                { "ico-padding-left", "10px" },
+                { "ico-padding-right", "10px" },
+                { "ico-padding-top", "10px" },
+                { "ico-text-decoration", null },
+                { "ico-text-transform", null }
+            };
+
+            internal static Dictionary<string, string> MjmlNavbarLink = new Dictionary<string, string>
+            {
+                { "color", "#000000" },
+                { "css-class", null },
+                { "font-family", "Ubuntu, Helvetica, Arial, sans-serif" },
+                { "font-size", "13px" },
+                { "font-weight", null },
+                { "href", null },
+                { "letter-spacing", null },
+                { "line-height", "22px" },
+                { "padding", "15px 10px" },
+                { "padding-bottom", null },
+                { "padding-left", null },
+                { "padding-right", null },
+                { "padding-top", null },
+                { "rel", null },
+                { "target", null },
+                { "text-decoration", null },
+                { "text-transform", "uppercase" }
+            };
+
+
             internal static Dictionary<string, string> MjmlSection = new Dictionary<string, string> {
                 { "background-color", null },
                 { "background-repeat", "repeat" },

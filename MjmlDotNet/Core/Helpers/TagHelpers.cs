@@ -1,4 +1,7 @@
-﻿namespace MjmlDotNet.Core.Helpers
+﻿using System;
+using System.Linq;
+
+namespace MjmlDotNet.Core.Helpers
 {
     internal static class TagHelpers
     {
@@ -8,6 +11,8 @@
         private const string startNegationConditionalTag = "<!--[if !mso | IE]><!-->";
         private const string startMsoNegationConditionalTag = "<!--[if !mso><!-->";
         private const string endNegationConditionalTag = "<!--<![endif]-->";
+
+        private readonly static Random _random = new Random();
 
         public static string ConditionalTag(string content, bool negation = false)
         {
@@ -25,6 +30,16 @@
                 {content}
                 {(negation ? endNegationConditionalTag : endConditionalTag)}
             ";
+        }
+
+        public static string GetRandomHexNumber(int digits)
+        {
+            byte[] buffer = new byte[digits / 2];
+            _random.NextBytes(buffer);
+            string result = String.Concat(buffer.Select(x => x.ToString("X2")).ToArray());
+            if (digits % 2 == 0)
+                return result;
+            return result + _random.Next(16).ToString("X");
         }
     }
 }

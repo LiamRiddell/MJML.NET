@@ -192,7 +192,7 @@ namespace MjmlConsoleTest
             ";
 
             // Load Shit
-            mjmlString = File.ReadAllText("./Templates/mj-attributes.mjml");
+            mjmlString = File.ReadAllText("./Templates/mj-navbar.mjml");
 
             var sw = Stopwatch.StartNew();
             for (int i = 0; i <= 0; i++)

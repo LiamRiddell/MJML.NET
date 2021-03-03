@@ -233,6 +233,12 @@ namespace MjmlDotNet.Core.Document
                 case "mj-social-element":
                     return new MjmlSocialElementComponent(element, parent);
 
+                case "mj-navbar":
+                    return new MjmlNavbarComponent(element, parent);
+
+                case "mj-navbar-link":
+                    return new MjmlNavbarLinkComponent(element, parent);
+
                 case "html-text":
                     return new HtmlTextComponent(element, parent);
 

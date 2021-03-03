@@ -142,7 +142,7 @@ namespace MjmlDotNet.Core.Helpers
 
         private static string BuildComponentsHeadStyle()
         {
-            if (!Styles.Any())
+            if (!ComponentsHeadStyle.Any())
                 return string.Empty;
 
             StringBuilder sb = new StringBuilder();
@@ -160,7 +160,7 @@ namespace MjmlDotNet.Core.Helpers
 
         private static string BuildHeadStyle()
         {
-            if (!Styles.Any())
+            if (!HeadStyle.Any())
                 return string.Empty;
 
             StringBuilder sb = new StringBuilder();

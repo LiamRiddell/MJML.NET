@@ -114,6 +114,14 @@ namespace MjmlDotNet.Core.Components
             Attributes[attributeName] = attributeValue;
         }
 
+        public void AddAttributeRaw(string attributeName, string attributeValue)
+        {
+            if (HasAttribute(attributeName))
+                return;
+
+            Attributes.Add(attributeName, attributeValue);
+        }
+
         public bool IsHeadComponent()
         {
             return this is HeadComponent;
