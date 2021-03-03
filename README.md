@@ -31,7 +31,7 @@ You can find out more about MJML 4 from the official website.
 ## Usage
 Firstly, you'll need to reference the `MJML.NET` NuGet Package into your project. 
 
-```
+```cmd
 PM > Install-Package MjmlDotNet -Version 1.0.0
 ```
 
@@ -106,12 +106,14 @@ As the project is currently still in experimental state not all MJML components 
 | Core | `mjml-head` | :white_check_mark: | :x: | Awaiting Tests 
 | Core | `mjml-body` | :white_check_mark: | :x: |  Awaiting Tests
 | Core | `mjml-include` | :x: | :x: | Not Implemented
-| Head | `mjml-attributes` | :x: | :x: | Not Implemented
+| Head | `mjml-attributes` | :white_check_mark: | :x: | Awaiting Tests
+| Head | `mjml-class` | :x: | :x: | Not Implemented
+| Head | `mjml-all` | :x: | :x: | Not Implemented
 | Head | `mjml-breakpoint` | :white_check_mark: | :x: | Awaiting Tests
 | Head | `mjml-font` | :white_check_mark: | :x: | Awaiting Tests
 | Head | `mjml-html-attributes` | :x: | :x: | Not Implemented
 | Head | `mjml-preview` | :white_check_mark: | :x: | Awaiting Tests
-| Head | `mjml-style` | :x: | :x: |  Partially Complete (Inline Support Required)
+| Head | `mjml-style` | :ballot_box_with_check: | :x: |  Partially Complete (Inline Support Required)
 | Head | `mjml-title` | :white_check_mark: | :white_check_mark: | Complete
 | Body | `mjml-accordion` | :x: | :x: | Not Implemented 
 | Body | `mjml-button` | :white_check_mark: | :x: | Awaiting Tests 
@@ -123,7 +125,7 @@ As the project is currently still in experimental state not all MJML components 
 | Body | `mjml-image` | :white_check_mark: | :x: | Awaiting Tests
 | Body | `mjml-navbar` | :x: | :x: | Not Implemented 
 | Body | `mjml-raw` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-section` | :x: | :x: | Partially Complete (Background Position Bug)
+| Body | `mjml-section` | :ballot_box_with_check: | :x: | Partially Complete (Background Position Bug)
 | Body | `mjml-social` | :white_check_mark:  | :x: | Awaiting Tests
 | Body | `mjml-spacer` | :white_check_mark: | :x: | Awaiting Tests
 | Body | `mjml-table` | :white_check_mark: | :x: | Awaiting Tests
