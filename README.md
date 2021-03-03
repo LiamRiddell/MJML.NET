@@ -148,6 +148,9 @@ We've benchmarked the main components of the library to make sure we're within a
 | ParseDocumentAsync | 38.24 ms | 2.157 ms | 6.360 ms |
 ---
 
+## Limitations
+Inline CSS - This is because `MJML` depends on NPM package called [Juice](https://www.npmjs.com/package/juice) to handle CSS inlining. At the time of writing, there is no alternative in C# right now. This is out of scope for this project. 
+
 ## Contribution
 We really appreciate any contribution to the project to help provide a native version of MJML to C#. 
 
