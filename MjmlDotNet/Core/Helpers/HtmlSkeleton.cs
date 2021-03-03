@@ -121,7 +121,7 @@ namespace MjmlDotNet.Core.Helpers
             ";
         }
 
-        private static string BuildStlyes()
+        private static string BuildStyles()
         {
             if (!Styles.Any())
                 return string.Empty;
@@ -221,7 +221,7 @@ namespace MjmlDotNet.Core.Helpers
                         { BuildHeadStyle() }
                     </style>
 
-                    { BuildStlyes() }
+                    { BuildStyles() }
 
                     <!--
                     TODO:{{ headRaw.filter(negate(isNil)).join('\n') }}
