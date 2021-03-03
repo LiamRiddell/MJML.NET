@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MjmlDotNet.Core.Attributes
+namespace MjmlDotNet.Components.Attributes
 {
     internal static class GlobalDefaultAttributes
     {
