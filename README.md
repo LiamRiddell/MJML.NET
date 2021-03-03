@@ -77,7 +77,7 @@ public void Main()
  
   IMjmlParser mjmlParser = new MjmlParser(defaultOptions);
 
-  // Or 2. Override document
+  // Or 2. Override at per-document parsing
   MjmlParserOptions options = new MjmlParserOptions() {
     Minify = true;
     Prettify = false;
@@ -92,7 +92,7 @@ Currently, we've not implemented all of the same options. This is because we're 
 | Name | Data Type | Default | Description |
 | ---- | --------- | ------- | ----------- |
 | Prettify | Boolean | False | Prettifies the output when enabled. |
-| Minify | Boolean | True | Minifies the output when enabled. |
+| Minify | Boolean | True | Minifies the output when enabled. This overrides `Prettify` as this would be ideal default in production environment. |
 ---
 
 ## Status
