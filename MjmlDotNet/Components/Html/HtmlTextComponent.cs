@@ -24,6 +24,10 @@ namespace MjmlDotNet.Components.Html
         {
             return new CssBoxModel(0, 0, 0, 0);
         }
+        public override bool IsRawElement()
+        {
+            return true;
+        }
 
         public override string RenderMjml()
         {

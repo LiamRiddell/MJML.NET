@@ -15,7 +15,7 @@ namespace MjmlDotNet.Components.Mjml.Head
 
         public override Dictionary<string, string> SetAllowedAttributes()
         {
-            return GlobalDefaultAttributes.Head.MjmlBreakpoint;
+            return GlobalDefaultAttributes.Head.MjmlFont;
         }
 
         public override void Handler()

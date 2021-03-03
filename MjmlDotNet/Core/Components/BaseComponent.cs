@@ -24,7 +24,7 @@ namespace MjmlDotNet.Core.Components
 
         public virtual bool IsRawElement()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public string GetAttributeToCss(string attributeName)

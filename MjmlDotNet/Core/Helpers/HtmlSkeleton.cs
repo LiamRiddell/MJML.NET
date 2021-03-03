@@ -190,10 +190,22 @@ namespace MjmlDotNet.Core.Helpers
             return sb.ToString();
         }
 
+        private static string RenderHead(MjmlRootComponent virtualDocument)
+        {
+            return virtualDocument.Children.FirstOrDefault(c => c.GetTagName().Equals("mj-head"))?.RenderMjml();
+        }
+
+        private static string RenderBody(MjmlRootComponent virtualDocument)
+        {
+            return virtualDocument.Children.FirstOrDefault(c => c.GetTagName().Equals("mj-body"))?.RenderMjml();
+        }
+
         public static string Build(MjmlRootComponent virtualDocument)
         {
             // Generate content
-            string content = virtualDocument.RenderMjml();
+            string head = RenderHead(virtualDocument);
+            string body = RenderBody(virtualDocument);
+
             bool forceOWADesktop = false;
             
             return $@"
@@ -234,7 +246,7 @@ namespace MjmlDotNet.Core.Helpers
                         </style>
                     <![endif]-->
 
-                    { BuildFontsTags(content, "") /* TODO: Inline Support */ }
+                    { BuildFontsTags(body, "") /* TODO: Inline Support */ }
                     { BuildMediaQueriesTags(forceOWADesktop) }
 
                     <style type=""text/css"">
@@ -247,7 +259,7 @@ namespace MjmlDotNet.Core.Helpers
                 </head>
                 <body{(string.IsNullOrWhiteSpace(BackgroundColor) ? string.Empty : $@" style=""background-color:{BackgroundColor};""") }>
                     { BuildPreview() }
-                    { content }
+                    { body }
                 </body>
             </html>
             ";

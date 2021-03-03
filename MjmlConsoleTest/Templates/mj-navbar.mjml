@@ -1,6 +1,7 @@
 ﻿<mjml>
   <mj-head>
     <meta charset="UTF-8"/>
+    <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway" />
     <meta name="description" content="Free Web tutorials"/>
     <meta name="keywords" content="HTML, CSS, JavaScript"/>
     <meta name="author" content="John Doe"/>
@@ -15,6 +16,7 @@
             <mj-navbar-link href="/templates" color="#ffffff">Templates</mj-navbar-link>
             <mj-navbar-link href="/components" color="#ffffff">Components</mj-navbar-link>
         </mj-navbar>
+        <mj-text font-family="Raleway">Test</mj-text>
       </mj-column>
     </mj-section>
   </mj-body>
