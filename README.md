@@ -102,35 +102,35 @@ As the project is currently still in experimental state not all MJML components 
 
 | Type | Component | Implemented | Tests | State |
 | ---- | --------- | ----------- | ----- | ----- |
-| Core | `mjml` | :white_check_mark: | :x: | Awaiting Tests
-| Core | `mjml-head` | :white_check_mark: | :x: | Awaiting Tests 
-| Core | `mjml-body` | :white_check_mark: | :x: |  Awaiting Tests
-| Core | `mjml-include` | :x: | :x: | Not Implemented
-| Head | `mjml-attributes` | :white_check_mark: | :x: | Awaiting Tests
+| Core | [mjml](https://documentation.mjml.io/#mjml) | :white_check_mark: | :x: | Awaiting Tests
+| Core | [mjml-head](https://documentation.mjml.io/#mj-head) | :white_check_mark: | :x: | Awaiting Tests 
+| Core | [mjml-body](https://documentation.mjml.io/#mj-body) | :white_check_mark: | :x: |  Awaiting Tests
+| Core | [mjml-include](https://documentation.mjml.io/#mj-include) | :x: | :x: | Not Implemented
+| Head | [mjml-attributes](https://documentation.mjml.io/#mj-attributes) | :white_check_mark: | :x: | Awaiting Tests
 | Head | `mjml-class` | :x: | :x: | Not Implemented
 | Head | `mjml-all` | :x: | :x: | Not Implemented
-| Head | `mjml-breakpoint` | :white_check_mark: | :x: | Awaiting Tests
-| Head | `mjml-font` | :white_check_mark: | :x: | Awaiting Tests
-| Head | `mjml-html-attributes` | :x: | :x: | Not Implemented
-| Head | `mjml-preview` | :white_check_mark: | :x: | Awaiting Tests
-| Head | `mjml-style` | :ballot_box_with_check: | :x: |  Partially Complete (Inline Support Required)
-| Head | `mjml-title` | :white_check_mark: | :white_check_mark: | Complete
-| Body | `mjml-accordion` | :x: | :x: | Not Implemented 
-| Body | `mjml-button` | :white_check_mark: | :x: | Awaiting Tests 
-| Body | `mjml-carousel` | :x: | :x: | Not Implemented
-| Body | `mjml-column` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-divider` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-group` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-hero` | :white_check_mark: | :x: | Awaiting Tests 
-| Body | `mjml-image` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-navbar` | :x: | :x: | Not Implemented 
-| Body | `mjml-raw` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-section` | :ballot_box_with_check: | :x: | Partially Complete (Background Position Bug)
-| Body | `mjml-social` | :white_check_mark:  | :x: | Awaiting Tests
-| Body | `mjml-spacer` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-table` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-text` | :white_check_mark: | :x: | Awaiting Tests
-| Body | `mjml-wrapper` | :white_check_mark: | :x: | Awaiting Tests
+| Head | [mjml-breakpoint](https://documentation.mjml.io/#mj-breakpoint) | :white_check_mark: | :x: | Awaiting Tests
+| Head | [mjml-font](https://documentation.mjml.io/#mj-font) | :white_check_mark: | :x: | Awaiting Tests
+| Head | [mjml-html-attributes](https://documentation.mjml.io/#mj-html-attributes) | :x: | :x: | Not Implemented
+| Head | [mjml-preview](https://documentation.mjml.io/#mj-preview) | :white_check_mark: | :x: | Awaiting Tests
+| Head | [mjml-style](https://documentation.mjml.io/#mj-style) | :ballot_box_with_check: | :x: |  Partially Complete (Inline Support Required)
+| Head | [mjml-title](https://documentation.mjml.io/#mj-title) | :white_check_mark: | :white_check_mark: | Complete
+| Body | [mjml-accordion](https://documentation.mjml.io/#mj-accordion) | :x: | :x: | Not Implemented 
+| Body | [mjml-button](https://documentation.mjml.io/#mj-button) | :white_check_mark: | :x: | Awaiting Tests 
+| Body | [mjml-carousel](https://documentation.mjml.io/#mj-carousel) | :x: | :x: | Not Implemented
+| Body | [mjml-column](https://documentation.mjml.io/#mj-column) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-divider](https://documentation.mjml.io/#mj-divider) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-group](https://documentation.mjml.io/#mj-group) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-hero](https://documentation.mjml.io/#mj-hero) | :white_check_mark: | :x: | Awaiting Tests 
+| Body | [mjml-image](https://documentation.mjml.io/#mj-image) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-navbar](https://documentation.mjml.io/#mj-navbar) | :x: | :x: | Not Implemented 
+| Body | [mjml-raw](https://documentation.mjml.io/#mj-raw) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-section](https://documentation.mjml.io/#mj-section) | :ballot_box_with_check: | :x: | Partially Complete (Background Position Bug)
+| Body | [mjml-social](https://documentation.mjml.io/#mj-social) | :white_check_mark:  | :x: | Awaiting Tests
+| Body | [mjml-spacer](https://documentation.mjml.io/#mj-spacer) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-table](https://documentation.mjml.io/#mj-table) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-text](https://documentation.mjml.io/#mj-text) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-wrapper](https://documentation.mjml.io/#mj-wrapper) | :white_check_mark: | :x: | Awaiting Tests
 ---
 ## Tests
 Testing this project has been rather difficult due to the nature of the output. However, we're still trying to provide valuable tests for components which can validate correct output. For example, if we set the `<mj-title>` the outputted HTML document `<title>` should match.

@@ -61,6 +61,7 @@
     <None Include="Templates\mj-attributes.mjml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\mj-navbar.mjml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MjmlDotNet\MjmlDotNet.csproj">
