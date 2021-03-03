@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MjmlDotNet.Components.Mjml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,6 @@ namespace MjmlDotNet.Core.Helpers
         public static string ContainerWidth { get; set; } = "600px";
         public static string BackgroundColor { get; set; } = "white";
         public static string Breakpoint { get; set; } = "320px";
-
         public static Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>() {
             { "Open Sans", "https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700" },
             { "Droid Sans", "https://fonts.googleapis.com/css?family=Droid+Sans:300,400,500,700" },
@@ -23,7 +23,6 @@ namespace MjmlDotNet.Core.Helpers
             { "Roboto", "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" },
             { "Ubuntu", "https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" }
         };
-
         public static Dictionary<string, string> MediaQueries { get; set; } = new Dictionary<string, string>();
         public static List<string> Styles { get; set; } = new List<string>();
         public static List<string> InlineStyles { get; set; } = new List<string>();
@@ -176,10 +175,27 @@ namespace MjmlDotNet.Core.Helpers
             return sb.ToString();
         }
 
-        public static string Build(string content)
+        private static string BuildHeadRaw(MjmlRootComponent virtualDocument)
         {
-            bool forceOWADesktop = false;
+            var mjmlHead = virtualDocument.Children.FirstOrDefault(c => c.GetTagName().Equals("mj-head"));
+            var rawComponents = mjmlHead.Children.Where(c => c.IsRawElement());
 
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var component in rawComponents)
+            {
+                sb.Append(component.RenderMjml());
+            }
+
+            return sb.ToString();
+        }
+
+        public static string Build(MjmlRootComponent virtualDocument)
+        {
+            // Generate content
+            string content = virtualDocument.RenderMjml();
+            bool forceOWADesktop = false;
+            
             return $@"
             <!doctype html>
             <html {(!string.IsNullOrWhiteSpace(Language) ? $@"lang=""{Language}"" " : string.Empty)}xmlns=""http://www.w3.org/1999/xhtml"" xmlns:v=""urn:schemas-microsoft-com:vml"" xmlns:o=""urn:schemas-microsoft-com:office:office"">
@@ -187,11 +203,14 @@ namespace MjmlDotNet.Core.Helpers
                     <title>
                         {Title}
                     </title>
+
                     <!--[if !mso]><!-- -->
                         <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
                     <!--<![endif]-->
+
                     <meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"">
                     <meta name=""viewport"" content=""width=device-width, initial-scale=1"">
+
                     <style type=""text/css"">
                         #outlook a {{ padding:0; }}
                         body {{ margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }}
@@ -199,14 +218,16 @@ namespace MjmlDotNet.Core.Helpers
                         img {{ border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }}
                         p {{ display:block;margin:13px 0; }}
                     </style>
+
                     <!--[if mso]>
-                        <xml>
-                            <o:OfficeDocumentSettings>
-                              <o:AllowPNG/>
-                              <o:PixelsPerInch>96</o:PixelsPerInch>
-                            </o:OfficeDocumentSettings>
-                        </xml>
+                    <xml>
+                        <o:OfficeDocumentSettings>
+                            <o:AllowPNG/>
+                            <o:PixelsPerInch>96</o:PixelsPerInch>
+                        </o:OfficeDocumentSettings>
+                    </xml>
                     <![endif]-->
+
                     <!--[if lte mso 11]>
                         <style type=""text/css"">
                           .mj-outlook-group-fix {{ width:100% !important; }}
@@ -222,10 +243,7 @@ namespace MjmlDotNet.Core.Helpers
                     </style>
 
                     { BuildStyles() }
-
-                    <!--
-                    TODO:{{ headRaw.filter(negate(isNil)).join('\n') }}
-                    -->
+                    { BuildHeadRaw(virtualDocument) }
                 </head>
                 <body{(string.IsNullOrWhiteSpace(BackgroundColor) ? string.Empty : $@" style=""background-color:{BackgroundColor};""") }>
                     { BuildPreview() }

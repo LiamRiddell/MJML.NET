@@ -64,7 +64,7 @@ namespace MjmlDotNet.Core.Document
         public string Compile()
         {
             // LR: Wrap the dynamically generated content in a the skeleton template
-            string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
+            string html = HtmlSkeleton.Build(VirtualDocument);
 
             // LR: Pass to the content post-processor
             string processed = ContentPostProcess(html);
@@ -82,7 +82,7 @@ namespace MjmlDotNet.Core.Document
         public async Task<string> CompileAsync()
         {
             // LR: Wrap the dynamically generated content in a the skeleton template
-            string html = HtmlSkeleton.Build(VirtualDocument.RenderMjml());
+            string html = HtmlSkeleton.Build(VirtualDocument);
 
             // LR: Pass to the content post-processor
             string processed = ContentPostProcess(html);
