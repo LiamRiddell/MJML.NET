@@ -64,7 +64,7 @@ public void Main()
 }
 ```
 ## Options
-You can also specify options to the MJML parser. This can be done either at instantiation throught `defaultOptions` or when parsing an MJML document.
+You can also specify options to the MJML parser. This can be done either at instantiation throught the `defaultOptions` parameter or at time of parsing the document. Both options are shown below.
 
 ```csharp
 public void Main() 
