@@ -1,5 +1,5 @@
 # MJML.NET
-An unofficial port of [MJML](https://mjml.io/) (by [MailJet](https://www.mailjet.com/)) to [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard). This project is currently in **experimental state** and should not be used in a production environment. 
+An unofficial port of [MJML](https://mjml.io/) (by [MailJet](https://www.mailjet.com/)) to [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard). This project is currently in an **experimental state** and should not be used in a production environment. 
 
 ## Introduction
 

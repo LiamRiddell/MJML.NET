@@ -4,10 +4,29 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MjmlDotNet</AssemblyName>
     <RootNamespace>MjmlDotNet</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.1.0-alpha</Version>
+    <Authors>Liam Riddell</Authors>
+    <Company>Liam Riddell</Company>
+    <Description>An unofficial port of MJML (by MailJet) to .NET Standard. This project is currently in experimental state and should not be used in a production environment.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/LiamRiddell/MJML.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LiamRiddell/MJML.NET.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>email,mjml</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
     <PackageReference Include="PreMailer.Net" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
