@@ -32,7 +32,7 @@ You can find out more about MJML 4 from the official website.
 Firstly, you'll need to reference the `MJML.NET` NuGet Package into your project. 
 
 ```cmd
-PM > Install-Package MjmlDotNet -Version 1.0.0
+PM > Install-Package MjmlDotNet
 ```
 
 Secondly, include `MJML.NET` namespace into your project.
