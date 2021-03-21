@@ -1,0 +1,33 @@
+﻿<mjml>
+  <mj-head>
+    <meta charset="UTF-8"/>
+    <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway" />
+    <meta name="description" content="Free Web tutorials"/>
+    <meta name="keywords" content="HTML, CSS, JavaScript"/>
+    <meta name="author" content="John Doe"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <mj-style inline="inline">
+      .blue-text div {
+        color: blue !important;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-section background-color="#ef6451">
+      <mj-column>
+        <mj-navbar base-url="https://mjml.io" hamburger="hamburger" ico-color="#ffffff">
+            <mj-navbar-link href="/gettings-started-onboard" color="#ffffff">Getting started</mj-navbar-link>
+            <mj-navbar-link href="/try-it-live" color="#ffffff">Try it live</mj-navbar-link>
+            <mj-navbar-link href="/templates" color="#ffffff">Templates</mj-navbar-link>
+            <mj-navbar-link href="/components" color="#ffffff">Components</mj-navbar-link>
+        </mj-navbar>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text css-class="mj-outlook-group-fix blue-text">I'm blue because of inline</mj-text>
+        <mj-text font-family="Raleway">Test</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
