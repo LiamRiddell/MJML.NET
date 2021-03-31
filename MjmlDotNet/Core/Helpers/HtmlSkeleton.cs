@@ -199,6 +199,10 @@ namespace MjmlDotNet.Core.Helpers
         private static string BuildHeadRaw(MjmlRootComponent virtualDocument)
         {
             var mjmlHead = virtualDocument.Children.FirstOrDefault(c => c.GetTagName().Equals("mj-head"));
+
+            if(mjmlHead == null)
+                return string.Empty;
+
             var rawComponents = mjmlHead.Children.Where(c => c.IsRawElement());
 
             StringBuilder sb = new StringBuilder();
