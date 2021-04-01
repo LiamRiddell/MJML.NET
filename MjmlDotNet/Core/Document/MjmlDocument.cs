@@ -1,5 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Html;
 using AngleSharp.Html.Parser;
 using MjmlDotNet.Components.Html;
 using MjmlDotNet.Components.Mjml;
@@ -126,7 +127,7 @@ namespace MjmlDotNet.Core.Document
 
             var document = HtmlParser.ParseDocument(html);
 
-            return document.Minify();
+            return document.ToHtml(new MinifyMarkupFormatter { ShouldKeepAttributeQuotes = true });
         }
 
         private async Task<string> MinifyHtmlAsync(string html)
@@ -136,7 +137,7 @@ namespace MjmlDotNet.Core.Document
 
             var document = await HtmlParser.ParseDocumentAsync(html);
 
-            return document.Minify();
+            return document.ToHtml(new MinifyMarkupFormatter { ShouldKeepAttributeQuotes = true });
         }
 
         private string ContentPreProcess(string mjml)
