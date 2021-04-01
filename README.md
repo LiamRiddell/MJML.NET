@@ -131,7 +131,7 @@ As the project is currently still in experimental state not all MJML components 
 | Body | [mjml-section](https://documentation.mjml.io/#mj-section) | :ballot_box_with_check: | :x: | Partially Complete (Background Position Bug)
 | Body | [mjml-social](https://documentation.mjml.io/#mj-social) | :white_check_mark:  | :x: | Awaiting Tests
 | Body | [mjml-spacer](https://documentation.mjml.io/#mj-spacer) | :white_check_mark: | :x: | Awaiting Tests
-| Body | [mjml-table](https://documentation.mjml.io/#mj-table) | :white_check_mark: | :x: | Awaiting Tests
+| Body | [mjml-table](https://documentation.mjml.io/#mj-table) | :x: | :x: | Awaiting Tests (AngleSharp Issue)
 | Body | [mjml-text](https://documentation.mjml.io/#mj-text) | :white_check_mark: | :x: | Awaiting Tests
 | Body | [mjml-wrapper](https://documentation.mjml.io/#mj-wrapper) | :white_check_mark: | :x: | Awaiting Tests
 ---
