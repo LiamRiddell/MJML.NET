@@ -49,6 +49,9 @@ public void Main()
 
   string mjml = @"
     <mjml>
+      <mj-head>
+        <mj-title>Hello World Example</mj-title>
+      </mj-head>
       <mj-body>
         <mj-section>
           <mj-column>
