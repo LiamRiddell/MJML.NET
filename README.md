@@ -1,4 +1,7 @@
-# MJML.NET
+# IMPORTANT - DEPRECATED
+Please view the new stable version of this project [Mjml.Net](https://github.com/SebastianStehle/mjml-net).
+
+## MJML.NET
 An unofficial port of [MJML](https://mjml.io/) (by [MailJet](https://www.mailjet.com/)) to [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard). This project is currently in an **experimental state** and should not be used in a production environment. 
 
 ## Introduction
